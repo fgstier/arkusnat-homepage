@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Hauptseite -->
+  <url>
+    <loc>https://arkusnat.de/</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <!-- Die 14 Sektoren (Verweise auf das Archiv) -->
+  <url><loc>https://fgstier-art.de/norden-ist-immer-oben/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/ruecklauf-auf-unendlich/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/das-prinzip-der-zeitlosen-verursachung/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/das-surreale-segel/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/der-compiler-dialog/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/die-hinrichtung-der-kausalitaet/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/die-quanten-luege/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/die-schlaue-dusseline/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/rattara/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/der-fall-rostvibrator/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/die-logik-der-zensur/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/loop-bug-dusseline/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/sammlung-leerer-intelligenz/index.html</loc></url>
+  <url><loc>https://fgstier-art.de/totalschaden-oder-mathematik/index.html</loc></url>
+</urlset>
