@@ -7,19 +7,35 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Die 14 Sektoren (Verweise auf das Archiv) -->
-  <url><loc>https://fgstier-art.de/norden-ist-immer-oben/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/ruecklauf-auf-unendlich/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/das-prinzip-der-zeitlosen-verursachung/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/das-surreale-segel/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/der-compiler-dialog/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/die-hinrichtung-der-kausalitaet/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/die-quanten-luege/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/die-schlaue-dusseline/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/rattara/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/der-fall-rostvibrator/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/die-logik-der-zensur/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/loop-bug-dusseline/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/sammlung-leerer-intelligenz/index.html</loc></url>
-  <url><loc>https://fgstier-art.de/totalschaden-oder-mathematik/index.html</loc></url>
+
+  <url>
+    <loc>https://arkusnat.de/buchseiten/totalschaden_oder_mathematik_buch.html</loc>
+    <priority>0.8</priority>
+  </url>
+ 
+  <url>
+    <loc>https://arkusnat.de/buchseiten/sammlung_leerer_intelligenz_buch.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://arkusnat.de/buchseiten/der_fall_rostvibrator_buch.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://arkusnat.de/buchseiten/die_logik_der_zensur_buch.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://arkusnat.de/buchseiten/ruecklauf_auf_unendlich_buch.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://arkusnat.de/buchseiten/loop_bug_dusseline_buch.html</loc>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
