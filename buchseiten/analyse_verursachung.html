@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse: Das Prinzip der zeitlosen Verursachung | F.G. Stier</title>
+    <meta name="description" content="Eine literarisch-philosophische Dekonstruktion der Kausalität. Erfahre mehr über das Sci-Fi-Konzept der zeitlosen Verursachung von Autor F.G. Stier, inklusive Video-Analyse und interaktiver Kybernetik.">
+    
+    <style>
+        :root { 
+            --bg-color: #050508; 
+            --panel-color: #0c0c12; 
+            --accent-color: #00ffcc; 
+            --accent-glow: rgba(0, 255, 204, 0.4);
+            --border-color: #1e1e2f; 
+            --text-color: #cbd5e1;
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: var(--bg-color); 
+            color: #f1f5f9; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navigations-Header */
+        nav {
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(12, 12, 18, 0.8);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: monospace;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-back {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero-Bereich mit interaktivem Hintergrund */
+        .hero-section {
+            position: relative;
+            padding: 80px 0 50px;
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        /* Unser generativer interaktiver Hintergrund */
+        #interactiveCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: all;
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            pointer-events: none; /* Erlaubt Maus-Events durch den Text auf das Canvas */
+        }
+
+        /* 2. CSS-Glitch-Effekt für die Überschrift */
+        .glitch-title {
+            font-family: monospace;
+            font-size: 2.5rem;
+            color: #fff;
+            position: relative;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .glitch-title::before,
+        .glitch-title::after {
+            content: "ZEITLOSE VERURSACHUNG";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+        }
+
+        .glitch-title::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch-title::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9;
+            clip: rect(85px, 450px, 140px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(15px, 9999px, 66px, 0); }
+            10% { clip: rect(85px, 9999px, 5px, 0); }
+            20% { clip: rect(34px, 9999px, 115px, 0); }
+            100% { clip: rect(43px, 9999px, 45px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(70px, 9999px, 105px, 0); }
+            10% { clip: rect(12px, 9999px, 85px, 0); }
+            20% { clip: rect(95px, 9999px, 33px, 0); }
+            100% { clip: rect(110px, 9999px, 120px, 0); }
+        }
+
+        /* Schreibmaschinen-Effekt */
+        .terminal-text {
+            font-family: monospace;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            border-right: 2px solid var(--accent-color);
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typewriter 3.5s steps(40) 1s 1 normal both, blink 0.75s step-end infinite;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--accent-color); }
+        }
+
+        /* Layout der Analyse-Inhalte */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 800px) {
+            .main-container {
+                grid-template-columns: 1.8fr 1.2fr;
+            }
+        }
+
+        /* Linke Spalte: Video & SEO-Text */
+        .content-left {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Neuer interaktiver Vorschaubild-Player (Behebt Fehler 153 vollständig) */
+        .video-preview-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #020204;
+        }
+
+        .video-preview-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .video-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.55;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+
+        .video-preview-link:hover .video-preview-img {
+            transform: scale(1.03);
+            opacity: 0.75;
+        }
+
+        .video-preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(5, 5, 8, 0.95) 0%, rgba(5, 5, 8, 0.1) 60%, rgba(5, 5, 8, 0.5) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .play-button-wrapper {
+            align-self: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 75px;
+            height: 75px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-preview-link:hover .play-button-wrapper {
+            background: var(--accent-color);
+            color: #050508;
+            transform: scale(1.1);
+            box-shadow: 0 0 35px var(--accent-color);
+        }
+
+        .play-icon {
+            width: 32px;
+            height: 32px;
+            margin-left: 5px; /* Optischer Ausgleich für das Dreieck */
+        }
+
+        .preview-text-block {
+            text-align: left;
+        }
+
+        .preview-badge {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-title {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .preview-subtitle {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        /* Strukturierter SEO-Text */
+        .seo-article {
+            background: var(--panel-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .seo-article h2 {
+            color: var(--accent-color);
+            font-family: monospace;
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .seo-article p {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* Rechte Spalte: 3. Lottie/Vektor-Reaktor & Steuerung */
+        .content-right {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar-panel {
+            background: var(--panel-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .sidebar-panel h3 {
+            color: var(--accent-color);
+            font-family: monospace;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Native Vector-Animation (Lottie-Stil) */
+        .hud-vector-container {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #020204;
+            border-radius: 8px;
+            border: 1px solid #141923;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Cooles pulsierendes Cyber-Diagramm als reines, animiertes SVG */
+        .hud-svg {
+            width: 80%;
+            height: 80%;
+        }
+
+        .hud-circle-outer {
+            transform-origin: center;
+            animation: rotate-clockwise 20s infinite linear;
+        }
+
+        .hud-circle-inner {
+            transform-origin: center;
+            animation: rotate-counter 12s infinite linear;
+        }
+
+        .hud-pulse {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        @keyframes rotate-clockwise {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate-counter {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; stroke-width: 1px; }
+            50% { opacity: 1; stroke-width: 2px; }
+        }
+
+        /* Buttons */
+        .btn-buy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-color);
+            color: #050508;
+            text-decoration: none;
+            font-family: monospace;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transition: all 0.2s ease;
+        }
+
+        .btn-buy:hover {
+            background: #33ffdd;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">// SYSTEM-MATRIX</a>
+            <a href="../index.html" class="nav-back">&lt; Zurück zur Matrix</a>
+        </div>
+    </nav>
+
+    <!-- Hero-Bereich mit interaktiver Vektor-Animation im Hintergrund -->
+    <header class="hero-section">
+        <!-- 1. Interaktive Live-Vektorgrafik (Maus-Anziehung) -->
+        <canvas id="interactiveCanvas"></canvas>
+        
+        <div class="hero-container">
+            <!-- 2. CSS-Glitch -->
+            <h1 class="glitch-title">Zeitlose Verursachung</h1>
+            <!-- CSS-Typewriter -->
+            <div class="terminal-text">// Sektor-Analyse_03: Gestaltete Kausalität.</div>
+        </div>
+    </header>
+
+    <!-- Inhaltliche Aufteilung -->
+    <main class="main-container">
+
+        <!-- Linke Seite: Videos & Tiefe Erklärungen (SEO) -->
+        <section class="content-left">
+            
+            <!-- Interaktiver Vorschaubild-Player (Bypasst Fehler 153 durch Direkt-Link) -->
+            <div class="video-preview-container">
+                <a href="https://youtu.be/he4esA09dVY" target="_blank" class="video-preview-link">
+                    <!-- Tech-Symbolbild als Hintergrund. Falls offline, greift der Unsplash-Cyber-Fallback -->
+                    <img class="video-preview-img" src="bilder/fgstier_terminal.jpg" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80'" alt="F.G. Stier Terminal">
+                    
+                    <div class="video-preview-overlay">
+                        <!-- Neon Play-Button im Zentrum -->
+                        <div class="play-button-wrapper">
+                            <svg class="play-icon" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Video-Details im unteren Bereich -->
+                        <div class="preview-text-block">
+                            <div class="preview-badge">
+                                <span>&gt; INTERAKTIVE_ANALYSE_STARTEN</span>
+                                <span style="font-size: 0.7rem; color: #ff00c1; border: 1px solid #ff00c1; padding: 1px 5px; border-radius: 4px;">[YOUTUBE_DEEP_LINK]</span>
+                            </div>
+                            <div class="preview-title">Zeitlose Verursachung — Das Kausalitäts-Prinzip</div>
+                            <div class="preview-subtitle">Klicke, um die Video-Analyse direkt in hoher Qualität auf YouTube zu starten.</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SEO-optimierter Text -->
+            <article class="seo-article">
+                <h2>Philosophische Dekonstruktion der Existenz</h2>
+                <p>
+                    In seinem Werk <strong>„Das Prinzip der zeitlosen Verursachung“</strong> bricht der technische Autor 
+                    <em>F.G. Stier</em> mit dem klassischen, linearen Verständnis von Ursache und Wirkung. Im fiktionalen 
+                    Kontext dieses Sci-Fi-Romans wird der Code der Realität selbst dekonstruiert: Was passiert, wenn 
+                    Verursachung nicht mehr an den Fluss der Zeit gebunden ist?
+                </p>
+                <p>
+                    Als literarische Bildmaschine nutzt der Roman die unbändige Versuchung der Worte, um logische Verankerungen 
+                    für wissenschaftliche Grenzphänomene zu finden. Das Nichts ist hierbei kein leerer Raum, sondern 
+                    unbeschriebener, unkompilierter Code, der darauf wartet, durch zeitlose Ereignisschleifen geformt zu werden.
+                </p>
+                <p>
+                    Dieses Buch dient als intellektuelles Fundament für Leser, die sich für die Schnittstellen von 
+                    Künstlicher Intelligenz (KI), theoretischer Physik und spekulativer Philosophie interessieren.
+                </p>
+            </article>
+
+        </section>
+
+        <!-- Rechte Seite: Live-Daten-HUD (Lottie/Vector-Stil) & Aktionen -->
+        <aside class="content-right">
+            
+            <!-- System-Status / Interaktive Vektorgrafik -->
+            <div class="sidebar-panel">
+                <h3>// KAUSALITÄTS-COMPILER</h3>
+                <div class="hud-vector-container">
+                    <!-- Native SVG Vektor-Animation (Ersetzt schwere Lottie-Bibliotheken) -->
+                    <svg class="hud-svg" viewBox="0 0 100 100">
+                        <!-- Äußerer rotierender Tech-Ring -->
+                        <circle class="hud-circle-outer" cx="50" cy="50" r="40" fill="none" stroke="#00ffcc" stroke-width="1.5" stroke-dasharray="10 5 2 5" opacity="0.6"/>
+                        <!-- Innerer entgegengesetzt rotierender Ring -->
+                        <circle class="hud-circle-inner" cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" stroke-width="1" stroke-dasharray="5 8"/>
+                        <!-- Pulsierender Kern (Glow-Effekt) -->
+                        <circle class="hud-pulse" cx="50" cy="50" r="15" fill="none" stroke="#00ffcc" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="5" fill="#00ffcc"/>
+                        <!-- Sensor-Fühler -->
+                        <line x1="50" y1="10" x2="50" y2="2" stroke="#00ffcc" stroke-width="1"/>
+                        <line x1="50" y1="90" x2="50" y2="98" stroke="#00ffcc" stroke-width="1"/>
+                        <line x1="10" y1="50" x2="2" y2="50" stroke="#00ffcc" stroke-width="1"/>
+                        <line x1="90" y1="50" x2="98" y2="50" stroke="#00ffcc" stroke-width="1"/>
+                    </svg>
+                </div>
+                <p style="font-family: monospace; font-size: 0.75rem; color: #475569; margin-top: 15px; text-align: center;">
+                    STATUS: KAUSALE SCHLEIFE STABIL
+                </p>
+            </div>
+
+            <!-- Shop-Aktion -->
+            <div class="sidebar-panel">
+                <h3>// BEZUGSDATEN</h3>
+                <p style="font-size: 0.9rem; color: var(--text-color); margin-bottom: 20px;">
+                    Erhalte jetzt die vollständige Dokumentation und das gebundene Werk direkt über Amazon.
+                </p>
+                <a href="https://amzn.eu/d/2rTGehY" target="_blank" class="btn-buy">WERK BESTELLEN</a>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer style="text-align:center; padding:50px; color:#475569; font-size:0.7rem; border-top: 1px solid var(--border-color); margin-top: 40px;">
+        #ARKUSNAT #fgstier #scifi #ki #science #Philosophie #ScienceFiction
+    </footer>
+
+    <!-- 1. JS für die interaktive Vektor-Animation (Maus-Anziehungskraft) -->
+    <script>
+        const canvas = document.getElementById('interactiveCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            const box = canvas.parentElement.getBoundingClientRect();
+            canvas.width = box.width;
+            canvas.height = box.height;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        // Partikel-Daten
+        const particles = [];
+        const particleCount = 45;
+        
+        // Maus-Koordinaten erfassen
+        const mouse = { x: -1000, y: -1000, active: false };
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+            mouse.active = true;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            mouse.active = false;
+        });
+
+        // Partikel initialisieren
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * 250,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                radius: 1 + Math.random() * 2,
+                originX: Math.random() * window.innerWidth,
+                originY: Math.random() * 250
+            });
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 5, 8, 0.15)'; // Schweif-Effekt
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = 'rgba(0, 255, 204, 0.08)';
+            ctx.lineWidth = 0.5;
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                // Wenn die Maus nah ist, ziehen wir die Partikel an
+                if (mouse.active) {
+                    const dx = mouse.x - p.x;
+                    const dy = mouse.y - p.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < 150) {
+                        const force = (150 - dist) / 150;
+                        p.vx += (dx / dist) * force * 0.1;
+                        p.vy += (dy / dist) * force * 0.1;
+                    }
+                }
+
+                // Trägheit und Geschwindigkeitsgrenze
+                p.vx *= 0.95;
+                p.vy *= 0.95;
+                p.x += p.vx + (p.originX - p.x) * 0.01; // Zieht Partikel sanft zurück zu ihrem Ursprung
+                p.y += p.vy + (p.originY - p.y) * 0.01;
+
+                // Partikel zeichnen
+                ctx.fillStyle = 'rgba(0, 255, 204, 0.6)';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Verbindungslinien (Vektornetz)
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p2.x - p.x, p2.y - p.y);
+                    if (dist < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

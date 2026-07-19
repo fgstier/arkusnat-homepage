@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.G. Stier | Mediathek & System-Matrix | ARKUSNAT</title>
+    <meta name="description" content="Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine. Dieses Video dient als philosophische Analyse und literarische Dekonstruktion der Begriffe 'Nichts', 'Existenz' und 'Code' im fiktionalen Kontext des Sci-Fi-Romans von F.G. Stier. Es dient der logischen Verankerung des wissenschaftlich-philosophischen Konzepts der zeitlosen Verursachung.">
+    
+    <!-- Tailwind CSS & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberbg: '#030305',
+                        cyberpanel: '#0c0c12',
+                        neoncyan: '#00ffcc',
+                        neonblue: '#0066ff',
+                        neonpink: '#ff0055',
+                        mutedgray: '#52526b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    boxShadow: {
+                        cyberglow: '0 0 15px rgba(0, 255, 204, 0.2)',
+                        cyberpink: '0 0 15px rgba(255, 0, 85, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Cyber-Scanlines Effekt im Hintergrund */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+
+        .glow-border {
+            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.05), 0 0 10px rgba(0, 255, 204, 0.05);
+            border-color: rgba(0, 255, 204, 0.15);
+        }
+        .glow-border:hover {
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.15), 0 0 20px rgba(0, 255, 204, 0.25);
+            border-color: rgba(0, 255, 204, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="w-full bg-black/80 border-b border-zinc-800/80 text-xs font-mono py-4 px-6 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-neoncyan font-bold tracking-widest hover:opacity-80 transition-opacity">
+                // SYSTEM_MATRIX
+            </a>
+            <a href="javascript:history.back()" class="text-zinc-400 hover:text-neoncyan transition-colors">
+                &lt; ZURÜCK_ZUR_MATRIX
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        
+        <!-- Header -->
+        <header class="text-center mb-16 border-b border-zinc-800 pb-10">
+            <div class="inline-block px-3 py-1 bg-neoncyan/10 border border-neoncyan/30 rounded-full text-xs font-mono text-neoncyan mb-4 tracking-widest animate-pulse">
+                [ SECURE DATA TRANSMISSION ]
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold font-mono tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-neoncyan to-neonblue mb-4">
+                MEDIATHEK & WERKE
+            </h1>
+            <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                "Als technischer Autor nutze ich die <span class="text-neoncyan">inimitable temptation</span> der Worte als Bildmaschine." 
+                Erforsche hier die dekompilierten Videoanalysen und Kausalitätsanomalien.
+            </p>
+        </header>
+
+        <!-- Werk-Liste -->
+        <div class="space-y-8">
+
+            <!-- Sektor 03: Das Prinzip der zeitlosen Verursachung -->
+            <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+                <!-- Video/Image Container (Perfekt responsive für Mobile & Desktop) -->
+                <div class="w-full md:w-48 aspect-[9/16] max-h-[380px] md:max-h-none bg-black flex-shrink-0 relative overflow-hidden">
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80">
+                        <source src="video/verursachung.mp4" type="video/mp4">
+                    </video>
+                    <!-- Fallback Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ SEKTOR_03_LIVE ]</span>
+                    </div>
+                </div>
+                
+                <!-- Content Bereich -->
+                <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-neonpink tracking-wider">// SEKTOR_03</span>
+                            <span class="px-2 py-0.5 bg-neonpink/10 text-neonpink text-[10px] font-mono rounded">PHILOSOPHIE</span>
+                        </div>
+                        <h2 class="text-2xl font-bold font-mono text-white mb-4">Zeitlose Verursachung</h2>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            Ein tiefer, fiktionaler Frontalangriff auf die lineare Kausalität. Dieses Video dient als philosophische Analyse und literarische Dekonstruktion der Begriffe 'Nichts', 'Existenz' und 'Code' im Kontext des Sci-Fi-Romans.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <a href="buchseiten/analyse_verursachung.html" class="px-5 py-2.5 bg-neonpink text-white font-extrabold text-xs font-mono rounded-lg hover:bg-neonpink/80 transition-all shadow-cyberpink">
+                            ANALYSE_PAGE
+                        </a>
+                        <a href="https://www.amazon.de/dp/3991811987" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                            AMAZON_LINK
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sektor 01: Norden ist immer oben -->
+            <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+                <!-- Cover Image Container -->
+                <div class="w-full md:w-48 aspect-[9/16] max-h-[380px] md:max-h-none bg-black flex-shrink-0 relative overflow-hidden">
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80">
+                        <source src="video/norden-ist-immer-oben.mp4" type="video/mp4">
+                    </video>
+                  
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                    </div>
+                </div>
+                
+                <!-- Content Bereich -->
+                <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_01</span>
+                            <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">SCI-FI</span>
+                        </div>
+                        <h2 class="text-2xl font-bold font-mono text-white mb-4">Norden ist immer oben</h2>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            Kosmologische Verwerfungen, dezentrale Orientierung und die unbändige Kraft der Bildmaschine Wort. Ein literarisches Experiment über die Ausbreitung von Bedeutung im Raum.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://fgstier-art.de/norden-ist-immer-oben/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                            ARCHIV_ÖFFNEN
+                        </a>
+                        <a href="https://www.amazon.de/dp/3991654229" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                            AMAZON_LINK
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sektor 04: Das surreale Segel -->
+            <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+                <!-- Video Container -->
+                <div class="w-full md:w-48 aspect-[9/16] max-h-[380px] md:max-h-none bg-black flex-shrink-0 relative overflow-hidden">
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80">
+                        <source src="video/surreale-segel.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ LIVE_SEGEL_FEED ]</span>
+                    </div>
+                </div>
+                
+                <!-- Content Bereich -->
+                <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-neonblue tracking-wider">// SEKTOR_04</span>
+                            <span class="px-2 py-0.5 bg-neonblue/10 text-neonblue text-[10px] font-mono rounded">METAPHYSICAL</span>
+                        </div>
+                        <h2 class="text-2xl font-bold font-mono text-white mb-4">Das surreale Segel</h2>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            Metaphysische Seefahrt an den Klippen des Absoluten. Aufhebung der logischen Verankerung im dichten Nebel quantenmechanischer Grenzzustände.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://fgstier-art.de/das-surreale-segel/index.html" class="px-5 py-2.5 bg-neonblue text-white font-extrabold text-xs font-mono rounded-lg hover:bg-neonblue/80 transition-all shadow-lg shadow-neonblue/20">
+                            SEKTOR_OPEN
+                        </a>
+                        <a href="https://www.amazon.de/dp/3991655888" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                            AMAZON_LINK
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-12 px-4 border-t border-zinc-900 bg-black/40 text-xs font-mono text-zinc-600 mt-16">
+        <p class="mb-4">#ARKUSNAT #fgstier #scifi #ki #science #Philosophie #SciFiMusik</p>
+        <p>&copy; 2026 ARKUSNAT Publishing & F.G. Stier. Alle Wellenvektoren geschützt.</p>
+    </footer>
+
+</body>
+</html>
