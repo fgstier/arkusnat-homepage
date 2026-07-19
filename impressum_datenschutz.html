@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sektor-Datenrecht & Identität | ARKUSNAT</title>
+    <meta name="robots" content="noindex, follow">
+    <style>
+        :root { 
+            --bg-color: #030305; 
+            --panel-color: #08080d; 
+            --accent-color: #00ffcc; 
+            --accent-glow: rgba(0, 255, 204, 0.4);
+            --border-color: #161622; 
+            --text-color: #a0a0b0;
+            --text-high: #f0f0f5;
+            --text-muted: #52526b;
+            --alert-color: #ff0055;
+            --alert-glow: rgba(255, 0, 85, 0.3);
+        }
+        
+        body { 
+            font-family: 'Courier New', Courier, monospace; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Navigations-Header */
+        nav {
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(8, 8, 13, 0.85);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-back {
+            color: var(--text-high);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Sektor Terminal Navigator */
+        .sector-navigator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .sector-btn {
+            background: var(--panel-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .sector-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .sector-btn.active {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(0, 255, 204, 0.02);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .legal-card {
+            background: var(--panel-color);
+            border-left: 3px solid var(--border-color);
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: border-color 0.4s ease;
+        }
+
+        .legal-card:hover {
+            border-left-color: var(--accent-color);
+        }
+
+        h1 {
+            color: var(--text-high);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(22, 22, 34, 0.5);
+            padding-bottom: 5px;
+            font-style: italic;
+        }
+
+        .highlight {
+            color: var(--text-high);
+            font-weight: bold;
+        }
+
+        .cyber-alert {
+            background: rgba(255, 0, 85, 0.02);
+            border: 1px solid var(--alert-color);
+            padding: 15px 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .cyber-alert p {
+            margin: 0;
+            color: var(--alert-color);
+            font-size: 0.85rem;
+            text-shadow: 0 0 5px var(--alert-glow);
+        }
+
+        .system-status {
+            background: rgba(0, 255, 204, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .system-status-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 8px var(--accent-color); }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .copy-email-btn {
+            background: transparent;
+            border: 1px dashed var(--accent-color);
+            color: var(--accent-color);
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .copy-email-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--panel-color);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            box-shadow: 0 0 15px var(--accent-glow);
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quote-box {
+            border-left: 2px solid var(--accent-color);
+            padding-left: 15px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--text-high);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .legal-card {
+                padding: 20px;
+            }
+            .sector-navigator {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">// SENSOR-METADATEN</a>
+            <a href="javascript:history.back()" class="nav-back">&lt; Zurück zur Matrix</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        
+        <!-- Sektor Navigator Terminal -->
+        <div class="sector-navigator">
+            <button class="sector-btn active" onclick="scrollToSector('sektor-identitaet')">Sektor-Identität (Impressum)</button>
+            <button class="sector-btn" onclick="scrollToSector('sektor-datenrecht')">Sektor-Datenrecht (Datenschutz)</button>
+        </div>
+
+        <!-- Sektor-Identität (Impressum) -->
+        <section id="sektor-identitaet" class="legal-card">
+            <h1>Sektor-Identität / Impressum</h1>
+            
+            <p><strong>Betreiber & Verantwortlicher dieses Informationsangebots:</strong></p>
+            <p>
+                <span class="highlight">Fred Günter Stier</span> (F.G. Stier)<br>
+                Zustellungsbevollmächtigte Anschrift:<br>
+                c/o IP-Management #9579<br>
+                Ludwig-Erhard-Straße 18<br>
+                20459 Hamburg
+            </p>
+
+            <p><strong>Inhalte gemäß § 5 DDG (Digitale-Dienste-Gesetz) / § 18 MStV:</strong></p>
+            <p>
+                Herausgeber: ARKUSNAT Publishing<br>
+                Inhaber: <span class="highlight">Fred Günter Stier</span>
+            </p>
+
+            <p><strong>Digitale Frequenz & Kontakt:</strong></p>
+            <p>
+                E-Mail: <span class="highlight" id="email-text">fg_stier@gmx.de</span>
+                <button class="copy-email-btn" onclick="copyEmail()">[Adresse kopieren]</button>
+            </p>
+
+            <p><strong>Covergestaltung & Illustrationen:</strong></p>
+            <p>
+                ARKUSNAT Publishing | F.G. Stier<br>
+                Unter Verwendung digitaler Kompositionswerkzeuge.
+            </p>
+
+            <h2>Rechtliche Hinweise & Urheberschutz</h2>
+            <p>
+                Das Werk, einschließlich seiner Teile (Texte, Programmierungen, Vektorgrafiken und interaktive Simulationen), ist urheberrechtlich geschützt. Jede Verwertung außerhalb der engen Grenzen des Urheberrechtsgesetzes ist ohne vorherige schriftliche Zustimmung des Verlegers und des Autors unzulässig und strafbar.
+            </p>
+
+            <div class="quote-box">
+                "Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine."
+            </div>
+        </section>
+
+        <!-- Sektor-Datenrecht (Datenschutz) -->
+        <section id="sektor-datenrecht" class="legal-card">
+            <h1>Sektor-Datenrecht / Datenschutz</h1>
+            
+            <p><strong>Verantwortliche Stelle für die Daten-Konstruktion:</strong></p>
+            <p>
+                <span class="highlight">Fred Günter Stier</span><br>
+                c/o IP-Management #9579, Ludwig-Erhard-Straße 18, 20459 Hamburg
+            </p>
+
+            <div class="system-status">
+                <div class="system-status-title">
+                    <span class="status-dot"></span>
+                    <span>System-Architektur: Dezentral & Clientseitig</span>
+                </div>
+                <p style="margin: 0; font-size: 0.85rem; color: var(--text-color);">
+                    Diese Web-Applikation wird lokal über einen ESP32-Mikrocontroller im Netzwerk bereitgestellt. Eine serverseitige Erhebung, dauerhafte Speicherung oder Verwertung Ihrer personenbezogenen Merkmale findet nicht statt.
+                </p>
+            </div>
+
+            <h2>1. Lokale Daten-Erfassung & RAM-Verarbeitung</h2>
+            <p>
+                Jegliche Interaktion mit dieser Anwendung erfolgt ausschließlich clientseitig in Ihrem Browser. Es werden keinerlei Benutzerprofile angelegt oder Tracking-Mechanismen (wie persistente Cookies) etabliert. 
+            </p>
+
+            <h2>2. Sensor-Zugriff (Kamera / AR-Scanner)</h2>
+            <p>
+                Für die Dekodierung und Analyse der Sektor-Codes fordert das System Zugriff auf die Kamera Ihres Endgeräts an. 
+            </p>
+            <div class="cyber-alert">
+                <p>// SYSTEM-INFORMATION: Die Video- und Bildfrequenzen werden ausschließlich lokal im flüchtigen Arbeitsspeicher (RAM) Ihres Endgerätes verarbeitet. Zu keinem Zeitpunkt werden Bilddaten oder Kameraaufnahmen an externe Server übertragen.</p>
+            </div>
+
+            <h2>3. Externe Bibliotheken & Frequenzen (CDNs)</h2>
+            <p>
+                Zur Aufrechterhaltung der kybernetischen Funktionalität bettet das System ausgewählte, vertrauenswürdige externe Ressourcen ein:
+            </p>
+            <ul>
+                <li>
+                    <span class="highlight">ZXing Library:</span> Geladen via unpkg.com, um die Data-Matrix-Muster der physikalischen Buchseiten direkt im Browser zu entschlüsseln.
+                </li>
+                <li>
+                    <span class="highlight">YouTube-Vektoren:</span> Bei der Aktivierung von Videos werden Verbindungsprotokolle zu Servern von Google (YouTube) aufgebaut, um die Videodateien streamen zu können. Hierbei können Verbindungsdaten (z. B. Ihre IP-Adresse) erfasst werden.
+                </li>
+            </ul>
+
+            <h2>4. Betroffenenrechte</h2>
+            <p>
+                Nach der DSGVO haben Sie das Recht auf unentgeltliche Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten sowie ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. 
+            </p>
+            <p>
+                Da diese Anwendung jedoch als vollständig geschlossene, lokale Konstruktion konzipiert ist und **keine personenbezogenen Merkmale persistiert oder speichert**, ist auch eine Auskunft über oder Löschung von nicht vorhandenen Datensätzen hinfällig.
+            </p>
+
+            <div class="quote-box">
+                "Dieses Video dient als philosophische Analyse und literarische Dekonstruktion der Begriffe 'Nichts', 'Existenz' und 'Code'."
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Benachrichtigung -->
+    <div id="toast" class="toast-notification">SYSTEM: Signal kopiert.</div>
+
+    <footer>
+        #ARKUSNAT // SECURE_LEGAL_NODE // VERSION 2026.1
+    </footer>
+
+    <script>
+        // Sektor-Scroll-Funktion mit visuellem Feedback
+        function scrollToSector(id) {
+            const target = document.getElementById(id);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Aktualisiere die aktiven Buttons
+                document.querySelectorAll('.sector-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                const btnIndex = id === 'sektor-identitaet' ? 0 : 1;
+                document.querySelectorAll('.sector-btn')[btnIndex].classList.add('active');
+            }
+        }
+
+        // Kopierfunktion für die E-Mail
+        function copyEmail() {
+            const emailText = document.getElementById('email-text').innerText;
+            
+            // Kompatibler Kopiervorgang im Sandbox-Umfeld
+            const tempInput = document.createElement('input');
+            tempInput.value = emailText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Toast-Notification triggern
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Automatische Update-Erkennung beim Scrollen
+        window.addEventListener('scroll', () => {
+            const identitaetRect = document.getElementById('sektor-identitaet').getBoundingClientRect();
+            const datenrechtRect = document.getElementById('sektor-datenrecht').getBoundingClientRect();
+            const buttons = document.querySelectorAll('.sector-btn');
+
+            if (datenrechtRect.top < window.innerHeight / 2) {
+                buttons[0].classList.remove('active');
+                buttons[1].classList.add('active');
+            } else {
+                buttons[1].classList.remove('active');
+                buttons[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
