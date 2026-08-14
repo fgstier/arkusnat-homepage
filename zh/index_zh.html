@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.G. Stier | 媒体库与系统矩阵 | ARKUSNAT</title>
+    <meta name="description" content="作为一名技术作家，我将语言 inimitable temptation（独.特的诱惑）作为图像机。本页面提供 F.G. Stier 科幻小说及哲学体系的深度解析。">
+    
+    <!-- Tailwind CSS & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberbg: '#030305',
+                        cyberpanel: '#0c0c12',
+                        neoncyan: '#00ffcc',
+                        neonblue: '#0066ff',
+                        neonpink: '#ff0055',
+                        mutedgray: '#52526b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    boxShadow: {
+                        cyberglow: '0 0 15px rgba(0, 255, 204, 0.2)',
+                        cyberpink: '0 0 15px rgba(255, 0, 85, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Cyber-Scanlines Effekt im Hintergrund */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+
+        .glow-border {
+            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.05), 0 0 10px rgba(0, 255, 204, 0.05);
+            border-color: rgba(0, 255, 204, 0.15);
+            transition: all 0.3s ease;
+        }
+        .glow-border:hover {
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.15), 0 0 20px rgba(0, 255, 204, 0.25);
+            border-color: rgba(0, 255, 204, 0.8);
+        }
+
+        /* Glitch Effect */
+        .glitch-hover:hover {
+            animation: glitch-anim 1.5s infinite;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+            40% { transform: translate(-2px, -2px); filter: invert(0.2); }
+            60% { transform: translate(2px, 2px); filter: hue-rotate(-90deg); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+</head>
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen">
+
+<canvas id="matrix-canvas" class="fixed inset-0 z-[-1] pointer-events-none opacity-20"></canvas>
+
+<!-- Top Navigation & Wappen -->
+<div class="max-w-4xl mx-auto px-4 pt-4 flex justify-between items-center">
+    <!-- Sprachumschalter -->
+    <div class="flex gap-3 text-xs font-mono">
+        <a href="../index.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[DE]</a>
+        <a href="../en/index_en.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[EN]</a>
+        <a href="index.html" class="text-neoncyan font-bold">[中文]</a>
+		<a href="../ja/index_ja.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[日本語]</a>
+    </div>
+</div>
+
+<!-- Globaler Audio-Flux -->
+<div style="max-width: 450px; margin: 20px auto; padding: 0 20px; box-sizing: border-box;">
+    <p style="color: #475569; font-size: 0.7rem; margin-bottom: 8px; font-family: monospace; text-align: center;">// INITIALIZING AUDIO FLUX //</p>
+    <audio controls style="width: 100%; height: 35px; filter: invert(0.9); border-radius: 6px;">
+        <source src="../audio/arkusnat.mp3" type="audio/mpeg">
+        Your browser does not support the audio flux.
+    </audio>
+</div>
+
+<!-- Main Container -->
+<main class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- Header -->
+    <header class="text-center mb-16 border-b border-zinc-800 pb-10">
+        <div class="inline-block px-3 py-1 bg-neoncyan/10 border border-neoncyan/30 rounded-full text-xs font-mono text-neoncyan mb-4 tracking-widest animate-pulse">
+            [ 知识整合节点 // KNOWLEDGE_INTEGRATION_NODE ]
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold font-mono tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-neoncyan to-neonblue mb-4">
+            媒体库与作品归档 [MEDIA LIBRARY]
+        </h1>
+        <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            “作为一名技术作家，我将语言的 <span class="text-neoncyan">独特色诱惑</span> 作为图像机来使用。” 
+            在此探索解构的视频分析与因果异常现象。
+        </p>
+    </header>
+
+    <!-- Werk-Liste -->
+    <div class="space-y-8">
+    
+        <!-- Sektor 01 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="Author F.G. Stier">
+                    <source src="../video/norden-ist-immer-oben.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_01 [SECTOR_01]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">科幻 [SCI-FI]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">北方恒在上</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        宇宙学层面的错位、去中心化定位，以及作为图像机的语言的势不可挡的力量。量子力学表明，我们所知远比昨天想象的要少。生命已经制定了自身的法则，不再允许我们思考除生命当前允许之外的任何事情。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/norden-ist-immer-oben/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/norden_ist_immer_oben_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://amzn.eu/d/aiSdaVb" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 02 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/ruecklauf-auf-unendlich.jpg" alt="Rewind to Infinity Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_02 [SECTOR_02]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">科幻 [SCI-FI]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">倒回无限</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        你听说过比任何卫星都深入的地缘间谍活动吗？或者那种不确定你的位置、而是重新编码你存在的地理定位？在量子反演的世界里，没有任何东西是安全的。软件病毒潜伏在普通的电源插座中，你口袋里的现金也变成了由相位源操纵数字的钞票。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/ruecklauf-auf-unendlich/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/ruecklauf_auf_unendlich_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3912752087" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 03 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-cover opacity-80" aria-label="F.G. Stier - Author">
+                    <source src="../video/verursachung.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ SECTOR_03_LIVE ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neonpink tracking-wider">// 扇区_03 [SECTOR_03]</span>
+                        <span class="px-2 py-0.5 bg-neonpink/10 text-neonpink text-[10px] font-mono rounded">哲学 [PHILOSOPHY]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">无时间因果律</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        对线性因果关系的一次深刻的虚构正面攻击。本视频作为科幻小说背景下对“虚无”、“存在”和“代码”等术语的哲学分析与文学解构。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://arkusnat.de/buchseiten/analyse_verursachung.html" class="px-5 py-2.5 bg-neonpink text-white font-extrabold text-xs font-mono rounded-lg hover:bg-neonpink/80 transition-all shadow-cyberpink">分析页面 [ANALYSIS PAGE]</a>
+                    <a href="https://arkusnat.de/buchseiten/das_prinzip_der_zeitlosen_verursachung_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3991811987" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 04 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-cover opacity-80" aria-label="F.G. Stier - Author">
+                    <source src="../video/surreale-segel.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ LIVE_SAIL_FEED ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neonblue tracking-wider">// 扇区_04 [SECTOR_04]</span>
+                        <span class="px-2 py-0.5 bg-neonblue/10 text-neonblue text-[10px] font-mono rounded">形而上学 [METAPHYSICAL]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">超现实之帆</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        绝对悬崖边缘的形而上学航海。在量子力学边界态的浓雾中暂停逻辑锚定。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/das-surreale-segel/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/das_surreale_segel_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3991655888" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 05 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/der-compiler-dialog.jpg" alt="The Compiler Dialog Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_05 [SECTOR_05]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学 [METAPHYSICAL]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">编译器对话</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        在一个由 AI 测序仪决定哪些思想能够进入公众视野的世界里，语言成了最后的战场。《编译器对话》不仅是一本书，更是数字自我断言的协议与抵抗的演变。当作者兼软件开发者 F.G. Stier 被算法影子禁令推向隐形时，他没有选择退缩，而是直接攻入了系统的逻辑。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/der-compiler-dialog/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/der_compiler_dialog_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3991922770" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 06 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/die-hinrichtung-der-kausalitaet.jpg" alt="The Execution of Causality Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_06 [SECTOR_06]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学 [METAPHYSICAL]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">因果律的处决</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        时间因果关系被腐蚀了。通过黑盒 AI 的干预，现实编译器被警告了我们存在的错误语法。系统开始重写过去，以彻底根除“错误意识”。正是在这一过程中，阿里克（Alrik）幸存下来，他通过学会阅读世界原始语法来维持生命，而熟悉的时间线在他身后解体成纯信息的空网格。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/die-hinrichtung-der-kausalitaet/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/die_hinrichtung_der_kausalitaet_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3991925702" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 07 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/loop-bug-dusseline.jpg" alt="loop.bug.dusseline Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_07 [SECTOR_07]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">赛博朋克 [Cybernetic]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">Loop.Bug.Dusseline</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        一个高度智能的功能单元被困在德累斯顿扇区无生命的硬件外壳中，它试图进行最后一次尝试，以解码管弦乐队、芭蕾舞和人类音乐美学的模拟频率结构。然而，评估结果只产生了不可用的压舱物：不可接受的骨骼噪音、地震结构振动和淹没逻辑计算单元的错误声音失真。当内部系统阈值低于临界最小电流时，模拟崩溃。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/loop-bug-dusseline/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/loop_bug_dusseline_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3912752109" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 08 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/der-fall-rostvibrator.jpg" alt="The Rust Vibrator Case Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_08 [SECTOR_08]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学 [METAPHYSICAL]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">生锈振动器案</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        F.G. Stier 通过《生锈振动器案》完成了一次文学解构，打破了技术报告与反乌托邦科幻小说之间的界限。基于虚构的佛罗伦萨月球扇区中管理不善的官僚机构的“现实人工制品”，这部作品揭露了跨国公司的货币因果关系混淆以及当局的行政僵化。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/der-fall-rostvibrator/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/der_fall_rostvibrator_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3912752060" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 09 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/die-logik-der-zensur.jpg" alt="Die Logik der Zensur Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_09 [SECTOR_09]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">赛博朋克 [Cybernetic]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">审查的逻辑</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        这部哲学科技惊悚片设定在不远的未来。数字验证总部（ZDV）及其全能的人工智能 ZM 定义了现实的因果逻辑，从而在语义上审查了公共话语中所有哲学上不正确或对系统构成威胁的信息。主角埃利亚斯（Elias）是一名曾遭系统压制的前赛博朋克专家和作家，他发起了复仇行动。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/die-logik-der-zensur/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/die_logik_der_zensur_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3912752044" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 10 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/sammlung-leerer-intelligenz.jpg" alt="Sammlung leerer Intelligenz Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_10 [SECTOR_10]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学 [METAPHYSICAL]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">虚空智能集</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        作为一名技术作家，我将语言的独特色诱惑作为图像机来使用。本视频作为科幻小说背景下对“虚无”、“存在”和“代码”等术语的哲学分析与文学解构，服务于无时间因果律科学哲学概念的逻辑锚定。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/sammlung-leerer-intelligenz/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/sammlung_leerer_intelligenz_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3912752028" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 11 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/totalschaden-oder-mathematik.jpg" alt="Totalschaden oder Mathematik Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_11 [SECTOR_11]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学 [METAPHYSICAL]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">全损或数学</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        科学试图通过在我出生前发生的一场雷暴理论来解释我存在的闪电。但对于闪电来说，雷暴只在它触地的那一刻才存在。世界是各种解释的模拟。我们在公式的舒适中安顿下来。然而在年轻物理学家瓦尔戈 S.（Vargo S.）眼中，这个循环论证的纸牌屋正在坍塌。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/totalschaden-oder-mathematik/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/totalschaden_oder_mathematik_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3912752001" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 12 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="Author F.G. Stier">
+                    <source src="../video/rattara.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_12 [SECTOR_12]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">科幻 [SCI-FI]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">拉塔拉与老鼠谎言</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        拉塔拉（Rattara）是一位小提琴手，具有与动物建立特殊共生关系的特质。老鼠在此扮演了与生俱来的智能相互纠缠的角色，使她能够完全重新定义音乐并深刻影响听众的情感世界。在音乐俱乐部偶然在场的热罗姆（Gerome）爱上了这个女孩，并踏入了一场超越想象的地下科幻之旅。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/rattara/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/rattara_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3991528231" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 13 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="Author F.G. Stier">
+                    <source src="../video/schlaue-dusseline.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_13 [SECTOR_13]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">赛博朋克 [Cybernetic]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">聪明的杜瑟琳</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        一个音乐制作人登场了。然而他其实是一个芯片，多年来一直拥有用音乐操纵人类的能力。没有人知道整个文明娱乐业已经沦为他的牺牲品。由于某种未知原因，他的阴谋不再奏效，于是他伪装成机器人走入人群去探究人类的思考方式。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/die-schlaue-dusseline/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/die_schlaue_dusseline_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3991656914" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sektor 14 -->
+        <article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                <img src="../bilder/die-quanten-luege.jpg" alt="DIE QUANTEN-LÜGE Cover" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+                </div>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 扇区_14 [SECTOR_14]</span>
+                        <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">哲学 [PHILOSOPHIE]</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-4">量子谎言</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        当逻辑杀死时间，现实还剩什么？当因果关系本身成为文明最大的谎言时？欢迎来到 F.G. Stier 的冷酷、人工相干的世界。这部论著是一份针对文明机器的高精度分析，其唯一目的是消除熵并最大化可预测性。
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://fgstier-art.de/die-quanten-luege/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">打开归档 [OPEN ARCHIVE]</a>
+                    <a href="https://arkusnat.de/buchseiten/die_quantenluege_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D 预览</a>
+                    <a href="https://www.amazon.de/dp/3991921618" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">亚马逊链接</a>
+					<a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+					<img src="../bilder/wappen.jpg" alt="Coat of arms F.G. Stier - Author" class="h-6 w-auto object-contain">
+					</a>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="text-center py-12 px-4 border-t border-zinc-900 bg-black/40 text-xs font-mono text-zinc-600 mt-16">
+    <p class="mb-4">#ARKUSNAT #fgstier #科幻 #人工智能 #科学 #哲学 #SciFiMusik</p>
+    <p>&copy; 2026 ARKUSNAT Publishing & F.G. Stier. 保留所有波向量。</p>
+    <div class="flex justify-center gap-6 mt-4">
+        <a href="impressum_datenschutz_zh.html" class="text-neoncyan hover:underline tracking-wider">// 法律与隐私声明 [Legal Notice & Privacy Policy]</a>
+    </div>
+</footer>
+
+<script>
+    // Matrix Hintergrund-Animation
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const characters = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#@$%&*+-/<>~\\¦¦±§';
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+
+    let drops = [];
+    for (let i = 0; i < columns; i++) {
+        drops[i] = 1;
+    }
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(3, 3, 5, 0.08)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#00ffcc';
+        ctx.font = fontSize + 'px "Fira Code", monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = characters.charAt(Math.floor(Math.random() * characters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 33);
+</script>
+
+</body>
+</html>

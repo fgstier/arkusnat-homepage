@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sector Data Rights & Identity | ARKUSNAT</title>
+    <meta name="robots" content="noindex, follow">
+    <style>
+        :root { 
+            --bg-color: #030305; 
+            --panel-color: #08080d; 
+            --accent-color: #00ffcc; 
+            --accent-glow: rgba(0, 255, 204, 0.4);
+            --border-color: #161622; 
+            --text-color: #a0a0b0;
+            --text-high: #f0f0f5;
+            --text-muted: #52526b;
+            --alert-color: #ff0055;
+            --alert-glow: rgba(255, 0, 85, 0.3);
+        }
+body { 
+        font-family: 'Fira Code', 'Courier New', Courier, monospace; 
+        background-color: var(--bg-color); 
+        color: var(--text-color); 
+        line-height: 1.6; 
+        margin: 0; 
+        padding: 0;
+        font-size: 0.9rem;
+    }
+
+    /* Navigation Header */
+    nav {
+        border-bottom: 1px solid var(--border-color);
+        background: rgba(8, 8, 13, 0.85);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 15px 0;
+    }
+
+    .nav-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-logo {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .nav-back {
+        color: var(--text-high);
+        text-decoration: none;
+        font-size: 0.85rem;
+        border: 1px solid var(--border-color);
+        padding: 5px 12px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-back:hover {
+        color: var(--accent-color);
+        border-color: var(--accent-color);
+        box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .main-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    /* Sector Terminal Navigator */
+    .sector-navigator {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .sector-btn {
+        background: var(--panel-color);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-family: inherit;
+    }
+
+    .sector-btn:hover {
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+        box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .sector-btn.active {
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+        background: rgba(0, 255, 204, 0.02);
+        box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .legal-card {
+        background: var(--panel-color);
+        border-left: 3px solid var(--border-color);
+        padding: 40px;
+        margin-bottom: 40px;
+        transition: border-color 0.4s ease;
+    }
+
+    .legal-card:hover {
+        border-left-color: var(--accent-color);
+    }
+
+    h1 {
+        color: var(--text-high);
+        font-size: 1.4rem;
+        margin-top: 0;
+        margin-bottom: 30px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    h2 {
+        color: var(--accent-color);
+        font-size: 1.1rem;
+        margin-top: 35px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgba(22, 22, 34, 0.5);
+        padding-bottom: 5px;
+        font-style: italic;
+    }
+
+    .highlight {
+        color: var(--text-high);
+        font-weight: bold;
+    }
+
+    .cyber-alert {
+        background: rgba(255, 0, 85, 0.02);
+        border: 1px solid var(--alert-color);
+        padding: 15px 20px;
+        margin: 25px 0;
+        position: relative;
+    }
+
+    .cyber-alert p {
+        margin: 0;
+        color: var(--alert-color);
+        font-size: 0.85rem;
+        text-shadow: 0 0 5px var(--alert-glow);
+    }
+
+    .system-status {
+        background: rgba(0, 255, 204, 0.02);
+        border: 1px solid var(--border-color);
+        padding: 20px;
+        margin: 25px 0;
+    }
+
+    .system-status-title {
+        color: var(--accent-color);
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent-color);
+        border-radius: 50%;
+        display: inline-block;
+        animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+        0% { transform: scale(0.9); opacity: 0.6; }
+        50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 8px var(--accent-color); }
+        100% { transform: scale(0.9); opacity: 0.6; }
+    }
+
+    .copy-email-btn {
+        background: transparent;
+        border: 1px dashed var(--accent-color);
+        color: var(--accent-color);
+        padding: 3px 8px;
+        font-family: inherit;
+        font-size: 0.8rem;
+        cursor: pointer;
+        margin-left: 10px;
+        transition: all 0.2s ease;
+    }
+
+    .copy-email-btn:hover {
+        background: var(--accent-color);
+        color: var(--bg-color);
+    }
+
+    .toast-notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--panel-color);
+        border: 1px solid var(--accent-color);
+        color: var(--accent-color);
+        padding: 10px 20px;
+        font-size: 0.8rem;
+        box-shadow: 0 0 15px var(--accent-glow);
+        opacity: 0;
+        transform: translateY(100px);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 1000;
+    }
+
+    .toast-notification.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .quote-box {
+        border-left: 2px solid var(--accent-color);
+        padding-left: 15px;
+        margin: 30px 0;
+        font-style: italic;
+        color: var(--text-high);
+    }
+
+    footer {
+        text-align: center;
+        padding: 40px 0;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        border-top: 1px solid var(--border-color);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+        .legal-card {
+            padding: 20px;
+        }
+        .sector-navigator {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+    }
+</style>
+<link rel="preload" as="image" href="../bilder/wappen.jpg">
+<!-- Navigation -->
+<nav>
+    <div class="nav-container">
+        <a href="index_zh.html" class="nav-logo">// 返回传感器元数据 [BACK SENSOR-METADATA]</a>
+    </div>
+</nav>
+
+<main class="main-container">
+    
+    <!-- Sector Navigator Terminal -->
+    <div class="sector-navigator">
+        <button class="sector-btn active" onclick="scrollToSector('sektor-identitaet')">扇区身份 (版权声明) [Sector Identity]</button>
+        <button class="sector-btn" onclick="scrollToSector('sektor-datenrecht')">扇区数据权利 (隐私政策) [Sector Data Rights]</button>
+    </div>
+
+    <!-- Sector Identity (Imprint) -->
+    <section id="sektor-identitaet" class="legal-card">
+        <h1>扇区身份 / 法律声明 [Sector Identity / Legal Notice]</h1>
+        
+        <p><strong>本信息服务的运营者与责任人：</strong></p>
+        <p>
+            <span class="highlight">弗雷德·金特·斯蒂尔</span> (Fred Günter Stier / F.G. Stier)<br>
+            授权服务地址：<br>
+            c/o IP-Management #9579<br>
+            Ludwig-Erhard-Straße 18<br>
+            20459 Hamburg, Germany (德国汉堡)
+        </p>
+
+        <p><strong>根据德国《数字服务法》(DDG) 第 5 条 / 《媒体国家条约》(MStV) 第 18 条之内容：</strong></p>
+        <p>
+            出版商：ARKUSNAT 出版社 (ARKUSNAT Publishing)<br>
+            所有人：<span class="highlight">弗雷德·金特·斯蒂尔</span> (Fred Günter Stier)
+        </p>
+
+        <p><strong>数字频率与联系方式：</strong></p>
+        <p>
+            电子邮箱 (E-Mail)：<span class="highlight" id="email-text">fg_stier@gmx.de</span>
+            <button class="copy-email-btn" onclick="copyEmail()">[复制地址]</button>
+        </p>
+
+        <p><strong>封面设计与插图：</strong></p>
+        <p>
+            ARKUSNAT Publishing | F.G. Stier<br>
+            利用数字合成工具制作。
+        </p>
+
+        <h2>法律声明与版权保护</h2>
+        <p>
+            本作品（包括其组件：文本、程序编写、矢量图形和互动模拟）受版权法保护。未经出版商和作者的事先书面同意，严禁在版权法严格限制之外进行任何利用，违者将依法追究责任。
+        </p>
+
+        <div class="quote-box">
+            "作为一名技术作家，我将语言的独特色诱惑（inimitable temptation）作为图像机来使用。"
+        </div>
+    </section>
+
+    <!-- Sector Data Rights (Privacy Policy) -->
+    <section id="sektor-datenrecht" class="legal-card">
+        <h1>扇区数据权利 / 隐私政策 [Sector Data Rights / Privacy Policy]</h1>
+        
+        <p><strong>数据构建的负责实体：</strong></p>
+        <p>
+            <span class="highlight">Fred Günter Stier</span><br>
+            c/o IP-Management #9579, Ludwig-Erhard-Straße 18, 20459 Hamburg, Germany
+        </p>
+
+        <div class="system-status">
+            <div class="system-status-title">
+                <span class="status-dot"></span>
+                <span>系统架构：去中心化与客户端本地化 [Decentralized & Client-Side]</span>
+            </div>
+            <p style="margin: 0; font-size: 0.85rem; color: var(--text-color);">
+                本网络应用程序通过网络内的 ESP32 微控制器在本地提供。不进行服务器端的个人属性收集、永久存储或处理。
+            </p>
+        </div>
+
+        <h2>1. 本地数据收集与 RAM 处理</h2>
+        <p>
+            与该应用程序的所有交互完全在您的浏览器的客户端本地进行。不会创建用户配置文件，也不会建立任何跟踪机制（例如持久性 Cookie）。
+        </p>
+
+        <h2>2. 传感器访问（摄像头 / AR 扫描仪）</h2>
+        <p>
+            为了解码和分析扇区代码，系统会请求访问您设备的摄像头。
+        </p>
+        <div class="cyber-alert">
+            <p>// 系统信息：视频和图像频率仅在终端设备的易失性内存（RAM）中进行本地处理。图像数据或摄像头录像在任何情况下都不会传输到外部服务器。</p>
+        </div>
+
+        <h2>3. 外部库与频率（CDN）</h2>
+        <p>
+            为了维持赛博netic功能，系统嵌入了经过选定的、可信赖的外部资源：
+        </p>
+        <ul>
+            <li>
+                <span class="highlight">ZXing 库：</span> 通过 unpkg.com 加载，直接在浏览器中解码实体书页的矩阵码图案。
+            </li>
+            <li>
+                <span class="highlight">YouTube 矢量：</span> 当激活视频时，将建立与谷歌（YouTube）运营的服务器的连接协议以流式传输视频文件。在此过程中可能会捕获连接数据（例如您的 IP 地址）。
+            </li>
+        </ul>
+
+        <h2>4. 数据主体的权利</h2>
+        <p>
+            根据《GDPR》（通用数据保护条例），您有权免费获得有关您存储的个人数据的来源、接收者和目的的信息，以及更正、阻止或删除这些数据的权利。
+        </p>
+        <p>
+            然而，由于本应用程序被设计为完全封闭的本地结构，且**不持久化或存储任何个人属性**，因此关于查询或删除不存在的数据集的请求不予适用。
+        </p>
+
+        <div class="quote-box">
+            "本视频作为科幻小说背景下对‘虚无’、‘存在’和‘代码’等术语的哲学分析与文学解构。"
+        </div>
+    </section>
+
+</main>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast-notification">系统：信号已复制。[SYSTEM: Signal copied.]</div>
+
+<footer>
+    #ARKUSNAT // SECURE_LEGAL_NODE // VERSION 2026.1
+</footer>
+
+<script>
+    // Sector scroll function with visual feedback
+    function scrollToSector(id) {
+        const target = document.getElementById(id);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Update active buttons
+            document.querySelectorAll('.sector-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const btnIndex = id === 'sektor-identitaet' ? 0 : 1;
+            document.querySelectorAll('.sector-btn')[btnIndex].classList.add('active');
+        }
+    }
+
+    // Copy function for email
+    function copyEmail() {
+        const emailText = document.getElementById('email-text').innerText;
+        
+        // Compatible copy process in sandbox environment
+        const tempInput = document.createElement('input');
+        tempInput.value = emailText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        // Trigger toast notification
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2500);
+    }
+
+    // Automatic update detection on scroll
+    window.addEventListener('scroll', () => {
+        const identitaetRect = document.getElementById('sektor-identitaet').getBoundingClientRect();
+        const datenrechtRect = document.getElementById('sektor-datenrecht').getBoundingClientRect();
+        const buttons = document.querySelectorAll('.sector-btn');
+
+        if (datenrechtRect.top < window.innerHeight / 2) {
+            buttons[0].classList.remove('active');
+            buttons[1].classList.add('active');
+        } else {
+            buttons[1].classList.remove('active');
+            buttons[0].classList.add('active');
+        }
+    });
+</script>
+
+</body>
+</html>

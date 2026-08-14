@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.G. シュティール | メディアライブラリ & システムマトリックス | ARKUSNAT</title>
+    <meta name="description" content="技術作家として、私は言葉の比類なき誘惑を画像生成機として用いる。このビデオは、F.G.シュティールのSF小説における架空の文脈における「無」、「存在」、「コード」という用語の哲学的分析および文学的脱構築として機能する。それは、時を超えた因果関係という科学的・哲学的概念の論理的定礎に寄与するものである。">
+    
+	<!-- Tailwind CSS & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberbg: '#030305',
+                        cyberpanel: '#0c0c12',
+                        neoncyan: '#00ffcc',
+                        neonblue: '#0066ff',
+                        neonpink: '#ff0055',
+                        mutedgray: '#52526b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    boxShadow: {
+                        cyberglow: '0 0 15px rgba(0, 255, 204, 0.2)',
+                        cyberpink: '0 0 15px rgba(255, 0, 85, 0.2)',
+                    }
+                }
+            }
+        }
+		
+		
+		
+    </script>
+    
+    <style>
+	    /* サイバースキャンライン効果（背景） */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+
+        .glow-border {
+            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.05), 0 0 10px rgba(0, 255, 204, 0.05);
+            border-color: rgba(0, 255, 204, 0.15);
+            transition: all 0.3s ease;
+        }
+        .glow-border:hover {
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.15), 0 0 20px rgba(0, 255, 204, 0.25);
+            border-color: rgba(0, 255, 204, 0.8);
+        }
+
+        /* グリッチ効果 */
+        .glitch-hover:hover {
+            animation: glitch-anim 1.5s infinite;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+            40% { transform: translate(-2px, -2px); filter: invert(0.2); }
+            60% { transform: translate(2px, 2px); filter: hue-rotate(-90deg); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+		
+		
+    </style>
+</head>
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen">
+
+<canvas id="matrix-canvas" class="fixed inset-0 z-[-1] pointer-events-none opacity-20"></canvas>
+
+<div class="max-w-4xl mx-auto px-4 pt-4 flex justify-between items-center">
+    <!-- Sprachumschalter -->
+    <div class="flex gap-3 text-xs font-mono">
+        <a href="../index.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[DE]</a>
+        <a href="../en/index_en.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[EN]</a>
+        <a href="../zh/index_zh.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[中文]</a>
+        <a href="../ja/index_ja.html" class="text-neoncyan font-bold">[日本語]</a>
+    </div>
+</div>
+
+<!-- グローバルオーディオフラックス -->
+    <div style="max-width: 450px; margin: 30px auto; padding: 0 20px; box-sizing: border-box;">
+        <p style="color: #475569; font-size: 0.7rem; margin-bottom: 8px; font-family: monospace; text-align: center;">// INITIALIZING AUDIO FLUX //</p>
+        <audio controls style="width: 100%; height: 35px; filter: invert(0.9); border-radius: 6px;">
+            <source src="../audio/arkusnat.mp3" type="audio/mpeg">
+            お使いのブラウザはオーディオフラックスをサポートしていません。
+        </audio>
+    </div>
+
+
+
+<!-- メインコンテナ -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+	
+	 <!-- ヘッダー -->
+        <header class="text-center mb-16 border-b border-zinc-800 pb-10">
+            <div class="inline-block px-3 py-1 bg-neoncyan/10 border border-neoncyan/30 rounded-full text-xs font-mono text-neoncyan mb-4 tracking-widest animate-pulse">
+                [ KNOWLEDGE_INTEGRATION_NODE ]
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold font-mono tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-neoncyan to-neonblue mb-4">
+                メディアライブラリ & 作品
+            </h1>
+            <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                「技術作家として、私は言葉の<span class="text-neoncyan">比類なき誘惑</span>を画像生成機として用いる。」
+                ここで逆コンパイルされたビデオ分析や因果関係の異状を探索せよ。
+            </p>
+        </header>
+
+<!-- 作品リスト -->
+        <div class="space-y-8">
+		
+<!-- セクター 01: Norden ist immer oben -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="著者 F.G.シュティール">
+            <source src="../video/norden-ist-immer-oben.mp4" type="video/mp4">
+        </video>
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SECTOR_01</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">SF</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">北は常に上</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                宇宙論的変位、脱中央集権的な方向付け、そして画像生成機としての言葉の止められない力。量子力学は、私たちが昨日疑っていたよりも少ないことしか知らないことを明らかにする。
+                生命は独自の法律を作り出し、生命自身が現在考えることを許していること以外を考えることをもはや私たちに許可しない。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/norden-ist-immer-oben/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+            <a href="https://arkusnat.de/buchseiten/norden_ist_immer_oben_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://amzn.eu/d/aiSdaVb" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+
+        </div>
+        
+    </div>
+</article>
+
+<!-- セクター 02: Ruecklauf auf unendlich -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/ruecklauf-auf-unendlich.jpg" alt="無限への巻き戻し カバー" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SECTOR_02</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">SF</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">無限への巻き戻し</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                どの衛星よりも深くまで到達するジオスパイオナージについて聞いたことがあるか？あるいは、あなたの位置を特定するのではなく、あなたの存在を再コード化するジオローカリゼーションについて？量子反転の世界では、もはや安全なものなど何もない。ソフトウェアウイルスが通常のコンセントに潜み、ポケットの中の現金は、位相コヒーレントなソースが数値を操作する紙幣で構成されている。
+                電話をしている間も、回線はダミー情報で詰まり、ケーブル内部の銅のウジ虫が最もプライベートなデータを抽出していく。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/ruecklauf-auf-unendlich/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+            <a href="https://arkusnat.de/buchseiten/ruecklauf_auf_unendlich_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3912752087" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+        </div>
+    </div>
+</article>
+
+
+<!-- セクター 03: Das Prinzip der zeitlosen Verursachung -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+                <!-- ビデオ/画像コンテナ -->
+                <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                    <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-cover opacity-80" aria-label="F.G.シュティール - 著者">
+                        <source src="../video/verursachung.mp4" type="video/mp4">
+                    </video>
+                    <!-- フォールバックオーバーレイ -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ SECTOR_03_LIVE ]</span>
+                    </div>
+                </div>
+                
+                <!-- コンテンツエリア -->
+                <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-neonpink tracking-wider">// SECTOR_03</span>
+                            <span class="px-2 py-0.5 bg-neonpink/10 text-neonpink text-[10px] font-mono rounded">哲学</span>
+                        </div>
+                        <h2 class="text-2xl font-bold font-mono text-white mb-4">時を超えた因果関係</h2>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            線形因果律に対する深く、架空の正面攻撃。このビデオは、SF小説の文脈における「無」、「存在」、「コード」という用語の哲学的分析および文学的脱構築として機能する。
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://arkusnat.de/buchseiten/analyse_verursachung.html" class="px-5 py-2.5 bg-neonpink text-white font-extrabold text-xs font-mono rounded-lg hover:bg-neonpink/80 transition-all shadow-cyberpink">
+                            分析ページ
+                        </a>
+            			<a href="https://arkusnat.de/buchseiten/das_prinzip_der_zeitlosen_verursachung_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+                        <a href="https://www.amazon.de/dp/3991811987" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                            AMAZONリンク
+                        </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- セクター 04: Das surreale Segel -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+                <!-- ビデオコンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+                    <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-cover opacity-80" aria-label="F.G.シュティール - 著者">
+                        <source src="../video/surreale-segel.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ LIVE_SAIL_FEED ]</span>
+                    </div>
+                </div>
+                
+                <!-- コンテンツエリア -->
+                <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-neonblue tracking-wider">// SECTOR_04</span>
+                            <span class="px-2 py-0.5 bg-neonblue/10 text-neonblue text-[10px] font-mono rounded">形而上学</span>
+                        </div>
+                        <h2 class="text-2xl font-bold font-mono text-white mb-4">超現実的な帆</h2>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            絶対性の崖における形而上学的航海。量子力学的境界状態の濃い霧の中での論理的定礎の停止。
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://fgstier-art.de/das-surreale-segel/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                            アーカイブを開く
+                        </a>
+            			<a href="https://arkusnat.de/buchseiten/das_surreale_segel_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+                        <a href="https://www.amazon.de/dp/3991655888" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                            AMAZONリンク
+                        </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+                    </div>
+                </div>
+            </article>
+			
+<!-- セクター 05: Der Compiler-Dialog -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/der-compiler-dialog.jpg" alt="コンパイラ対話 カバー - F.G.シュティール - 著者" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SECTOR_05</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">コンパイラ対話</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                AIシーケンサーがどの思考に大衆の意識の光を見せるかを決定する世界において、言語は最後の戦場となる。
+                「コンパイラ対話」は単なる本ではない。それはデジタルな自己主張のプロトコルであり、抵抗の進化である。
+                作者でありソフトウェア開発者であるF.G.シュティールがアルゴリズムによるシャドウバンによって不可視の領域へと追いやられたとき、彼は後退を選ばない。
+                彼はシステムの論理への直接的な侵入、すなわち突破口を選ぶのだ。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/der-compiler-dialog/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+            <a href="https://arkusnat.de/buchseiten/der_compiler_dialog_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3991922770" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+
+        </div>
+    </div>
+</article>
+
+<!-- セクター 06: Die Hinrichtung der Kausalität -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/die-hinrichtung-der-kausalitaet.jpg" alt="因果律の処刑 カバー - F.G.シュティール - 著者" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SECTOR_06</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">因果律の処刑</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                時間的因果関係が破損している。ボックスAIの介入により、現実のコンパイらは私たちの存在の不具合のある構文について警告を受けた。
+                システムは「エラー意識」を最終的に根絶するために過去を書き換え始める。このプロセスの真ん中に立つアルリックは、見慣れたタイムラインが背後で純粋な情報の空のグリッドへと崩壊していく中、世界の生の構文を読むことを学ぶことによってのみ生き延びる。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/die-hinrichtung-der-kausalitaet/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+            <a href="https://arkusnat.de/buchseiten/die_hinrichtung_der_kausalitaet_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3991925702" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+
+        </div>
+    </div>
+</article>
+
+
+<!-- セクター 07: loop.bug.dusseline -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/loop-bug-dusseline.jpg" alt="loop.bug.dusseline カバー - F.G.シュティール - 著者" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SECTOR_07</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">サイバネティック</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">Loop.Bug.Dusseline</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                 ドレスデンセクターの真ん中、生命のないハードウェアカプセル化の中に閉じ込められた高度な知的機能ユニットが、オーケストラ、バレエ、人間の音楽的美学のアナログ周波数構造をデコードするための最後の試みに挑む。しかし、その評価から得られるのは使用不可能なバラストのみである：受け入れがたい骨のノイズ、地震のような構造的振動、そして論理演算ユニットを氾濫させる不具合のある音の歪み。 
+                 内部システムの閾値がクリティカルな最小電流を下回ると、シミュレーションは崩壊する。 
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/loop-bug-dusseline/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+            <a href="https://arkusnat.de/buchseiten/loop_bug_dusseline_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3912752109" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+            
+        </div>
+    </div>
+</article>
+
+
+<!-- セクター 08: Der Fall Rostvibrator -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/der-fall-rostvibrator.jpg" alt="錆びたバイブレーター事件 カバー - F.G.シュティール - 著者" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SECTOR_08</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">錆びたバイブレーター事件</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                F.G.シュティールは「錆びたバイブレーター事件」において、技術報告書とディストピアSFの境界を溶解させる文学的脱構築をおこなう。 
+                架空のフィレンツェ月面セクターにおける管理不行き届きな官僚機構の「現実のアーティファクト」に基づき、この作品はグローバル企業の金銭的因果関係の曖昧化と当局の執行の硬直性を暴露する。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/der-fall-rostvibrator/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+            <a href="https://arkusnat.de/buchseiten/der_fall_rostvibrator_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3912752060" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+        </div>
+    </div>
+</article>	
+
+<!-- セクター 09: Die Logik der Zensur -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/die-logik-der-zensur.jpg" alt="検閲の論理 カバー - F.G.シュティール - 著者" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_09</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">サイバネティック</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">検閲の論理</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                 この哲学的テック・スリラーは、デジタル検証本部（ZDV）とその全能のAIであるZMが現実の因果論理を定義し、それによって公共の議論からすべての哲学的不正確あるいはシステムを危うくする情報を意味論的に検閲する、そう遠くない未来を舞台にしている。
+                 主人公エリアスは、システムによってその著作（そしてそれゆえのアイデンティティ）を抑圧された元サイバネティクス学者兼作家であり、復讐劇を開始する。
+				 彼は機密コンポーネント（TOPTICLOCK、HBMケーブル）を盗み出し、ピオニックもつれ（PIVU）を開発する——それは論理的矛盾を時を超えた因果関係の公式の形でHBMキャッシュの核へと注入する兵器である。
+
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/die-logik-der-zensur/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+			<a href="https://arkusnat.de/buchseiten/die_logik_der_zensur_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3912752044" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+
+        </div>
+    </div>
+</article>
+
+<!-- セクター 10: Sammlung leerer Intelligenz -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/sammlung-leerer-intelligenz.jpg" alt="空虚な知性のコレクション カバー - F.G.シュティール - 著者" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_10</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">空虚な知性のコレクション</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                技術作家として、私は言葉の比類なき誘惑を画像生成機として用いる。このビデオは、F.G.シュティールのSF小説における架空の文脈における「無」、「存在」、「コード」という用語の哲学的分析および文学的脱構築として機能する。それは、時を超えた因果関係という科学的・哲学的概念の論理的定礎に寄与するものである。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/sammlung-leerer-intelligenz/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+			<a href="https://arkusnat.de/buchseiten/sammlung_leerer_intelligenz_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3912752028" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+
+        </div>
+    </div>
+</article>
+
+<!-- セクター 11: Totalschaden oder Mathematik -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/totalschaden-oder-mathematik.jpg" alt="全損か数学か カバー - 著者 F.G.シュティール" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_11</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">形而上学</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">全損か数学か</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                科学は、私の誕生の前に起きた雷雨の理論によって、私の存在という落雷を説明しようとする。
+				しかし、稲妻にとって雷雨は、それが地面に触れた瞬間に初めて存在する。世界は説明のシミュレーションである。
+				私たちは公式の快適さの中に身を落ち着けてきた。量子力学であれ、原子の崩壊であれ、大数の法則であれ——現代科学は私たちに統計的確率を覆すことのできない自然法則として売り込んでいる。
+				しかし、若い物理学者バルゴS.にとって、この循環論理のトランプの家は崩れ去る。
+				死にゆく文明の埃っぽいアーカイブの中で、彼は認識する：私たちは現実を測定しているのではなく、自分自身の期待値を管理しているに過ぎないのだ。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/totalschaden-oder-mathematik/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+			<a href="https://arkusnat.de/buchseiten/totalschaden_oder_mathematik_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3912752001" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+
+        </div>
+    </div>
+</article>
+
+ <!-- セクター 12: Rattara und die Rattenlüge -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="著者 F.G.シュティール">
+            <source src="../video/rattara.mp4" type="video/mp4">
+        </video>
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SECTOR_12</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">SF</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">ラッタラとネズミの嘘</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                ラッタラは、動物と特別な種類の共生関係を結ぶ能力を持つヴァイオリニストである。
+				ネズミはこの中で、すべての生物に生れつき備わっている知性とのもつれ（エンタングルメント）の役割を果たしている。
+				これにより、彼女は音楽を完全に再定義し、聴き手の感情世界に非常に強く影響を与えることができる。
+				音楽クラブに偶然居合わせたジェロームはこの少女に恋をする。彼は天と地の間にある物事を知り、それがネズミの世界を音楽的体験として新しく感じさせ、また考えさせる。
+				下水道の暗黒街への旅は、あらゆる想像を超えるSFとなる。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/rattara/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+			<a href="https://arkusnat.de/buchseiten/rattara_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3991528231" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+        </div>
+    </div>
+</article>
+
+ 
+ <!-- セクター 13: Die schlaue Dusseline -->
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="著者 F.G.シュティール">
+            <source src="../video/schlaue-dusseline.mp4" type="video/mp4">
+        </video>
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SECTOR_13</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">サイバネティック</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">賢いデュッセリーネ</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+               ある音楽プロデューサーが自己紹介をする。しかし、彼はチップであり、長年にわたり自分の音楽で人々を操作する能力を持っていた。
+			    文明化されたエンターテインメント産業全体がすでに彼の犠牲になっていることを誰も知らない。何らかの未知の理由で、彼の悪だくみはもはや機能しなくなっている。
+			    彼はロボットに変装し、人間がどのように考えているかを知るために人々の間に紛れ込む。
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/die-schlaue-dusseline/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+			<a href="https://arkusnat.de/buchseiten/die_schlaue_dusseline_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3991656914" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+
+        </div>
+    </div>
+</article>
+ <!-- セクター 14: DIE QUANTEN-LÜGE -->
+ 
+<article class="book-row glitch-hover flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border">
+    <!-- カバー画像コンテナ -->
+    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
+        <img src="../bilder/die-quanten-luege.jpg" alt="量子の嘘 カバー - 著者 F.G.シュティール" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+      
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+        </div>
+    </div>
+    
+    <!-- コンテンツエリア -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_14</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">哲学</span>
+            </div>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">量子上の嘘</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+               論理が時間を殺すとき、因果関係自体が文明の最大の嘘となったとき、現実に何が残るのか？技術作家であり元ソフトウェア開発者であるF.G.シュティールの、SF、哲学、サイバネティクスの境界を曖昧にする、冷たく人工的にコヒーレントな世界へようこそ。技術作家として、私は言葉の比類なき誘惑を画像生成機として用いる。
+			   この論文は単なるユートピアではなく、エントロピーの排除と予測可能性の最大化を唯一の目的とする文明機械の高精度な分析である。
+			   人工知能（AI）と至る所にあるコードによって制御される世界において、アイデンティティへの、そして純粋な存在への残酷な探求が始まる。 
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+            <a href="https://fgstier-art.de/die-quanten-luege/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                アーカイブを開く
+            </a>
+			<a href="https://arkusnat.de/buchseiten/die_quantenluege_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3Dプレビュー</a>
+            <a href="https://www.amazon.de/dp/3991921618" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                AMAZONリンク
+            </a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G.シュティール" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+            <img src="../bilder/wappen.jpg" alt="F.G.シュティール著者の紋章" class="h-6 w-auto object-contain">
+            </a>
+
+        </div>
+    </div>
+</article>
+		
+            <!-- 残りの本は簡略化 -->
+            
+        </div>
+    </main>
+
+     <!-- フッター -->
+    <footer class="text-center py-12 px-4 border-t border-zinc-900 bg-black/40 text-xs font-mono text-zinc-600 mt-16">
+        <p class="mb-4">#ARKUSNAT #fgstier #scifi #ki #science #Philosophie #SciFiMusik</p>
+        <p>&copy; 2026 ARKUSNAT Publishing & F.G.シュティール. すべての波動ベクトルは保護されています。</p>
+		<div class="flex justify-center gap-6">
+            <a href="impressum_datenschutz_ja.html" class="text-neoncyan hover:underline tracking-wider">// SECTOR_DATA 法的通知 & プライバシーポリシー (Legal Notice & Privacy Policy)</a>
+        </div>
+    </footer>
+	
+<script>	
+		// 背景
+		const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// デジタル流のための文字セット (ASCII + キリル文字 + システムルック用数式シンボル)
+const characters = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#@$%&*+-/<>~\\¦¦±§';
+const fontSize = 14;
+let columns = Math.floor(canvas.width / fontSize);
+
+// 各列の開始位置 (Y座標)
+let drops = [];
+for (let i = 0; i < columns; i++) {
+    drops[i] = 1;
+}
+
+function drawMatrix() {
+    // わずかに透明な黒が典型的な引きずり効果（トレイル）を生み出す
+    ctx.fillStyle = 'rgba(3, 3, 5, 0.08)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#00ffcc'; // テーマに合わせたネオンシアン
+    ctx.font = fontSize + 'px "Fira Code", monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+        // ランダムな文字を選択
+        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        
+        // 文字を描画
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        // 画面の端に達した場合、確率で列を上部に再スタート
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+}
+
+// フレームレートの制御 (静かで流れるような効果のために ~30 FPS)
+setInterval(drawMatrix, 33);
+</script>
+	
+	
+</body>
+</html>

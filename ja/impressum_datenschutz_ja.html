@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セクター・データ法 & アイデンティティ | ARKUSNAT</title>
+    <meta name="robots" content="noindex, follow">
+    <style>
+        :root { 
+            --bg-color: #030305; 
+            --panel-color: #08080d; 
+            --accent-color: #00ffcc; 
+            --accent-glow: rgba(0, 255, 204, 0.4);
+            --border-color: #161622; 
+            --text-color: #a0a0b0;
+            --text-high: #f0f0f5;
+            --text-muted: #52526b;
+            --alert-color: #ff0055;
+            --alert-glow: rgba(255, 0, 85, 0.3);
+        }
+        
+        body { 
+            font-family: 'Courier New', Courier, monospace; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Navigations-Header */
+        nav {
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(8, 8, 13, 0.85);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-back {
+            color: var(--text-high);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Sektor Terminal Navigator */
+        .sector-navigator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .sector-btn {
+            background: var(--panel-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .sector-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .sector-btn.active {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(0, 255, 204, 0.02);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .legal-card {
+            background: var(--panel-color);
+            border-left: 3px solid var(--border-color);
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: border-color 0.4s ease;
+        }
+
+        .legal-card:hover {
+            border-left-color: var(--accent-color);
+        }
+
+        h1 {
+            color: var(--text-high);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(22, 22, 34, 0.5);
+            padding-bottom: 5px;
+            font-style: italic;
+        }
+
+        .highlight {
+            color: var(--text-high);
+            font-weight: bold;
+        }
+
+        .cyber-alert {
+            background: rgba(255, 0, 85, 0.02);
+            border: 1px solid var(--alert-color);
+            padding: 15px 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .cyber-alert p {
+            margin: 0;
+            color: var(--alert-color);
+            font-size: 0.85rem;
+            text-shadow: 0 0 5px var(--alert-glow);
+        }
+
+        .system-status {
+            background: rgba(0, 255, 204, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .system-status-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 8px var(--accent-color); }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .copy-email-btn {
+            background: transparent;
+            border: 1px dashed var(--accent-color);
+            color: var(--accent-color);
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .copy-email-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--panel-color);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            box-shadow: 0 0 15px var(--accent-glow);
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quote-box {
+            border-left: 2px solid var(--accent-color);
+            padding-left: 15px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--text-high);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .legal-card {
+                padding: 20px;
+            }
+            .sector-navigator {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+    <link rel="preload" as="image" href="/wappen.jpg">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index_ja.html" class="nav-logo">// センサー・メタデータ</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        
+        <!-- Sektor Navigator Terminal -->
+        <div class="sector-navigator">
+            <button class="sector-btn active" onclick="scrollToSector('sektor-identitaet')">セクターアイデンティティ (インプレッサム)</button>
+            <button class="sector-btn" onclick="scrollToSector('sektor-datenrecht')">セクターデータ法 (プライバシー)</button>
+        </div>
+
+        <!-- Sektor-Identität (Impressum) -->
+        <section id="sektor-identitaet" class="legal-card">
+            <h1>セクターアイデンティティ / インプレッサム (運営者情報)</h1>
+            
+            <p><strong>本情報提供サービスの運営者および責任者：</strong></p>
+            <p>
+                <span class="highlight">フレッド・ギュンター・シュティール</span> (F.G. Stier)<br>
+                送達代理人住所：<br>
+                c/o IP-Management #9579<br>
+                Ludwig-Erhard-Straße 18<br>
+                20459 Hamburg, Germany
+            </p>
+
+            <p><strong>ドイツデジタルサービス法 (DDG) 第5条 / メディア州条約 (MStV) 第18条に基づくコンテンツ：</strong></p>
+            <p>
+                発行者：ARKUSNAT Publishing<br>
+                代表者：<span class="highlight">フレッド・ギュンター・シュティール</span>
+            </p>
+
+            <p><strong>デジタル周波数 & 連絡先：</strong></p>
+            <p>
+                Eメール：<span class="highlight" id="email-text">fg_stier@gmx.de</span>
+                <button class="copy-email-btn" onclick="copyEmail()">[アドレスをコピー]</button>
+            </p>
+
+            <p><strong>カバーデザイン & イラストレーション：</strong></p>
+            <p>
+                ARKUSNAT Publishing | F.G. Stier<br>
+                デジタル構成ツールを使用。
+            </p>
+
+            <h2>法的注意事項 & 著作権保護</h2>
+            <p>
+                本作品（テキスト、プログラミング、ベクターグラフィックス、インタラクティブシミュレーション等の各パーツを含む）は著作権法により保護されています。著作権法の厳格な制限を超えるいかなる利用も、発行者および作者の事前の書面による同意がない限り、禁止および処罰の対象となります。
+            </p>
+
+            <div class="quote-box">
+                "技術的作家として、私は言葉の模倣しがたい誘惑を画像生成機として利用する。"
+            </div>
+        </section>
+
+        <!-- Sektor-Datenrecht (Datenschutz) -->
+        <section id="sektor-datenrecht" class="legal-card">
+            <h1>セクターデータ法 / プライバシーポリシー</h1>
+            
+            <p><strong>データ構築の責任主体：</strong></p>
+            <p>
+                <span class="highlight">フレッド・ギュンター・シュティール</span><br>
+                c/o IP-Management #9579, Ludwig-Erhard-Straße 18, 20459 Hamburg, Germany
+            </p>
+
+            <div class="system-status">
+                <div class="system-status-title">
+                    <span class="status-dot"></span>
+                    <span>システムアーキテクチャ：分散型 & クライアントサイド</span>
+                </div>
+                <p style="margin: 0; font-size: 0.85rem; color: var(--text-color);">
+                    このウェブアプリケーションは、ネットワーク内のESP32マイクロコントローラーを介してローカルに提供されます。お客様の個人情報のサーバーサイドでの収集、恒久的な保存、または利用は行われません。
+                </p>
+            </div>
+
+            <h2>1. ローカルデータ収集 & RAM処理</h2>
+            <p>
+                本アプリケーションとのすべてのインタラクションは、お客様のブラウザ内で完全にクライアントサイドで処理されます。ユーザープロファイルの作成や、トラッキングメカニズム（永続的なCookieなど）の確立は一切行われません。
+            </p>
+
+            <h2>2. センサーアクセス (カメラ / ARスキャナー)</h2>
+            <p>
+                セコードのデコードおよび分析のため、システムはお使いの端末のカメラへのアクセスを要求します。
+            </p>
+            <div class="cyber-alert">
+                <p>// システム情報：ビデオおよび画像周波数は、お使いの端末の揮発い式メモリ（RAM）内でのみローカルに処理されます。画像データやカメラ映像が外部サーバーに送信されることは一切ありません。</p>
+            </div>
+
+            <h2>3. 外部ライブラリ & 周波数 (CDN)</h2>
+            <p>
+                サイバネティックな機能を維持するため、システムは厳選された信頼できる外部リソースを組み込んでいます：
+            </p>
+            <ul>
+                <li>
+                    <span class="highlight">ZXingライブラリ：</span> 物理的なブックページのデータマトリックスパターンをブラウザ内で直接解読するため、unpkg.com経由でロードされます。
+                </li>
+                <li>
+                    <span class="highlight">YouTubeベクトル：</span> ビデオのアクティベーション時に、ビデオファイルをストリーミングするためにGoogle（YouTube）のサーバーへの接続プロトコルが確立されます。この際、接続データ（お客様のIPアドレスなど）が収集される場合があります。
+                </li>
+            </ul>
+
+            <h2>4. データ主体としての権利</h2>
+            <p>
+                GDPR（EU一般データ保護規則）に基づき、お客様には、保存されているお客様の個人データの出所、受領者、目的に関する無償の開示請求権、ならびにこれらのデータの訂正、利用停止、または消去を求める権利があります。
+            </p>
+            <p>
+                ただし、本アプリケーションは完全に閉じたローカル構造として設計されており、**個人情報の永続化や保存を行わない**ため、存在しないデータセットに関する開示請求や削除要請の対象外となります。
+            </p>
+
+            <div class="quote-box">
+                "この動画は、「無」、「存在」、「コード」という概念の哲学的分析および文学的脱構築として機能する。"
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Benachrichtigung -->
+    <div id="toast" class="toast-notification">システム: シグナルをコピーしました。</div>
+
+    <footer>
+        #ARKUSNAT // SECURE_LEGAL_NODE // VERSION 2026.1
+    </footer>
+
+    <script>
+        // Sektor-Scroll-Funktion mit visuellem Feedback
+        function scrollToSector(id) {
+            const target = document.getElementById(id);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Aktualisiere die aktiven Buttons
+                document.querySelectorAll('.sector-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                const btnIndex = id === 'sektor-identitaet' ? 0 : 1;
+                document.querySelectorAll('.sector-btn')[btnIndex].classList.add('active');
+            }
+        }
+
+        // Kopierfunktion für die E-Mail
+        function copyEmail() {
+            const emailText = document.getElementById('email-text').innerText;
+            
+            // Kompatibler Kopiervorgang im Sandbox-Umfeld
+            const tempInput = document.createElement('input');
+            tempInput.value = emailText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Toast-Notification triggern
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Automatische Update-Erkennung beim Scrollen
+        window.addEventListener('scroll', () => {
+            const identitaetRect = document.getElementById('sektor-identitaet').getBoundingClientRect();
+            const datenrechtRect = document.getElementById('sektor-datenrecht').getBoundingClientRect();
+            const buttons = document.querySelectorAll('.sector-btn');
+
+            if (datenrechtRect.top < window.innerHeight / 2) {
+                buttons[0].classList.remove('active');
+                buttons[1].classList.add('active');
+            } else {
+                buttons[1].classList.remove('active');
+                buttons[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,18 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Hauptseite -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+<!-- Hauptseite & Sprachvarianten -->
   <url>
     <loc>https://arkusnat.de/</loc>
-    <lastmod>2026-07-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="de" href="https://arkusnat.de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://arkusnat.de/en/index_en.html" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/index_zh.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/index_ja.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://arkusnat.de/" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <url>
+    <loc>https://arkusnat.de/en/index_en.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://arkusnat.de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://arkusnat.de/en/index_en.html" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/index_zh.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/index_ja.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://arkusnat.de/" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
+  <url>
+    <loc>https://arkusnat.de/zh/index_zh.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://arkusnat.de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://arkusnat.de/en/index_en.html" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/index_zh.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/index_ja.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://arkusnat.de/" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Japanische Startseite -->
+  <url>
+    <loc>https://arkusnat.de/ja/index_ja.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://arkusnat.de/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://arkusnat.de/en/index_en.html" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/index_zh.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/index_ja.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://arkusnat.de/" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>  
+  
+    
+
+  <!-- Buchseiten -->
   <url>
     <loc>https://arkusnat.de/buchseiten/totalschaden_oder_mathematik_buch.html</loc>
     <priority>0.8</priority>
   </url>
- 
+  
   <url>
     <loc>https://arkusnat.de/buchseiten/sammlung_leerer_intelligenz_buch.html</loc>
     <priority>0.8</priority>
@@ -38,10 +85,58 @@
     <priority>0.8</priority>
   </url>
 
-<url>
+  <!-- Autor & Profil -->
+  <url>
     <loc>https://arkusnat.de/f-g-stier/index.html</loc>
     <priority>0.8</priority>
   </url>
+
+  <!-- Rechtliches & Sprachvarianten -->
+  <url>
+    <loc>https://arkusnat.de/impressum_datenschutz.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://arkusnat.de/impressum_datenschutz.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://arkusnat.de/en/impressum_datenschutz_en.html" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/impressum_datenschutz_zh.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/impressum_datenschutz_ja.html" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://arkusnat.de/en/impressum_datenschutz_en.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://arkusnat.de/impressum_datenschutz.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://arkusnat.de/en/impressum_datenschutz_en.html" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/impressum_datenschutz_zh.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/impressum_datenschutz_ja.html" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://arkusnat.de/zh/impressum_datenschutz_zh.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://arkusnat.de/impressum_datenschutz.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://arkusnat.de/en/impressum_datenschutz_en.html" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/impressum_datenschutz_zh.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/impressum_datenschutz_ja.html" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+<!-- Japanisches Impressum -->
+  <url>
+    <loc>https://arkusnat.de/ja/impressum_datenschutz_ja.html</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://arkusnat.de/impressum_datenschutz.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://arkusnat.de/en/impressum_datenschutz_en.html" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/impressum_datenschutz_zh.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/impressum_datenschutz_ja.html" />
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
 
 
 </urlset>
