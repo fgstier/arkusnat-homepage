@@ -96,15 +96,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arkusnat.de/buchseiten/die_hinrichtung_der_kaualitaet_buch.html</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://arkusnat.de/buchseiten/die_quantenluege_buch.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://arkusnat.de/buchseiten/ie_schlaue_dusseline_buch.html</loc>
+    <loc>https://arkusnat.de/buchseiten/die_schlaue_dusseline_buch.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -115,6 +111,13 @@
     <loc>https://arkusnat.de/buchseiten/rattara_buch.html</loc>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://arkusnat.de/buchseiten/die_hinrichtung_der_kausalitaet_buch.html</loc>
+    <lastmod>2026-08-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+
 
   <!-- ============================================================ -->
   <!-- 3. AUTOR & PROFIL                                            -->
