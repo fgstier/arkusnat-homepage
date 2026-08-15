@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>气泡室：轨迹的虚构 // NPI 解构</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyberbg: '#030305',
+            cyberpanel: '#09090f',
+            panelbg: '#09090f',
+            neoncyan: '#00ffcc',
+            neonblue: '#0066ff',
+            neonpink: '#ff0055',
+            mutedgray: '#52526b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          boxShadow: {
+            cyberglow: '0 0 15px rgba(0, 255, 204, 0.25)',
+            cyberpink: '0 0 15px rgba(255, 0, 85, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { 
+      background-color: #030305; 
+      color: #e2e8f0; 
+      font-family: monospace; 
+    }
+    body::before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 999;
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+    .glow-border {
+      box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1), 0 0 10px rgba(0, 255, 204, 0.1);
+      border-color: rgba(0, 255, 204, 0.2);
+      transition: all 0.3s ease;
+    }
+    .glow-border:hover {
+      box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.2), 0 0 20px rgba(0, 255, 204, 0.3);
+      border-color: rgba(0, 255, 204, 0.8);
+    }
+    #bg-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen flex flex-col justify-between relative">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <header class="border-b border-zinc-900 bg-cyberpanel/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index_zh.html" class="flex items-center gap-2 text-xs font-mono text-neoncyan hover:text-white transition-colors">
+        <span>&larr;</span> // 返回主页
+      </a>
+      <div class="hidden md:block text-xs font-mono text-slate-400">
+        STATUS: <span class="text-neoncyan animate-pulse">NPI_ACTIVATED</span>
+      </div>
+      <a href="https://arkusnat.de" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 rounded hover:text-neoncyan transition-all">
+        主页
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12 px-6 py-8 flex-grow w-full relative z-10">
+
+    <section class="bg-panelbg/90 border border-slate-800 rounded-xl p-6 md:p-8 shadow-xl backdrop-blur-sm">
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-xs font-mono text-neonpink tracking-wider">// 量子解构</span>
+            <span class="px-2.5 py-1 bg-neonpink/10 text-neonpink text-xs font-mono rounded border border-neonpink/30">NPI 离散化</span>
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-bold font-mono text-white mb-2 tracking-tight">
+            气泡室：轨迹的虚构
+        </h1>
+        <p class="text-sm font-mono text-neoncyan/80 mb-6">// 作为非局域因果之局域效应的航迹</p>
+
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+            <a href="https://amzn.eu/d/2rTGehY" target="_blank" rel="noopener noreferrer" 
+               title="在亚马逊查看《无时间因果律的原理》"
+               class="group relative w-[250px] h-[250px] flex-shrink-0 mx-auto md:mx-0 rounded-lg overflow-hidden border border-slate-800 transition-all duration-500 hover:border-neoncyan hover:shadow-[0_0_20px_rgba(0,255,204,0.3)] block">
+                <video preload="metadata" loop muted playsinline 
+                       aria-label="作者 F.G. Stier - 无时间因果律的原理"
+                       onmouseenter="this.play()" 
+                       onmouseleave="this.pause()"
+                       class="w-full h-full object-cover filter grayscale contrast-125 opacity-80 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105">
+                    <source src="video/blasenkammer-fiktion-der-bahn.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest opacity-80 group-hover:opacity-100">[ LINK_AMAZON ]</span>
+                        <span class="text-[10px] font-mono text-slate-400 group-hover:text-neoncyan">↗</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-300 group-hover:text-neoncyan transition-colors">
+                        ► HOVER TO ANIMATE
+                    </span>
+                </div>
+            </a>
+
+            <div class="flex-grow pt-1">
+                <p class="text-slate-300 leading-relaxed font-light text-sm md:text-base mb-4">
+                    在气泡室中，文明机器（ZM）的根本困境显露无遗：为了计算粒子动量，它将气泡痕迹视为经典的连续飞行轨迹。然而在理论上，ZM 清楚量子对象根本不具备飞行轨迹。
+                </p>
+                <p class="text-slate-400 leading-relaxed font-light text-xs md:text-sm">
+                    作为一名技术作者，我将文字不可比拟的诱惑力用作造像机器。本项目旨在作为 F.G. Stier 科幻小说虚构背景下，对“无”、“存在”与“代码”概念的哲学分析与文学解构。它用于为无时间因果律这一科学哲学概念奠定逻辑根基。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-panelbg/90 border border-slate-800 rounded-lg p-6 shadow-xl backdrop-blur-sm">
+      <div class="text-xs font-mono text-neonpink tracking-wider mb-2">// ZM 的分裂</div>
+      <h2 class="text-xl font-bold text-white mb-4 border-l-4 border-neonpink pl-3 uppercase">
+        01. 二重性故障：操作实践 vs 量子理论
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed mb-6">
+        文明机器将其自身的物理学分裂为两个不可调和的范式，以解释气泡室实验：
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-slate-700 text-neoncyan uppercase">
+              <th class="p-3">视角</th>
+              <th class="p-3">ZM 主张</th>
+              <th class="p-3">因果矛盾</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            <tr>
+              <td class="p-3 font-bold text-neonpink">1. 操作性认可（工程）</td>
+              <td class="p-3">凝结痕迹被视为飞行动作粒子的经典轨迹。</td>
+              <td class="p-3">通过磁场曲率计算动量所必需。虚构了一个局域化的粒子。</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-neonpink">2. 量子性认可（理论）</td>
+              <td class="p-3">量子对象是非局域的；位置和时间并非单次测量可观测量。</td>
+              <td class="p-3">波函数本应扩散，却生成了清晰的、宏观局域化的痕迹。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote class="mt-4 p-3 bg-slate-950/80 border-l-2 border-neonpink text-xs text-slate-400 italic">
+        “气泡室中的轨迹，是非局域因果在局域产生的效应。”
+      </blockquote>
+    </section>
+
+    <section>
+      <div class="text-xs font-mono text-neoncyan mb-2">// 遥测视频（动画）</div>
+      <h2 class="text-2xl font-bold text-white mb-6 tracking-wide uppercase border-l-4 border-neoncyan pl-3">
+        02. 作用链的 NPI 解构
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>图表_05 // 作用的离散化</span>
+            <span class="text-neonpink font-bold">[气泡节点]</span>
+          </div>
+          <div class="relative aspect-square w-full overflow-hidden rounded border border-slate-700 bg-black">
+            <video src="video/blasenkammer-diskretisierung.mp4" autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none opacity-90"></video>
+          </div>
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>左（ZM 幻觉）：</strong> 对连续飞行的微粒轨迹进行插值。<br>
+            <strong>右（NPI 现实）：</strong> 过热气体中离散且被激活的 NPI 节点地址的快速序列。
+          </p>
+        </div>
+
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>图表_06 // 追溯逻辑</span>
+            <span class="text-neoncyan font-bold">[无时间链]</span>
+          </div>
+          <div class="relative aspect-square w-full overflow-hidden rounded border border-slate-700 bg-black">
+            <video src="video/virtuelle-bahn-retroaktion.mp4" autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none opacity-90"></video>
+          </div>
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>左：</strong> ZM 追溯性地虚拟重构过去的轨迹。<br>
+            <strong>右：</strong> NPI 作用链由起点和显现点在瞬间且无时间地逻辑强制形成。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-panelbg/90 border border-slate-800 rounded-lg p-6 shadow-xl space-y-4 backdrop-blur-sm">
+      <h2 class="text-xl font-bold text-white border-l-4 border-neoncyan pl-3 uppercase">
+        03. NPI 公理系：奠定无时间因果律
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        对于 NPI 而言，不存在飞行的轨迹。气泡室中的痕迹是由 NPI 点阵的结构化作用链所生成的离散事件的无时间总和。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-4">
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-neonpink font-bold mb-1">1. 作为触发器的节点</div>
+          <p class="text-slate-400">没有飞行的粒子发生碰撞；NPI 点阵依次激活介质中的 NPI 节点。</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-slate-200 font-bold mb-1">2. 连续性的幻觉</div>
+          <p class="text-slate-400">ZM 的光学系统将离散的点插值为一条连续的轨迹。</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded border-neoncyan/40">
+          <div class="text-neoncyan font-bold mb-1">3. 无时间逻辑链</div>
+          <p class="text-slate-400">显现点瞬间决定了此前所有地址的完整作用顺序。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+        <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// 出版物与已出版作品</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/das_prinzip_der_zeitlosen_verursachung_vorn.jpg" 
+                         alt="作者 F.G. Stier 无时间因果律的原理" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neoncyan tracking-widest">// 解构与逻辑</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">无时间因果律的原理</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            奠定无时间因果律的科学哲学概念及 NPI 公理。
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neoncyan font-mono text-xs rounded hover:bg-neoncyan hover:text-black transition-all">
+                        在亚马逊查看详情 ↗
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/die_quantenluege_vorn.jpg" 
+                         alt="作者 F.G. Stier 量子谎言" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neonpink tracking-widest">// 系统分析与人工智能</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">量子谎言</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            对显示屏背后人类孤立状态的文学分析，以及对机器智能的解构。
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neonpink font-mono text-xs rounded hover:bg-neonpink hover:text-black transition-all">
+                        在亚马逊查看详情 ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto w-full border-t border-slate-800 mt-12 py-6 text-center text-xs text-slate-500 relative z-10">
+    <p>#ARKUSNAT #fgstier #shorts #scifi #ai #aiart #ki #science</p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    const nodes = [];
+    for (let i = 0; i < 45; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4
+        });
+    }
+    function animateNPI() {
+        ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y, dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 160) {
+                    ctx.strokeStyle = `rgba(0, 255, 204, ${0.15 * (1 - dist / 160)})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+                }
+            }
+        }
+        nodes.forEach(node => {
+            node.x += node.vx; node.y += node.vy;
+            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+            ctx.fillStyle = '#00ffcc';
+            ctx.beginPath(); ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2); ctx.fill();
+        });
+        requestAnimationFrame(animateNPI);
+    }
+    animateNPI();
+  </script>
+
+</body>
+</html>

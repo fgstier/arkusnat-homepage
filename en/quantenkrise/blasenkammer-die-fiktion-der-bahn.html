@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubble Chamber: The Fiction of the Trajectory // NPI Deconstruction</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyberbg: '#030305',
+            cyberpanel: '#09090f',
+            panelbg: '#09090f',
+            neoncyan: '#00ffcc',
+            neonblue: '#0066ff',
+            neonpink: '#ff0055',
+            mutedgray: '#52526b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          boxShadow: {
+            cyberglow: '0 0 15px rgba(0, 255, 204, 0.25)',
+            cyberpink: '0 0 15px rgba(255, 0, 85, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { 
+      background-color: #030305; 
+      color: #e2e8f0; 
+      font-family: monospace; 
+    }
+    body::before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 999;
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+    .glow-border {
+      box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1), 0 0 10px rgba(0, 255, 204, 0.1);
+      border-color: rgba(0, 255, 204, 0.2);
+      transition: all 0.3s ease;
+    }
+    .glow-border:hover {
+      box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.2), 0 0 20px rgba(0, 255, 204, 0.3);
+      border-color: rgba(0, 255, 204, 0.8);
+    }
+    #bg-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen flex flex-col justify-between relative">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <header class="border-b border-zinc-900 bg-cyberpanel/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index_en.html" class="flex items-center gap-2 text-xs font-mono text-neoncyan hover:text-white transition-colors">
+        <span>&larr;</span> // BACK TO OVERVIEW
+      </a>
+      <div class="hidden md:block text-xs font-mono text-slate-400">
+        STATUS: <span class="text-neoncyan animate-pulse">NPI_ACTIVATED</span>
+      </div>
+      <a href="https://arkusnat.de" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 rounded hover:text-neoncyan transition-all">
+        MAIN PAGE
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12 px-6 py-8 flex-grow w-full relative z-10">
+
+    <section class="bg-panelbg/90 border border-slate-800 rounded-xl p-6 md:p-8 shadow-xl backdrop-blur-sm">
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-xs font-mono text-neonpink tracking-wider">// QUANTUM_DECONSTRUCTION</span>
+            <span class="px-2.5 py-1 bg-neonpink/10 text-neonpink text-xs font-mono rounded border border-neonpink/30">NPI Discretization</span>
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-bold font-mono text-white mb-2 tracking-tight">
+            Bubble Chamber: The Fiction of the Trajectory
+        </h1>
+        <p class="text-sm font-mono text-neoncyan/80 mb-6">// The track as a local effect of a non-local cause</p>
+
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+            <a href="https://amzn.eu/d/2rTGehY" target="_blank" rel="noopener noreferrer" 
+               title="The Principle of Timeless Causation on Amazon"
+               class="group relative w-[250px] h-[250px] flex-shrink-0 mx-auto md:mx-0 rounded-lg overflow-hidden border border-slate-800 transition-all duration-500 hover:border-neoncyan hover:shadow-[0_0_20px_rgba(0,255,204,0.3)] block">
+                <video preload="metadata" loop muted playsinline 
+                       aria-label="Author F.G. Stier - The Principle of Timeless Causation"
+                       onmouseenter="this.play()" 
+                       onmouseleave="this.pause()"
+                       class="w-full h-full object-cover filter grayscale contrast-125 opacity-80 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105">
+                    <source src="video/blasenkammer-fiktion-der-bahn.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest opacity-80 group-hover:opacity-100">[ LINK_AMAZON ]</span>
+                        <span class="text-[10px] font-mono text-slate-400 group-hover:text-neoncyan">↗</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-300 group-hover:text-neoncyan transition-colors">
+                        ► HOVER TO ANIMATE
+                    </span>
+                </div>
+            </a>
+
+            <div class="flex-grow pt-1">
+                <p class="text-slate-300 leading-relaxed font-light text-sm md:text-base mb-4">
+                    In the bubble chamber, the fundamental dichotomy of the Civilization Machine (CM) becomes visible: to calculate particle momentum, it treats the bubble track as a classical, continuous trajectory. Theoretically, however, the CM knows that quantum objects do not possess trajectories.
+                </p>
+                <p class="text-slate-400 leading-relaxed font-light text-xs md:text-sm">
+                    As a technical author, I use the inimitable temptation of words as a visual machine. This video serves as a philosophical analysis and literary deconstruction of the concepts "Nothingness", "Existence", and "Code" within the fictional context of the sci-fi novel by F.G. Stier. It serves the logical anchoring of the scientific-philosophical concept of timeless causation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-panelbg/90 border border-slate-800 rounded-lg p-6 shadow-xl backdrop-blur-sm">
+      <div class="text-xs font-mono text-neonpink tracking-wider mb-2">// CM_SPLIT</div>
+      <h2 class="text-xl font-bold text-white mb-4 border-l-4 border-neonpink pl-3 uppercase">
+        01. The Duality Glitch: Operational Practice vs. Quantum Theory
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed mb-6">
+        The Civilization Machine splits its own physics into two incompatible paradigms to interpret the bubble chamber experiment:
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-slate-700 text-neoncyan uppercase">
+              <th class="p-3">Perspective</th>
+              <th class="p-3">CM Claim</th>
+              <th class="p-3">Causal Contradiction</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            <tr>
+              <td class="p-3 font-bold text-neonpink">1. Operational Recognition (Engineering)</td>
+              <td class="p-3">The condensation trail is treated as a classical trajectory of a flying corpuscle.</td>
+              <td class="p-3">Necessary for calculating momentum via curvature in a magnetic field. Invents a localized particle.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-neonpink">2. Quantum Recognition (Theory)</td>
+              <td class="p-3">Quantum objects are non-local; position and time are not single-measurement observables.</td>
+              <td class="p-3">The wave function ought to spread, yet produces a sharp, macroscopically localized track.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote class="mt-4 p-3 bg-slate-950/80 border-l-2 border-neonpink text-xs text-slate-400 italic">
+        "The track in the bubble chamber is the local effect of a non-local cause."
+      </blockquote>
+    </section>
+
+    <section>
+      <div class="text-xs font-mono text-neoncyan mb-2">// TELEMETRY_VIDEOS (ANIMATIONS)</div>
+      <h2 class="text-2xl font-bold text-white mb-6 tracking-wide uppercase border-l-4 border-neoncyan pl-3">
+        02. NPI Deconstruction of the Causal Chain
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>DIAGRAM_05 // DISCRETIZATION_OF_ACTION</span>
+            <span class="text-neonpink font-bold">[BUBBLE-NODES]</span>
+          </div>
+          <div class="relative aspect-square w-full overflow-hidden rounded border border-slate-700 bg-black">
+            <video src="video/blasenkammer-diskretisierung.mp4" autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none opacity-90"></video>
+          </div>
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>Left (CM Illusion):</strong> Interpolation of a continuous, flying corpuscular trajectory.<br>
+            <strong>Right (NPI Reality):</strong> Rapid sequence of discrete, activated NPI node addresses in the superheated gas.
+          </p>
+        </div>
+
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>DIAGRAM_06 // RETROACTIVE_LOGIC</span>
+            <span class="text-neoncyan font-bold">[TIMELESS_CHAIN]</span>
+          </div>
+          <div class="relative aspect-square w-full overflow-hidden rounded border border-slate-700 bg-black">
+            <video src="video/virtuelle-bahn-retroaktion.mp4" autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none opacity-90"></video>
+          </div>
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>Left:</strong> CM retroactively reconstructs virtual past trajectories.<br>
+            <strong>Right:</strong> The NPI action chain is logically compelled instantaneously and timelessly by start and manifestation points.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-panelbg/90 border border-slate-800 rounded-lg p-6 shadow-xl space-y-4 backdrop-blur-sm">
+      <h2 class="text-xl font-bold text-white border-l-4 border-neoncyan pl-3 uppercase">
+        03. NPI Axiomatics: Anchoring Timeless Causation
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        For NPI, no flying trajectory exists. The track in the bubble chamber is the timeless sum of discrete events generated by the structured causal chain of the NPI lattice.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-4">
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-neonpink font-bold mb-1">1. NODES AS TRIGGERS</div>
+          <p class="text-slate-400">No flying particle collides; the NPI lattice sequentially activates NPI nodes within the medium.</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-slate-200 font-bold mb-1">2. ILLUSION OF CONTINUITY</div>
+          <p class="text-slate-400">The optics of the CM interpolate discrete points into a continuous trajectory.</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded border-neoncyan/40">
+          <div class="text-neoncyan font-bold mb-1">3. TIMELESS LOGIC CHAIN</div>
+          <p class="text-slate-400">The point of manifestation instantaneously dictates the entire causal sequence of preceding addresses.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+        <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// PUBLICATIONS & PUBLISHED WORKS</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/das_prinzip_der_zeitlosen_verursachung_vorn.jpg" 
+                         alt="Author F.G. Stier The Principle of Timeless Causation" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neoncyan tracking-widest">// DECONSTRUCTION & LOGIC</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">The Principle of Timeless Causation</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            Anchoring the scientific-philosophical concept of timeless causation and NPI axioms.
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neoncyan font-mono text-xs rounded hover:bg-neoncyan hover:text-black transition-all">
+                        AMAZON DETAILS ↗
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/die_quantenluege_vorn.jpg" 
+                         alt="Author F.G. Stier The Quantum Lie" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neonpink tracking-widest">// SYSTEM-ANALYSIS & AI</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">The Quantum Lie</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            A literary analysis of human isolation behind the display and the deconstruction of machine intelligence.
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neonpink font-mono text-xs rounded hover:bg-neonpink hover:text-black transition-all">
+                        AMAZON DETAILS ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto w-full border-t border-slate-800 mt-12 py-6 text-center text-xs text-slate-500 relative z-10">
+    <p>#ARKUSNAT #fgstier #shorts #scifi #ai #aiart #ki #science</p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    const nodes = [];
+    for (let i = 0; i < 45; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4
+        });
+    }
+    function animateNPI() {
+        ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y, dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 160) {
+                    ctx.strokeStyle = `rgba(0, 255, 204, ${0.15 * (1 - dist / 160)})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+                }
+            }
+        }
+        nodes.forEach(node => {
+            node.x += node.vx; node.y += node.vy;
+            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+            ctx.fillStyle = '#00ffcc';
+            ctx.beginPath(); ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2); ctx.fill();
+        });
+        requestAnimationFrame(animateNPI);
+    }
+    animateNPI();
+  </script>
+
+</body>
+</html>

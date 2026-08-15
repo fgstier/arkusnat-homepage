@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>量子谎言 // 主题 1：NPI 公理</title>
+    
+    <!-- Tailwind CSS & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberbg: '#030305',
+                        cyberpanel: '#09090f',
+                        neoncyan: '#00ffcc',
+                        neonblue: '#0066ff',
+                        neonpink: '#ff0055',
+                        mutedgray: '#52526b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    boxShadow: {
+                        cyberglow: '0 0 15px rgba(0, 255, 204, 0.25)',
+                        cyberpink: '0 0 15px rgba(255, 0, 85, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .glow-border {
+            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1), 0 0 10px rgba(0, 255, 204, 0.1);
+            border-color: rgba(0, 255, 204, 0.2);
+            transition: all 0.3s ease;
+        }
+        .glow-border:hover {
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.2), 0 0 20px rgba(0, 255, 204, 0.3);
+            border-color: rgba(0, 255, 204, 0.8);
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <header class="border-b border-zinc-900 bg-cyberpanel/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      
+      <a href="index_zh.html" class="flex items-center gap-2 text-xs font-mono text-neoncyan hover:text-white transition-colors">
+        <span>&larr;</span> // 返回主页概览
+      </a>
+
+      <div class="hidden md:block text-xs font-mono text-slate-400">
+        状态：<span class="text-neoncyan animate-pulse">01 扇区 NPI 已激活</span>
+      </div>
+
+      <a href="https://arkusnat.de" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 rounded hover:text-neoncyan transition-all">
+        主页
+      </a>
+
+    </div>
+  </header>
+  
+    <main class="max-w-5xl mx-auto px-6 py-12 flex-grow space-y-12">
+
+        <section class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 md:p-8 glow-border">
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+                
+                <div class="flex-grow">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// 协议_公理</span>
+                        <span class="px-2.5 py-1 bg-neoncyan/10 text-neoncyan text-xs font-mono rounded border border-neoncyan/30">公理体系</span>
+                    </div>
+                    
+                    <h1 class="text-3xl md:text-5xl font-bold font-mono text-white mb-4 tracking-tight">
+                        无时间因果律原理
+                    </h1>
+                    <p class="text-sm font-mono text-neoncyan/80 mb-6">// NPI 公理 (non potest intelligi)</p>
+                    <p class="text-slate-300 leading-relaxed font-light text-sm md:text-base">
+                        当实验装置构建完成时，结果便已被预先确定。无论采取何种行动：每条路径、每个位置都已获得了它的归宿。看似在运动的物象，不过是真空之下超越时间的底层结构所呈现的结果。
+                    </p>
+                </div>
+
+                <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                   title="在 Amazon 查看《无时间因果律原理》"
+                   class="group relative w-[250px] h-[250px] flex-shrink-0 mx-auto md:mx-0 rounded-lg overflow-hidden border border-zinc-800 transition-all duration-500 hover:border-neoncyan hover:shadow-cyberglow block">
+                    
+                    <video preload="metadata" loop muted playsinline 
+                           aria-label="作者 F.G. Stier - 无时间因果律原理"
+                           onmouseenter="this.play()" 
+                           onmouseleave="this.pause()"
+                           class="w-full h-full object-cover filter grayscale contrast-125 opacity-80 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105">
+                        <source src="video/die-npi-axiome.mp4" type="video/mp4">
+                    </video>
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-mono text-neoncyan tracking-widest opacity-80 group-hover:opacity-100">[ LINK_AMAZON ]</span>
+                            <span class="text-[10px] font-mono text-zinc-400 group-hover:text-neoncyan">↗</span>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-300 group-hover:text-neoncyan transition-colors">
+                            ► HOVER TO ANIMATE
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <section class="p-6 bg-black/60 border-l-4 border-neoncyan rounded-r-xl font-mono text-xs md:text-sm text-slate-300 space-y-2">
+            <div class="text-neoncyan font-bold tracking-wider">// 定义：NPI（不可理解的非物理信息）</div>
+            <p class="leading-relaxed">
+                <strong>非物理信息（NPI）</strong>是真空之下现实的必然存在且概念上无法直接捕捉的底层结构。真空本身即是 NPI 的首个逻辑体现。空间与世俗的时间网格仅仅是次级副产品，用以实现特征结构的时间性体现。
+            </p>
+        </section>
+
+        <section class="space-y-6">
+            <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// 三大假设</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Postulate 1 -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono text-neonpink font-bold">// 假设 01</span>
+                        <h3 class="text-lg font-bold font-mono text-white mt-2 mb-4">特征结构的位置独立性</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed font-light">
+                            基本粒子并非具有因果轨迹的粒子，而是 NPI 的位置独立、纯粹的特征结构。经典轨迹并不存在；它仅仅是测量产生的时间性构建物。
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-mutedgray">
+                        [ 再现：瞬时 ]
+                    </div>
+                </div>
+
+                <!-- Postulate 2 -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono text-neonpink font-bold">// 假设 02</span>
+                        <h3 class="text-lg font-bold font-mono text-white mt-2 mb-4">结构等效性</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed font-light">
+                            基本粒子的同一性由 NPI 结构的绝对等同所决定。原始的特征图景消失，并在时空中的另一个点超越时间地重新体现。
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-mutedgray">
+                        [ 运动：过时 ]
+                    </div>
+                </div>
+
+                <!-- Postulate 3 -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono text-neonpink font-bold">// 假设 03</span>
+                        <h3 class="text-lg font-bold font-mono text-white mt-2 mb-4">无时间因果律</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed font-light">
+                            所有特征形成的因果与逻辑锚点均位于 NPI 中，它静止且同时存在于整个系统中。无限快速的重新形成制造了时间向前推移效果的幻象。
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-mutedgray">
+                        [ 幻象：时间流逝 ]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 md:p-8 glow-border">
+            <h3 class="text-lg font-mono font-bold text-neoncyan mb-4">// 结构力学隐喻：水波</h3>
+            <p class="text-sm text-slate-300 leading-relaxed font-light mb-4">
+                当水波向前推进时，并没有水分子被运输；水体积仅仅是在原地起伏。传播的只是力作用的某种扰动。同理，在真空中并没有粒子在飞行。
+            </p>
+            <p class="text-sm text-slate-300 leading-relaxed font-light">
+                光子是特征结构的传递以及作用的时间化体现。真正的驱动力深植于 NPI 之中。
+            </p>
+        </section>
+
+        <section class="space-y-6">
+            <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// 出版物与已发表作品</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Book 1 -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center">
+                    <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                        <img src="bilder/das_prinzip_der_zeitlosen_verursachung_vorn.jpg" 
+                             alt="作者 F.G. Stier 无时间因果律原理" 
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                        <div>
+                            <span class="text-[10px] font-mono text-neoncyan tracking-widest">// 解构与逻辑</span>
+                            <h3 class="text-lg font-mono font-bold text-white mt-1">无时间因果律原理</h3>
+                            <p class="text-xs text-slate-400 mt-2 font-light">
+                                奠定无时间因果律及 NPI 公理的科学哲学概念。
+                            </p>
+                        </div>
+                        <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                           class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neoncyan font-mono text-xs rounded hover:bg-neoncyan hover:text-black transition-all">
+                            AMAZON 详情 ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center">
+                    <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                        <img src="bilder/die_quantenluege_vorn.jpg" 
+                             alt="作者 F.G. Stier 量子谎言" 
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                        <div>
+                            <span class="text-[10px] font-mono text-neonpink tracking-widest">// 系统分析与 AI</span>
+                            <h3 class="text-lg font-mono font-bold text-white mt-1">量子谎言</h3>
+                            <p class="text-xs text-slate-400 mt-2 font-light">
+                                对屏幕背后人类孤独感的文学分析及对机器智能的解构。
+                            </p>
+                        </div>
+                        <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+                           class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neonpink font-mono text-xs rounded hover:bg-neonpink hover:text-black transition-all">
+                            AMAZON 详情 ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-zinc-900 bg-cyberpanel/50 py-8 text-center font-mono text-xs text-zinc-500">
+        <p class="mb-2">Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine.</p>
+        <p>&copy; F.G. Stier — 量子谎言。系统矩阵运行中。</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const nodes = [];
+        const nodeCount = 45;
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                alpha: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        function animateNPI() {
+            ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 160) {
+                        ctx.strokeStyle = `rgba(0, 255, 204, ${0.15 * (1 - dist / 160)})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            nodes.forEach(node => {
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+                ctx.fillStyle = '#00ffcc';
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateNPI);
+        }
+
+        animateNPI();
+    </script>
+</body>
+</html>

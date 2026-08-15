@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Die Quantenlüge // Thema 1: NPI-Axiome</title>
+    
+    <!-- Tailwind CSS & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberbg: '#030305',
+                        cyberpanel: '#09090f',
+                        neoncyan: '#00ffcc',
+                        neonblue: '#0066ff',
+                        neonpink: '#ff0055',
+                        mutedgray: '#52526b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    boxShadow: {
+                        cyberglow: '0 0 15px rgba(0, 255, 204, 0.25)',
+                        cyberpink: '0 0 15px rgba(255, 0, 85, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Cyber-Scanlines Effekt */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .glow-border {
+            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1), 0 0 10px rgba(0, 255, 204, 0.1);
+            border-color: rgba(0, 255, 204, 0.2);
+            transition: all 0.3s ease;
+        }
+        .glow-border:hover {
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.2), 0 0 20px rgba(0, 255, 204, 0.3);
+            border-color: rgba(0, 255, 204, 0.8);
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+  <!-- Hintergrund Quanten-Feld Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- KONSOLIDIERTER HEADER / NAVIGATION -->
+  <header class="border-b border-zinc-900 bg-cyberpanel/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      
+      <!-- Link zurück zur Hauptübersicht -->
+      <a href="index.html" class="flex items-center gap-2 text-xs font-mono text-neoncyan hover:text-white transition-colors">
+        <span>&larr;</span> // ZURÜCK ZUR HAUPTÜBERSICHT
+      </a>
+
+      <!-- Status-Anzeige (Mitte) -->
+      <div class="hidden md:block text-xs font-mono text-slate-400">
+        STATUS: <span class="text-neoncyan animate-pulse">SEKTOR_01 NPI_AKTIVIERT</span>
+      </div>
+
+      <!-- Externer Link zur Hauptseite -->
+      <a href="https://arkusnat.de" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 rounded hover:text-neoncyan transition-all">
+        HAUPTSEITE
+      </a>
+
+    </div>
+  </header>
+  
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-6 py-12 flex-grow space-y-12">
+
+        <!-- Title Banner mit eingebettetem 250x250 Video -->
+        <section class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 md:p-8 glow-border">
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+                
+                <!-- Haupttext-Bereich -->
+                <div class="flex-grow">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-mono text-neoncyan tracking-wider">// PROTOKOLL_POSTULATE</span>
+                        <span class="px-2.5 py-1 bg-neoncyan/10 text-neoncyan text-xs font-mono rounded border border-neoncyan/30">Axiomatik</span>
+                    </div>
+                    
+                    <h1 class="text-3xl md:text-5xl font-bold font-mono text-white mb-4 tracking-tight">
+                        Prinzip der zeitlosen Verursachung
+                    </h1>
+                    <p class="text-sm font-mono text-neoncyan/80 mb-6">// Die NPI-Axiome (non potest intelligi)</p>
+                    <p class="text-slate-300 leading-relaxed font-light text-sm md:text-base">
+                        Nach dem Aufbau eines Experiments ist das Ergebnis bereits fest vorfixiert. Egal was man unternimmt: Jeder Weg und jeder Ort hat seine Bestimmung erhalten. Was bewegt zu sein scheint, ist lediglich das Resultat zeitlos vorhandener Basisstrukturen unterhalb des Vakuums.
+                    </p>
+                </div>
+
+                <!-- 250x250 Quadrat Video-Element -->
+                <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                   title="Das Prinzip der zeitlosen Verursachung bei Amazon"
+                   class="group relative w-[250px] h-[250px] flex-shrink-0 mx-auto md:mx-0 rounded-lg overflow-hidden border border-zinc-800 transition-all duration-500 hover:border-neoncyan hover:shadow-cyberglow block">
+                    
+                    <video preload="metadata" loop muted playsinline 
+                           aria-label="Autor  F.G. Stier - Das Prinzip der zeitlosen Verursachung"
+                           onmouseenter="this.play()" 
+                           onmouseleave="this.pause()"
+                           class="w-full h-full object-cover filter grayscale contrast-125 opacity-80 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105">
+                        <source src="video/die-npi-axiome.mp4" type="video/mp4">
+                    </video>
+                    
+                    <!-- Hover-Overlay Info -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-mono text-neoncyan tracking-widest opacity-80 group-hover:opacity-100">[ LINK_AMAZON ]</span>
+                            <span class="text-[10px] font-mono text-zinc-400 group-hover:text-neoncyan">↗</span>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-300 group-hover:text-neoncyan transition-colors">
+                            ► HOVER TO ANIMATE
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Definition Box -->
+        <section class="p-6 bg-black/60 border-l-4 border-neoncyan rounded-r-xl font-mono text-xs md:text-sm text-slate-300 space-y-2">
+            <div class="text-neoncyan font-bold tracking-wider">// DEFINITION: NPI (non potest intelligi)</div>
+            <p class="leading-relaxed">
+                Die <strong>Nicht-Physikalische Information (NPI)</strong> ist die logisch zwingende, aber konzeptionell nicht erfassbare Basisstruktur der Realität unterhalb des Vakuums. Das Vakuum selbst ist die erste logische Ausprägung des NPI. Raum und das weltliche Zeitraster sind erst das sekundäre Nebenprodukt, um eine temporale Manifestation von Eigenschaftsstrukturen zu ermöglichen.
+            </p>
+        </section>
+
+        <!-- Axiome Grid -->
+        <section class="space-y-6">
+            <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// DIE DREI POSTULATE</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Postulat 1 -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono text-neonpink font-bold">// POSTULAT 01</span>
+                        <h3 class="text-lg font-bold font-mono text-white mt-2 mb-4">Ortsunabhängigkeit der Eigenschaftsstruktur</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed font-light">
+                            Elementarteilchen sind keine Teilchen mit kausaler Bahn, sondern ortsunabhängige, reine Eigenschaftsstrukturen des NPI. Die klassische Bahn existiert nicht; sie ist lediglich das temporale Konstrukt der Messung.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-mutedgray">
+                        [ REPRODUKTION: INSTANTAN ]
+                    </div>
+                </div>
+
+                <!-- Postulat 2 -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono text-neonpink font-bold">// POSTULAT 02</span>
+                        <h3 class="text-lg font-bold font-mono text-white mt-2 mb-4">Strukturelle Äquivalenz</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed font-light">
+                            Die Identität eines Elementarteilchens wird durch absolute Gleichheit der NPI-Struktur bestimmt. Das ursprüngliche Eigenschaftsbild verschwindet und wird zeitlos von einem Punkt der Raumzeit zu einem anderen neu manifestiert.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-mutedgray">
+                        [ BEWEGUNG: OBSOLET ]
+                    </div>
+                </div>
+
+                <!-- Postulat 3 -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono text-neonpink font-bold">// POSTULAT 03</span>
+                        <h3 class="text-lg font-bold font-mono text-white mt-2 mb-4">Zeitlose Kausalität</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed font-light">
+                            Ursache und Logischer Anker aller Eigenschaftsbildung liegen im NPI, welches unbewegt im gesamten System gleichzeitig präsent ist. Die unendlich schnelle Neubildung erzeugt die Illusion einer zeitlich voranschreitenden Wirkung.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-zinc-900 text-[10px] font-mono text-mutedgray">
+                        [ ILLUSION: ZEITVERLAUF ]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modell-Metapher -->
+        <section class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 md:p-8 glow-border">
+            <h3 class="text-lg font-mono font-bold text-neoncyan mb-4">// STRUKTUR-MECHANISCHE METAPHER: DIE WASSERWELLE</h3>
+            <p class="text-sm text-slate-300 leading-relaxed font-light mb-4">
+                Beim Fortschreiten einer Wasserfront werden keine Wasserteilchen transportiert; das Wasservolumen hebt und senkt sich lediglich am Ort. Was wandert, ist eine Störung der Kraftwirkung. Analog fliegt im Vakuum kein Teilchen.
+            </p>
+            <p class="text-sm text-slate-300 leading-relaxed font-light">
+                Ein Photon ist die Vermittlung einer Struktureigenschaft mit Verzeitlichung der Wirkung. Der eigentliche Antrieb liegt tief im NPI verankert.
+            </p>
+        </section>
+
+        <!-- Buch-Cover Sektor -->
+        <section class="space-y-6">
+            <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// PUBLIKATIONEN & PUBLIZIERTE WERKE</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Buch 1: Das Prinzip der zeitlosen Verursachung -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center">
+                    <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                        <img src="bilder/das_prinzip_der_zeitlosen_verursachung_vorn.jpg" 
+                             alt="Autor F.G. Stier Das Prinzip der zeitlosen Verursachung" 
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                        <div>
+                            <span class="text-[10px] font-mono text-neoncyan tracking-widest">// DEKONSTRUKTION & LOGIK</span>
+                            <h3 class="text-lg font-mono font-bold text-white mt-1">Das Prinzip der zeitlosen Verursachung</h3>
+                            <p class="text-xs text-slate-400 mt-2 font-light">
+                                Verankerung des wissenschaftlich-philosophischen Konzepts der zeitlosen Verursachung und der NPI-Axiome.
+                            </p>
+                        </div>
+                        <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                           class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neoncyan font-mono text-xs rounded hover:bg-neoncyan hover:text-black transition-all">
+                            AMAZON DETAILS ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Buch 2: Die schlaue Dusseline -->
+                <div class="bg-cyberpanel border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center">
+                    <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                        <img src="bilder/die_quantenluege_vorn.jpg" 
+                             alt="Autor F.G. Stier Die Quantenlüge" 
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                        <div>
+                            <span class="text-[10px] font-mono text-neonpink tracking-widest">// SYSTEM-ANALYSIS & KI</span>
+                            <h3 class="text-lg font-mono font-bold text-white mt-1">Die Quantenlüge</h3>
+                            <p class="text-xs text-slate-400 mt-2 font-light">
+                                Eine literarische Analyse der Isolation des Menschen hinter dem Display und die Dekonstruktion der Maschinen-Intelligenz.
+                            </p>
+                        </div>
+                        <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+                           class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neonpink font-mono text-xs rounded hover:bg-neonpink hover:text-black transition-all">
+                            AMAZON DETAILS ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-900 bg-cyberpanel/50 py-8 text-center font-mono text-xs text-zinc-500">
+        <p class="mb-2">Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine.</p>
+        <p>&copy; F.G. Stier — Die Quantenlüge. System-Matrix aktiv.</p>
+    </footer>
+
+    <!-- Interaktive NPI-Quanten-Animation (Canvas Script) -->
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const nodes = [];
+        const nodeCount = 45;
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                alpha: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        function animateNPI() {
+            ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 160) {
+                        ctx.strokeStyle = `rgba(0, 255, 204, ${0.15 * (1 - dist / 160)})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            nodes.forEach(node => {
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+                ctx.fillStyle = '#00ffcc';
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateNPI);
+        }
+
+        animateNPI();
+    </script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>单极悖论 // NPI解构</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyberbg: '#030305',
+            cyberpanel: '#09090f',
+            panelbg: '#09090f',
+            neoncyan: '#00ffcc',
+            neonblue: '#0066ff',
+            neonpink: '#ff0055',
+            mutedgray: '#52526b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          boxShadow: {
+            cyberglow: '0 0 15px rgba(0, 255, 204, 0.25)',
+            cyberpink: '0 0 15px rgba(255, 0, 85, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { 
+      background-color: #030305; 
+      color: #e2e8f0; 
+      font-family: monospace; 
+    }
+  
+    /* CRT Scanline Effect */
+    body::before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 999;
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+
+    .glow-border {
+      box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1), 0 0 10px rgba(0, 255, 204, 0.1);
+      border-color: rgba(0, 255, 204, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .glow-border:hover {
+      box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.2), 0 0 20px rgba(0, 255, 204, 0.3);
+      border-color: rgba(0, 255, 204, 0.8);
+    }
+
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen flex flex-col justify-between relative">
+
+  <!-- Background Quantum Field Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- CONSOLIDATED HEADER / NAVIGATION -->
+  <header class="border-b border-zinc-900 bg-cyberpanel/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      
+      <!-- Link back to main overview -->
+      <a href="index_zh.html" class="flex items-center gap-2 text-xs font-mono text-neoncyan hover:text-white transition-colors">
+        <span>&larr;</span> // 返回总览
+      </a>
+
+      <!-- Status Indicator (Middle) -->
+      <div class="hidden md:block text-xs font-mono text-slate-400">
+        状态: <span class="text-neoncyan animate-pulse">NPI_已激活</span>
+      </div>
+
+      <!-- External Link to Main Site -->
+      <a href="https://arkusnat.de" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 rounded hover:text-neoncyan transition-all">
+        主页
+      </a>
+
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12 px-6 py-8 flex-grow w-full relative z-10">
+
+    <!-- Title & Media Section Banner -->
+    <section class="bg-panelbg/90 border border-slate-800 rounded-xl p-6 md:p-8 shadow-xl backdrop-blur-sm">
+        
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-xs font-mono text-neonpink tracking-wider">// UNIPOLAR_PARADOX</span>
+            <span class="px-2.5 py-1 bg-neonpink/10 text-neonpink text-xs font-mono rounded border border-neonpink/30">法拉第发电机</span>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-3xl md:text-5xl font-bold font-mono text-white mb-2 tracking-tight">
+            单极悖论
+        </h1>
+        <p class="text-sm font-mono text-neoncyan/80 mb-6">// 磁场是否随之旋转？</p>
+
+        <!-- Layout: Video left, Text right -->
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+            
+            <!-- 250x250 Square Video Element (Hover to Animate) -->
+            <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+               title="亚马逊上的《Die Quantenlüge》"
+               class="group relative w-[250px] h-[250px] flex-shrink-0 mx-auto md:mx-0 rounded-lg overflow-hidden border border-slate-800 transition-all duration-500 hover:border-neoncyan hover:shadow-[0_0_20px_rgba(0,255,204,0.3)] block">
+                
+                <video preload="metadata" loop muted playsinline 
+                       aria-label="作者 F.G. Stier - Das Prinzip der zeitlosen Verursachung"
+                       onmouseenter="this.play()" 
+                       onmouseleave="this.pause()"
+                       class="w-full h-full object-cover filter grayscale contrast-125 opacity-80 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105">
+                    <source src="video/das-unipolar-paradoxon.mp4" type="video/mp4">
+                </video>
+                
+                <!-- Hover Overlay Info -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest opacity-80 group-hover:opacity-100">[ LINK_AMAZON ]</span>
+                        <span class="text-[10px] font-mono text-slate-400 group-hover:text-neoncyan">↗</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-300 group-hover:text-neoncyan transition-colors">
+                        ► HOVER TO ANIMATE
+                    </span>
+                </div>
+            </a>
+
+            <!-- Text Area Right of Video -->
+            <div class="flex-grow pt-1">
+                <p class="text-slate-300 leading-relaxed font-light text-sm md:text-base mb-4">
+                    在单极发电机（法拉第圆盘）中，文明机器（ZM）陷入了一个根本性的逻辑困境：磁场是随永磁体一同旋转，还是固定悬浮在空间中？
+                </p>
+                <p class="text-slate-400 leading-relaxed font-light text-xs md:text-sm">
+                    Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine. Dieses Video dient als philosophische Analyse und literarische Dekonstruktion der Begriffe "Nichts", "Existenz" und "Code" im fiktionalen Kontext des Sci-Fi-Romans von F.G. Stier. Es dient der logischen Verankerung des wissenschaftlich-philosophischen Konzepts der zeitlosen Verursachung.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 2: VISUAL VIDEO DECONSTRUCTION -->
+    <section>
+      <div class="text-xs font-mono text-neoncyan mb-2">// 遥测视频 (C#-GENERATED LOOPS)</div>
+      <h2 class="text-2xl font-bold text-white mb-6 tracking-wide uppercase border-l-4 border-neoncyan pl-3">
+        02. 视觉场模拟
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- VIDEO CARD 1: UNIPOLAR PARADOX -->
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>图表_03 // 单极悖论</span>
+            <span class="text-neonpink font-bold">[ZM双重性]</span>
+          </div>
+          
+          <div class="relative aspect-square w-full overflow-hidden rounded border border-slate-700 bg-black">
+            <video 
+              src="video/unipolar-paradox.mp4" 
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              class="w-full h-full object-cover pointer-events-none opacity-90">
+            </video>
+          </div>
+
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>左：</strong> ZM 纠结于共转磁力线与静止磁力线之间。<br>
+            <strong>右：</strong> NPI 公理：磁场是无时间性刚性的。只有物质在网格中运动。
+          </p>
+        </div>
+
+        <!-- VIDEO CARD 2: WEBER VS LORENTZ -->
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>图表_04 // 韦伯力 (1846)</span>
+            <span class="text-neoncyan font-bold">[NPI历史]</span>
+          </div>
+          
+          <div class="relative aspect-square w-full overflow-hidden rounded border border-slate-700 bg-black">
+            <video 
+              src="video/weber-vs-lorentz.mp4" 
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              class="w-full h-full object-cover pointer-events-none opacity-90">
+            </video>
+          </div>
+
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>左：</strong> 麦克斯韦的弯曲 3D 向量 ($v \times B$)。<br>
+            <strong>右：</strong> 电荷之间的韦伯直接中心力。严格满足 $Actio = Reactio$，无需磁场绕道。
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: THE WEBER APPROACH -->
+    <section class="bg-panelbg/90 border border-slate-800 rounded-lg p-6 shadow-xl space-y-4 backdrop-blur-sm">
+      <h2 class="text-xl font-bold text-white border-l-4 border-neoncyan pl-3 uppercase">
+        03. 韦伯方法 (1846) – ZM 体系中的叛徒
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        威廉·爱德华·韦伯（1846年）的方法是麦克斯韦方程组的历史性替代方案。韦伯证明了磁性不需要抽象的磁场，而是电荷之间依赖于速度和加速度的中心力的直接结果。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-4">
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-neonpink font-bold mb-1">ZM 麦克斯韦逻辑</div>
+          <p class="text-slate-400">磁性是一种纠缠力（洛伦兹），作用方向垂直于运动和磁场。</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-slate-200 font-bold mb-1">韦伯模型 (1846)</div>
+          <p class="text-slate-400">磁性是电荷相对速度的直接结果。因果关系保持在中心。</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded border-neoncyan/40">
+          <div class="text-neoncyan font-bold mb-1">NPI 公理</div>
+          <p class="text-slate-400">磁性是 NPI 网格中无时间性的静态秩序。不需要磁场旋转。</p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-900/50 border-l-2 border-neoncyan text-xs text-slate-300 space-y-2 mt-4">
+        <div class="font-bold text-white uppercase">// 为什么 ZM 打压了韦伯：</div>
+        <ul class="list-disc list-inside space-y-1 text-slate-400">
+          <li><strong>瞬时相互作用：</strong> 韦伯公式意味着无时间性的超距作用。这打破了光速 $c$ 的 ZM 公理。</li>
+          <li><strong>无磁场：</strong> 缺乏抽象磁场打破了 ZM 场论的根基。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Book Cover Sector -->
+    <section class="space-y-6">
+        <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// 出版物与已发表作品</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Book 1: Das Prinzip der zeitlosen Verursachung -->
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/das_prinzip_der_zeitlosen_verursachung_vorn.jpg" 
+                         alt="作者 F.G. Stier Das Prinzip der zeitlosen Verursachung" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neoncyan tracking-widest">// 解构与逻辑</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">Das Prinzip der zeitlosen Verursachung</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            锚定无时间性因果关系与 NPI 公理的科学哲学概念。
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neoncyan font-mono text-xs rounded hover:bg-neoncyan hover:text-black transition-all">
+                        亚马逊详情 ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 2: Die Quantenlüge -->
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/die_quantenluege_vorn.jpg" 
+                         alt="作者 F.G. Stier Die Quantenlüge" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neonpink tracking-widest">// 系统分析与人工智能</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">Die Quantenlüge</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            对屏幕背后人类孤立状态的文学分析以及对机器智能的解构。
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neonpink font-mono text-xs rounded hover:bg-neonpink hover:text-black transition-all">
+                        亚马逊详情 ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="max-w-6xl mx-auto w-full border-t border-slate-800 mt-12 py-6 text-center text-xs text-slate-500 relative z-10">
+    <p>#ARKUSNAT #fgstier #shorts #scifi #ai #aiart #ki #science</p>
+  </footer>
+
+  <!-- Interactive NPI Quantum Animation (Canvas Script) -->
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const nodes = [];
+    const nodeCount = 45;
+
+    for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            alpha: Math.random() * 0.5 + 0.2
+        });
+    }
+
+    function animateNPI() {
+        ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 160) {
+                    ctx.strokeStyle = `rgba(0, 255, 204, ${0.15 * (1 - dist / 160)})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        nodes.forEach(node => {
+            node.x += node.vx;
+            node.y += node.vy;
+
+            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+            ctx.fillStyle = '#00ffcc';
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        requestAnimationFrame(animateNPI);
+    }
+
+    animateNPI();
+  </script>
+
+</body>
+</html>

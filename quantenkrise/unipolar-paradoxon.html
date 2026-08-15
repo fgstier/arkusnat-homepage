@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unipolar-Paradoxon // NPI-Dekonstruktion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyberbg: '#030305',
+            cyberpanel: '#09090f',
+            panelbg: '#09090f',
+            neoncyan: '#00ffcc',
+            neonblue: '#0066ff',
+            neonpink: '#ff0055',
+            mutedgray: '#52526b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          boxShadow: {
+            cyberglow: '0 0 15px rgba(0, 255, 204, 0.25)',
+            cyberpink: '0 0 15px rgba(255, 0, 85, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { 
+      background-color: #030305; 
+      color: #e2e8f0; 
+      font-family: monospace; 
+    }
+  
+    /* CRT Scanline Effekt */
+    body::before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 999;
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+
+    .glow-border {
+      box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1), 0 0 10px rgba(0, 255, 204, 0.1);
+      border-color: rgba(0, 255, 204, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .glow-border:hover {
+      box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.2), 0 0 20px rgba(0, 255, 204, 0.3);
+      border-color: rgba(0, 255, 204, 0.8);
+    }
+
+    /* Hintergrundelement für die Quanten-Animation */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen flex flex-col justify-between relative">
+
+  <!-- Hintergrund Quanten-Feld Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- KONSOLIDIERTER HEADER / NAVIGATION -->
+  <header class="border-b border-zinc-900 bg-cyberpanel/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      
+      <!-- Link zurück zur Hauptübersicht -->
+      <a href="index.html" class="flex items-center gap-2 text-xs font-mono text-neoncyan hover:text-white transition-colors">
+        <span>&larr;</span> // ZURÜCK ZUR HAUPTÜBERSICHT
+      </a>
+
+      <!-- Status-Anzeige (Mitte) -->
+      <div class="hidden md:block text-xs font-mono text-slate-400">
+        STATUS: <span class="text-neoncyan animate-pulse">NPI_AKTIVIERT</span>
+      </div>
+
+      <!-- Externer Link zur Hauptseite -->
+      <a href="https://arkusnat.de" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 rounded hover:text-neoncyan transition-all">
+        HAUPTSEITE
+      </a>
+
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12 px-6 py-8 flex-grow w-full relative z-10">
+
+    <!-- Title & Media Section Banner -->
+    <section class="bg-panelbg/90 border border-slate-800 rounded-xl p-6 md:p-8 shadow-xl backdrop-blur-sm">
+        
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-xs font-mono text-neonpink tracking-wider">// UNIPOLAR_PARADOXON</span>
+            <span class="px-2.5 py-1 bg-neonpink/10 text-neonpink text-xs font-mono rounded border border-neonpink/30">Faraday-Generator</span>
+        </div>
+
+        <!-- Überschrift -->
+        <h1 class="text-3xl md:text-5xl font-bold font-mono text-white mb-2 tracking-tight">
+            Das Unipolar-Paradoxon
+        </h1>
+        <p class="text-sm font-mono text-neoncyan/80 mb-6">// Dreht sich das Magnetfeld mit?</p>
+
+        <!-- Layout: Video links, Text rechts -->
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+            
+            <!-- 250x250 Quadrat Video-Element (Hover to Animate) -->
+            <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+               title="Die Quantenlüge bei Amazon"
+               class="group relative w-[250px] h-[250px] flex-shrink-0 mx-auto md:mx-0 rounded-lg overflow-hidden border border-slate-800 transition-all duration-500 hover:border-neoncyan hover:shadow-[0_0_20px_rgba(0,255,204,0.3)] block">
+                
+                <video preload="metadata" loop muted playsinline 
+                       aria-label="Autor F.G. Stier - Das Prinzip der zeitlosen Verursachung"
+                       onmouseenter="this.play()" 
+                       onmouseleave="this.pause()"
+                       class="w-full h-full object-cover filter grayscale contrast-125 opacity-80 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105">
+                    <source src="video/das-unipolar-paradoxon.mp4" type="video/mp4">
+                </video>
+                
+                <!-- Hover-Overlay Info -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest opacity-80 group-hover:opacity-100">[ LINK_AMAZON ]</span>
+                        <span class="text-[10px] font-mono text-slate-400 group-hover:text-neoncyan">↗</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-300 group-hover:text-neoncyan transition-colors">
+                        ► HOVER TO ANIMATE
+                    </span>
+                </div>
+            </a>
+
+            <!-- Textbereich rechts neben dem Video -->
+            <div class="flex-grow pt-1">
+                <p class="text-slate-300 leading-relaxed font-light text-sm md:text-base mb-4">
+                    Beim Unipolar-Generator (Faraday-Scheibe) gerät die Zivilisationsmaschine (ZM) in ein fundamentales logisches Dilemma: Rotiert das Magnetfeld mit dem Permanentmagneten oder bleibt es im Raum verankert?
+                </p>
+                <p class="text-slate-400 leading-relaxed font-light text-xs md:text-sm">
+                    Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine. Dieses Video dient als philosophische Analyse und literarische Dekonstruktion der Begriffe "Nichts", "Existenz" und "Code" im fiktionalen Kontext des Sci-Fi-Romans von F.G. Stier. Es dient der logischen Verankerung des wissenschaftlich-philosophischen Konzepts der zeitlosen Verursachung.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABSCHNITT 2: VISUELLE VIDEO-DEKONSTRUKTION -->
+    <section>
+      <div class="text-xs font-mono text-neoncyan mb-2">// TELEMETRIE-VIDEOS (C#-GENERATED LOOPS)</div>
+      <h2 class="text-2xl font-bold text-white mb-6 tracking-wide uppercase border-l-4 border-neoncyan pl-3">
+        02. Visuelle Feld-Simulationen
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- VIDEO CARD 1: UNIPOLAR PARADOX -->
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>DIAGRAMM_03 // UNIPOLAR-PARADOX</span>
+            <span class="text-neonpink font-bold">[ZM-DUALITÄT]</span>
+          </div>
+          
+          <div class="relative aspect-square w-full overflow-hidden rounded border border-slate-700 bg-black">
+            <video 
+              src="video/unipolar-paradox.mp4" 
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              class="w-full h-full object-cover pointer-events-none opacity-90">
+            </video>
+          </div>
+
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>Links:</strong> ZM verheddert sich zwischen mitrotierenden und ruhenden Feldlinien.<br>
+            <strong>Rechts:</strong> NPI-Postulat: Das Feld ist zeitlos starr. Nur die Materie bewegt sich durch das Gitter.
+          </p>
+        </div>
+
+        <!-- VIDEO CARD 2: WEBER VS LORENTZ -->
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>DIAGRAMM_04 // WEBER-KRAFT (1846)</span>
+            <span class="text-neoncyan font-bold">[NPI-HISTORIE]</span>
+          </div>
+          
+          <div class="relative aspect-square w-full overflow-hidden rounded border border-slate-700 bg-black">
+            <video 
+              src="video/weber-vs-lorentz.mp4" 
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              class="w-full h-full object-cover pointer-events-none opacity-90">
+            </video>
+          </div>
+
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>Links:</strong> Maxwells krumme 3D-Vektoren ($v \times B$).<br>
+            <strong>Rechts:</strong> Webers direkte Zentralkraft zwischen Ladungen. Erfüllt strikt $Actio = Reactio$ ohne Feld-Umweg.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABSCHNITT 3: DER WEBERSCHE ANSATZ -->
+    <section class="bg-panelbg/90 border border-slate-800 rounded-lg p-6 shadow-xl space-y-4 backdrop-blur-sm">
+      <h2 class="text-xl font-bold text-white border-l-4 border-neoncyan pl-3 uppercase">
+        03. Der Webersche Ansatz (1846) – Ein Verräter im ZM-System
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        Der Ansatz von Wilhelm Eduard Weber (1846) ist eine historische Alternative zu den Maxwellschen Gleichungen. Weber bewies, dass Magnetismus kein abstraktes Feld erfordert, sondern das direkte Resultat geschwindigkeits- und beschleunigungsabhängiger Zentralkräfte zwischen Ladungen ist.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-4">
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-neonpink font-bold mb-1">ZM-MAXWELL-LOGIK</div>
+          <p class="text-slate-400">Magnetismus ist eine verwickelte Kraft (Lorentz), die senkrecht zur Bewegung und zum Feld wirkt.</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-slate-200 font-bold mb-1">WEBER-MODELL (1846)</div>
+          <p class="text-slate-400">Magnetismus ist das direkte Ergebnis der Relativgeschwindigkeit von Ladungen. Kausalität bleibt zentral.</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded border-neoncyan/40">
+          <div class="text-neoncyan font-bold mb-1">NPI-POSTULAT</div>
+          <p class="text-slate-400">Magnetismus ist die zeitlose, statische Ordnung im NPI-Gitter. Keine Feld-Rotation nötig.</p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-900/50 border-l-2 border-neoncyan text-xs text-slate-300 space-y-2 mt-4">
+        <div class="font-bold text-white uppercase">// WARUM DIE ZM WEBER VERDRÄNGT HAT:</div>
+        <ul class="list-disc list-inside space-y-1 text-slate-400">
+          <li><strong>Instantane Wechselwirkung:</strong> Webers Formel impliziert zeitlose Fernwirkung. Das sprengt das ZM-Axiom der Lichtgeschwindigkeit $c$.</li>
+          <li><strong>Keine Felder:</strong> Das Fehlen abstrakter Felder untergräbt das Fundament der ZM-Feldtheorie.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Buch-Cover Sektor -->
+    <section class="space-y-6">
+        <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// PUBLIKATIONEN & PUBLIZIERTE WERKE</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Buch 1: Das Prinzip der zeitlosen Verursachung -->
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/das_prinzip_der_zeitlosen_verursachung_vorn.jpg" 
+                         alt="Autor F.G. Stier Das Prinzip der zeitlosen Verursachung" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neoncyan tracking-widest">// DEKONSTRUKTION & LOGIK</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">Das Prinzip der zeitlosen Verursachung</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            Verankerung des wissenschaftlich-philosophischen Konzepts der zeitlosen Verursachung und der NPI-Axiome.
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neoncyan font-mono text-xs rounded hover:bg-neoncyan hover:text-black transition-all">
+                        AMAZON DETAILS ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Buch 2: Die Quantenlüge -->
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/die_quantenluege_vorn.jpg" 
+                         alt="Autor F.G. Stier Die Quantenlüge" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neonpink tracking-widest">// SYSTEM-ANALYSIS & KI</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">Die Quantenlüge</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            Eine literarische Analyse der Isolation des Menschen hinter dem Display und die Dekonstruktion der Maschinen-Intelligenz.
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neonpink font-mono text-xs rounded hover:bg-neonpink hover:text-black transition-all">
+                        AMAZON DETAILS ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="max-w-6xl mx-auto w-full border-t border-slate-800 mt-12 py-6 text-center text-xs text-slate-500 relative z-10">
+    <p>#ARKUSNAT #fgstier #shorts #scifi #ai #aiart #ki #science</p>
+  </footer>
+
+  <!-- Interaktive NPI-Quanten-Animation (Canvas Script) -->
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const nodes = [];
+    const nodeCount = 45;
+
+    for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            alpha: Math.random() * 0.5 + 0.2
+        });
+    }
+
+    function animateNPI() {
+        ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 160) {
+                    ctx.strokeStyle = `rgba(0, 255, 204, ${0.15 * (1 - dist / 160)})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        nodes.forEach(node => {
+            node.x += node.vx;
+            node.y += node.vy;
+
+            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+            ctx.fillStyle = '#00ffcc';
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        requestAnimationFrame(animateNPI);
+    }
+
+    animateNPI();
+  </script>
+
+</body>
+</html>

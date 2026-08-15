@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verschränkung: Der Kollaps des ZM-Theaters // NPI-Dekonstruktion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyberbg: '#030305',
+            cyberpanel: '#09090f',
+            panelbg: '#09090f',
+            neoncyan: '#00ffcc',
+            neonblue: '#0066ff',
+            neonpink: '#ff0055',
+            mutedgray: '#52526b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          boxShadow: {
+            cyberglow: '0 0 15px rgba(0, 255, 204, 0.25)',
+            cyberpink: '0 0 15px rgba(255, 0, 85, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { 
+      background-color: #030305; 
+      color: #e2e8f0; 
+      font-family: monospace; 
+    }
+  
+    /* CRT Scanline Effekt */
+    body::before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 999;
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+
+    .glow-border {
+      box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1), 0 0 10px rgba(0, 255, 204, 0.1);
+      border-color: rgba(0, 255, 204, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .glow-border:hover {
+      box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.2), 0 0 20px rgba(0, 255, 204, 0.3);
+      border-color: rgba(0, 255, 204, 0.8);
+    }
+
+    /* Hintergrundelement für die Quanten-Animation */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="bg-cyberbg text-slate-100 font-sans selection:bg-neoncyan selection:text-black overflow-x-hidden min-h-screen flex flex-col justify-between relative">
+
+  <!-- Hintergrund Quanten-Feld Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- KONSOLIDIERTER HEADER / NAVIGATION -->
+  <header class="border-b border-zinc-900 bg-cyberpanel/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      
+      <!-- Link zurück zur Hauptübersicht -->
+      <a href="index.html" class="flex items-center gap-2 text-xs font-mono text-neoncyan hover:text-white transition-colors">
+        <span>&larr;</span> // ZURÜCK ZUR HAUPTÜBERSICHT
+      </a>
+
+      <!-- Status-Anzeige (Mitte) -->
+      <div class="hidden md:block text-xs font-mono text-slate-400">
+        STATUS: <span class="text-neoncyan animate-pulse">NPI_AKTIVIERT</span>
+      </div>
+
+      <!-- Externer Link zur Hauptseite -->
+      <a href="https://arkusnat.de" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 rounded hover:text-neoncyan transition-all">
+        HAUPTSEITE
+      </a>
+
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12 px-6 py-8 flex-grow w-full relative z-10">
+
+    <!-- TITLE & MEDIA SECTION BANNER -->
+    <section class="bg-panelbg/90 border border-slate-800 rounded-xl p-6 md:p-8 shadow-xl backdrop-blur-sm">
+        
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-xs font-mono text-neonpink tracking-wider">// QUANTEN_DEKONSTRUKTION</span>
+            <span class="px-2.5 py-1 bg-neonpink/10 text-neonpink text-xs font-mono rounded border border-neonpink/30">NPI-Code-Kopplung</span>
+        </div>
+
+        <!-- Überschrift -->
+        <h1 class="text-3xl md:text-5xl font-bold font-mono text-white mb-2 tracking-tight">
+            Verschränkung: Der Kollaps des ZM-Theaters
+        </h1>
+        <p class="text-sm font-mono text-neoncyan/80 mb-6">// Statische Manifestation eines geteilten logischen Code-Abschnitts</p>
+
+        <!-- Layout: Video links, Text rechts -->
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+            
+            <!-- 250x250 Quadrat Video-Element (Hover to Animate) -->
+            <a href="https://amzn.eu/d/2rTGehY" target="_blank" rel="noopener noreferrer" 
+               title="Das Prinzip der zeitlosen Verursachung bei Amazon"
+               class="group relative w-[250px] h-[250px] flex-shrink-0 mx-auto md:mx-0 rounded-lg overflow-hidden border border-slate-800 transition-all duration-500 hover:border-neoncyan hover:shadow-[0_0_20px_rgba(0,255,204,0.3)] block">
+                
+                <video preload="metadata" loop muted playsinline 
+                       aria-label="Autor F.G. Stier - Das Prinzip der zeitlosen Verursachung"
+                       onmouseenter="this.play()" 
+                       onmouseleave="this.pause()"
+                       class="w-full h-full object-cover filter grayscale contrast-125 opacity-80 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105">
+                    <source src="video/verschraenkung-kollaps-zm-theater.mp4" type="video/mp4">
+                </video>
+                
+                <!-- Hover-Overlay Info -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] font-mono text-neoncyan tracking-widest opacity-80 group-hover:opacity-100">[ LINK_AMAZON ]</span>
+                        <span class="text-[10px] font-mono text-slate-400 group-hover:text-neoncyan">↗</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-300 group-hover:text-neoncyan transition-colors">
+                        ► HOVER TO ANIMATE
+                    </span>
+                </div>
+            </a>
+
+            <!-- Textbereich rechts neben dem Video -->
+            <div class="flex-grow pt-1">
+                <p class="text-slate-300 leading-relaxed font-light text-sm md:text-base mb-4">
+                    Die Zivilisationsmaschine (ZM) inszeniert Verschränkung als „spukhafte Fernwirkung“ und Superposition als magische Multiexistenz. Die NPI entlarvt dieses Quanten-Theater: Superposition ist lediglich die maximale logische Offenheit einer Knoten-Konfiguration vor dem Kausal-Anker. Verschränkung ist die statische Manifestation eines einzigen, geteilten Code-Abschnitts im NPI-Gitter.
+                </p>
+                <p class="text-slate-400 leading-relaxed font-light text-xs md:text-sm">
+                    Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine. Dieses Video dient als philosophische Analyse und literarische Dekonstruktion der Begriffe "Nichts", "Existenz" und "Code" im fiktionalen Kontext des Sci-Fi-Romans von F.G. Stier. Es dient der logischen Verankerung des wissenschaftlich-philosophischen Konzepts der zeitlosen Verursachung.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABSCHNITT 1: WIDERSPRUCH DES ZM-THEATERS -->
+    <section class="bg-panelbg/90 border border-slate-800 rounded-lg p-6 shadow-xl backdrop-blur-sm">
+      <div class="text-xs font-mono text-neonpink tracking-wider mb-2">// ZM_NARRATIV_DEKONSTRUKTION</div>
+      <h2 class="text-xl font-bold text-white mb-4 border-l-4 border-neonpink pl-3 uppercase">
+        01. Das Scheitern des Zufalls: Superposition vs. NPI-Code
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed mb-6">
+        Das gesamte kommerzielle Quanten-Theater basiert auf der Fehlinterpretation der Zeit als dynamische Variable:
+      </p>
+
+      <!-- VERGLEICHS-TABELLE -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-slate-700 text-neoncyan uppercase">
+              <th class="p-3">Phänomen</th>
+              <th class="p-3">ZM-Narrativ (Theater)</th>
+              <th class="p-3">NPI-Wahrheit (Statische Logik)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            <tr>
+              <td class="p-3 font-bold text-neonpink">Superposition</td>
+              <td class="p-3">Teilchen existiert gleichzeitig in allen Zuständen/Orten (z. B. Up & Down zeitgleich).</td>
+              <td class="p-3">Maximale logische Offenheit der Knoten-Konfiguration vor der Einfügung des Constraints (Kausal-Anker).</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-neonpink">Verschränkung</td>
+              <td class="p-3">„Spukhafte Fernwirkung“ – instantane Signalübertragung, die c verletzt.</td>
+              <td class="p-3">Kein Signal nötig. Statische Kopplung zweier Adressen über einen einzigen geteilten NPI-Code-Abschnitt.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote class="mt-4 p-3 bg-slate-950/80 border-l-2 border-neonpink text-xs text-slate-400 italic">
+        "Superposition ist die maximale logische Offenheit einer Knoten-Konfiguration. Sie ist der Code-Zustand vor dem Kausal-Anker."
+      </blockquote>
+    </section>
+
+    <!-- ABSCHNITT 2: VISUELLE VIDEO-DEKONSTRUKTION (600x600 CONTAINER) -->
+    <section>
+      <div class="text-xs font-mono text-neoncyan mb-2">// TELEMETRIE-VIDEOS (600x600 ANIMATIONEN)</div>
+      <h2 class="text-2xl font-bold text-white mb-6 tracking-wide uppercase border-l-4 border-neoncyan pl-3">
+        02. NPI-Dekonstruktion der Verschränkung
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- VIDEO CARD 1: SUPERPOSITION ALS LOGISCHE OFFENHEIT (600x600) -->
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>DIAGRAMM_07 // LOGISCHE_OFFENHEIT</span>
+            <span class="text-neonpink font-bold">[VOR_DEM_ANKER]</span>
+          </div>
+          
+          <div class="relative w-full max-w-[600px] aspect-square mx-auto overflow-hidden rounded border border-slate-700 bg-black">
+            <video 
+              src="video/superposition-offenheit.mp4" 
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              class="w-full h-full object-cover pointer-events-none opacity-90">
+            </video>
+          </div>
+
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>Links (ZM-Illusion):</strong> Magisches Verharren des Teilchens in allen Zuständen gleichzeitig.<br>
+            <strong>Rechts (NPI-Realität):</strong> Unentschiedener Code-Zustand, der sich zeitlos zwingend bei Einführung des Kausal-Ankers fixiert.
+          </p>
+        </div>
+
+        <!-- VIDEO CARD 2: VERSCHRÄNKUNG ALS CODE-KOPPLUNG (600x600) -->
+        <div class="bg-panelbg/90 border border-slate-800 rounded-lg p-4 shadow-lg hover:border-neoncyan/50 transition-all backdrop-blur-sm">
+          <div class="text-xs font-mono text-slate-400 mb-3 flex justify-between items-center">
+            <span>DIAGRAMM_08 // ZEITLOSER_CODE_ANKER</span>
+            <span class="text-neoncyan font-bold">[GETEILTER_CODE]</span>
+          </div>
+          
+          <div class="relative w-full max-w-[600px] aspect-square mx-auto overflow-hidden rounded border border-slate-700 bg-black">
+            <video 
+              src="video/verschraenkung-kausalanker.mp4" 
+              autoplay 
+              loop 
+              muted 
+              playsinline 
+              class="w-full h-full object-cover pointer-events-none opacity-90">
+            </video>
+          </div>
+
+          <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+            <strong>Links (ZM-Illusion):</strong> Vermeintliches Signal, das raumzeitlich die Lichtgeschwindigkeit c bricht.<br>
+            <strong>Rechts (NPI-Realität):</strong> Instantane Enthüllung der statischen, logischen Notwendigkeit (A = Up ⇒ B = Down).
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABSCHNITT 3: NPI-AXIOMATIK -->
+    <section class="bg-panelbg/90 border border-slate-800 rounded-lg p-6 shadow-xl space-y-4 backdrop-blur-sm">
+      <h2 class="text-xl font-bold text-white border-l-4 border-neoncyan pl-3 uppercase">
+        03. NPI-Axiomatik: Die Enthüllung des Kausal-Ankers
+      </h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        Für das NPI-Gitter existiert keine spukhafte Fernwirkung. Die Messung ist die Einführung eines logischen Constraints, der die Zustandswerte an beiden Knoten-Adressen zeitlos und instantan erzwingt.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mt-4">
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-neonpink font-bold mb-1">1. LOGISCHE OFFENHEIT</div>
+          <p class="text-slate-400">Keine Koexistenz von Teilchenzuständen, sondern der unentschiedene Code-Zustand vor dem Kausal-Anker.</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded">
+          <div class="text-slate-200 font-bold mb-1">2. FREI VON ÜBERTRAGUNG</div>
+          <p class="text-slate-400">Es fließt kein Signal durch den Raum. Die logische Beziehung existiert zeitlos im statischen Gitter.</p>
+        </div>
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded border-neoncyan/40">
+          <div class="text-neoncyan font-bold mb-1">3. Instantane Enthüllung</div>
+          <p class="text-slate-400">Der Kollaps ist lediglich die logische Notwendigkeit des gegenseitigen Randbedingungs-Zwangs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buch-Cover Sektor -->
+    <section class="space-y-6">
+        <h2 class="text-xl font-mono text-neoncyan font-bold tracking-wide">// PUBLIKATIONEN & PUBLIZIERTE WERKE</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Buch 1: Das Prinzip der zeitlosen Verursachung -->
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/das_prinzip_der_zeitlosen_verursachung_vorn.jpg" 
+                         alt="Autor F.G. Stier Das Prinzip der zeitlosen Verursachung" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neoncyan tracking-widest">// DEKONSTRUKTION & LOGIK</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">Das Prinzip der zeitlosen Verursachung</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            Verankerung des wissenschaftlich-philosophischen Konzepts der zeitlosen Verursachung und der NPI-Axiome.
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991811987" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neoncyan font-mono text-xs rounded hover:bg-neoncyan hover:text-black transition-all">
+                        AMAZON DETAILS ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Buch 2: Die Quantenlüge -->
+            <div class="bg-cyberpanel/90 border border-zinc-800 rounded-xl p-6 glow-border flex flex-col sm:flex-row gap-6 items-center backdrop-blur-sm">
+                <div class="w-36 h-52 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-zinc-800 shadow-lg">
+                    <img src="bilder/die_quantenluege_vorn.jpg" 
+                         alt="Autor F.G. Stier Die Quantenlüge" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="flex flex-col justify-between h-full space-y-3 text-center sm:text-left">
+                    <div>
+                        <span class="text-[10px] font-mono text-neonpink tracking-widest">// SYSTEM-ANALYSIS & KI</span>
+                        <h3 class="text-lg font-mono font-bold text-white mt-1">Die Quantenlüge</h3>
+                        <p class="text-xs text-slate-400 mt-2 font-light">
+                            Eine literarische Analyse der Isolation des Menschen hinter dem Display und die Dekonstruktion der Maschinen-Intelligenz.
+                        </p>
+                    </div>
+                    <a href="https://www.amazon.de/dp/3991921618" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block px-4 py-2 bg-zinc-900 border border-zinc-800 text-neonpink font-mono text-xs rounded hover:bg-neonpink hover:text-black transition-all">
+                        AMAZON DETAILS ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="max-w-6xl mx-auto w-full border-t border-slate-800 mt-12 py-6 text-center text-xs text-slate-500 relative z-10">
+    <p>#ARKUSNAT #fgstier #shorts #scifi #ai #aiart #ki #science</p>
+  </footer>
+
+  <!-- Interaktive NPI-Quanten-Animation (Canvas Script) -->
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const nodes = [];
+    const nodeCount = 45;
+
+    for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            alpha: Math.random() * 0.5 + 0.2
+        });
+    }
+
+    function animateNPI() {
+        ctx.fillStyle = 'rgba(3, 3, 5, 0.2)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 160) {
+                    ctx.strokeStyle = `rgba(0, 255, 204, ${0.15 * (1 - dist / 160)})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        nodes.forEach(node => {
+            node.x += node.vx;
+            node.y += node.vy;
+
+            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+            ctx.fillStyle = '#00ffcc';
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        requestAnimationFrame(animateNPI);
+    }
+
+    animateNPI();
+  </script>
+
+</body>
+</html>
