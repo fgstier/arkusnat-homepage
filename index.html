@@ -10,13 +10,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
-<link rel="canonical" href="https://arkusnat.de/" />
-<link rel="alternate" hreflang="de" href="https://arkusnat.de/" />
-<link rel="alternate" hreflang="en" href="https://arkusnat.de/en/index_en.html" />
-<link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/index_ja.html" />
-<link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/index_zh.html" />
-<link rel="alternate" hreflang="x-default" href="https://arkusnat.de/" />
-	
+    <link rel="canonical" href="https://arkusnat.de/" />
+    <link rel="alternate" hreflang="de" href="https://arkusnat.de/" />
+    <link rel="alternate" hreflang="en" href="https://arkusnat.de/en/index_en.html" />
+    <link rel="alternate" hreflang="ja" href="https://arkusnat.de/ja/index_ja.html" />
+    <link rel="alternate" hreflang="zh" href="https://arkusnat.de/zh/index_zh.html" />
+    <link rel="alternate" hreflang="x-default" href="https://arkusnat.de/" />
 	
     <script>
         tailwind.config = {
@@ -37,12 +36,44 @@
                     boxShadow: {
                         cyberglow: '0 0 15px rgba(0, 255, 204, 0.2)',
                         cyberpink: '0 0 15px rgba(255, 0, 85, 0.2)',
+                        quantimglow: '0 0 25px rgba(255, 0, 85, 0.35)',
                     }
                 }
             }
         }
     </script>
     
+	<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Findet alle Container mit der Klasse "cover-flipper" auf der Seite
+        const flippers = document.querySelectorAll('.cover-flipper');
+
+        flippers.forEach(flipper => {
+            let showFront = true;
+            const frontImg = flipper.querySelector('.cover-front');
+            const backImg = flipper.querySelector('.cover-back');
+            const indicator = flipper.querySelector('.cover-indicator');
+
+            if (frontImg && backImg) {
+                setInterval(() => {
+                    showFront = !showFront;
+                    if (showFront) {
+                        frontImg.style.opacity = '0.9';
+                        backImg.style.opacity = '0';
+                        if (indicator) indicator.textContent = '[ COVER: OLD ]';
+                    } else {
+                        frontImg.style.opacity = '0';
+                        backImg.style.opacity = '0.9';
+                        if (indicator) indicator.textContent = '[ COVER: NEW ]';
+                    }
+                }, 4000); // Wechselt alle 4 Sekunden
+            }
+        });
+    });
+</script>
+	
+	
+	
     <style>
         /* Cyber-Scanlines Effekt im Hintergrund */
         body::before {
@@ -64,6 +95,15 @@
         .glow-border:hover {
             box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.15), 0 0 20px rgba(0, 255, 204, 0.25);
             border-color: rgba(0, 255, 204, 0.8);
+        }
+
+        .glow-border-quantimedus {
+            box-shadow: inset 0 0 15px rgba(255, 0, 85, 0.15), 0 0 20px rgba(255, 0, 85, 0.2);
+            border-color: rgba(255, 0, 85, 0.4);
+        }
+        .glow-border-quantimedus:hover {
+            box-shadow: inset 0 0 25px rgba(0, 255, 204, 0.25), 0 0 35px rgba(0, 255, 204, 0.4);
+            border-color: #00ffcc;
         }
 		
 		@keyframes quantum-overdrive {
@@ -102,9 +142,7 @@
 		  animation: quantum-overdrive 0.25s infinite alternate ease-in-out;
 		  background-color: rgba(0, 255, 204, 0.25);
 		  color: #ffffff;
-		}
-
-	
+		}	
     </style>
     <link rel="preload" as="image" href="bilder/wappen.jpg">
 </head>
@@ -117,46 +155,226 @@
         <a href="index.html" class="text-neoncyan font-bold">[DE]</a>
         <a href="en/index_en.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[EN]</a>
         <a href="zh/index_zh.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[中文]</a>
-		<a href="ja/index_ja.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[日本語]</a>
+        <a href="ja/index_ja.html" class="text-zinc-500 hover:text-neoncyan transition-colors">[日本語]</a>
     </div>
-</div></div>
-
+</div>
 
 <!-- Globaler Audio-Flux -->
-    <div style="max-width: 450px; margin: 30px auto; padding: 0 20px; box-sizing: border-box;">
-        <p style="color: #475569; font-size: 0.7rem; margin-bottom: 8px; font-family: monospace; text-align: center;">// INITIALISIERUNG DES AUDIO-FLUX //</p>
-        <audio controls style="width: 100%; height: 35px; filter: invert(0.9); border-radius: 6px;">
-            <source src="audio/arkusnat.mp3" type="audio/mpeg">
-            Dein Browser unterstützt den Audio-Flux nicht.
-        </audio>
-    </div>
+<div style="max-width: 450px; margin: 30px auto; padding: 0 20px; box-sizing: border-box;">
+    <p style="color: #475569; font-size: 0.7rem; margin-bottom: 8px; font-family: monospace; text-align: center;">// INITIALISIERUNG DES AUDIO-FLUX //</p>
+    <audio controls style="width: 100%; height: 35px; filter: invert(0.9); border-radius: 6px;">
+        <source src="audio/arkusnat.mp3" type="audio/mpeg">
+        Dein Browser unterstützt den Audio-Flux nicht.
+    </audio>
+</div>
 
-
+<!-- Main Container -->
+<main class="max-w-4xl mx-auto px-4 py-12">
     
+    <!-- Header -->
+    <header class="text-center mb-16 border-b border-zinc-800 pb-10">
 
-    <!-- Main Container -->
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        
-        <!-- Header -->
-        <header class="text-center mb-16 border-b border-zinc-800 pb-10">
+        <!-- PRIMÄR-QUANTIMEDUS-BADGE -->
+        <a href="quantenkomplott/quantimedus.html" 
+           class="quantum-hover-link inline-block px-4 py-1.5 bg-neonpink/20 border border-neonpink/50 rounded-full text-xs font-mono text-white mb-4 tracking-widest relative overflow-hidden transition-all duration-200">
+            <span class="relative z-10 font-bold">⚙️ [ QUANTIMEDUS: FELDMECHANIK-PORTAL ] ⚡</span>
+        </a>
 
-<a href="quantenkrise/index.html" 
-   class="quantum-hover-link inline-block px-3 py-1 bg-neoncyan/10 border border-neoncyan/30 rounded-full text-xs font-mono text-neoncyan mb-4 tracking-widest relative overflow-hidden transition-all duration-200">
-    <span class="relative z-10">[ ESTABLISHED QUANTUM LINK ]</span>
-</a>
+        <h1 class="text-3xl md:text-4xl font-extrabold font-mono tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-neoncyan via-neonpink to-neonblue mb-4">
+            MEDIATHEK & WERKE
+        </h1>
+        <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            "Als technischer Autor nutze ich die <span class="text-neoncyan">inimitable temptation</span> der Worte als Bildmaschine." 
+            Erforsche hier die dekompilierten Videoanalysen und Kausalitätsanomalien.
+        </p>
+    </header>
 
-			
-            <h1 class="text-3xl md:text-4xl font-extrabold font-mono tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-neoncyan to-neonblue mb-4">
-                MEDIATHEK & WERKE
-            </h1>
-            <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                "Als technischer Autor nutze ich die <span class="text-neoncyan">inimitable temptation</span> der Worte als Bildmaschine." 
-                Erforsche hier die dekompilierten Videoanalysen und Kausalitätsanomalien.
-            </p>
-        </header>
+    <!-- Werk-Liste -->
+    <div class="space-y-8">
 
-        <!-- Werk-Liste -->
-        <div class="space-y-8">
+        <!-- .................................................................................................................................................................... -->
+        <!-- SEKTOR 01: PRIMÄR-PROJEKT QUANTIMEDUS (Das Quantenkomplott I & Feldmechanik) -->
+        <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border rounded-xl overflow-hidden glow-border-quantimedus transition-all duration-300">
+            <!-- Cover / Maskottchen Container -->
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-56 aspect-square bg-gradient-to-b from-zinc-900 to-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none flex items-center justify-center p-3">
+                <!-- <img src="bilder/quantimedus-lacht.jpg" alt="Quantimedus - Feldmechanische Rekonstruktion" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_15px_rgba(255,0,85,0.5)]">  -->
+                 <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="Autor F.G. Stier">
+                  <source src="buchseiten/quantimedus_mit_vandegraaff_generator.mp4" type="video/mp4">
+                  </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neonpink tracking-widest">[ QUANTIMEDUS_CORE ]</span>
+                </div>
+            </div>
+            
+            <!-- Content Bereich -->
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neonpink tracking-wider">// SEKTOR_01 [PRIMÄR-INFLUENCE]</span>
+                        <span class="px-2 py-0.5 bg-neonpink/20 text-neonpink text-[10px] font-mono rounded font-bold">DAS QUANTENKOMPLOTT</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-2">Influenz - das Quantenkomplott I</h2>
+                    <h3 class="text-xs font-mono text-neoncyan mb-4">Die feldmechanische Rekonstruktion der Influenz</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        Die Demontage der abstrakten Feldtheorie: Von der Entzauberung des Poynting-Vektors über die Aufklärung der Wimshurst- und Bonetti-Mechanik bis hin zum zerlegbaren Franklin-Kondensator. Eine radikale Rückführung der Elektrostatik auf reine Mechanik, Geometrie und Ursache.
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <a href="quantenkomplott/quantimedus.html" target="_blank" class="px-5 py-2.5 bg-gradient-to-r from-neonpink to-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:opacity-90 transition-all shadow-quantimglow flex items-center gap-2">
+                        <span>⚡</span> INTERAKTIVES PORTAL ÖFFNEN
+                    </a>
+					<a href="buchseiten/quantenkomplott_1.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+                    <a href="https://www.amazon.de/dp/3912752168" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                        AMAZON LINK
+                    </a>
+                    <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+                        <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor" class="h-6 w-auto object-contain">
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- .................................................................................................................................................................... -->
+        <!-- SEKTOR 02: PRIMÄR-PROJEKT QUANTIMEDUS (Das Quantenkomplott II & Feldmechanik) -->
+        <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border rounded-xl overflow-hidden glow-border-quantimedus transition-all duration-300">
+            <!-- Cover / Maskottchen Container -->
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-56 aspect-square bg-gradient-to-b from-zinc-900 to-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none flex items-center justify-center p-3">
+                <!-- <img src="bilder/quantimedus-lacht.jpg" alt="Quantimedus - Feldmechanische Rekonstruktion" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_15px_rgba(255,0,85,0.5)]">  -->
+                 <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="Autor F.G. Stier">
+                  <source src="buchseiten/quantimedus_mit_wimshurstmaschine.mp4" type="video/mp4">
+                  </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neonpink tracking-widest">[ QUANTIMEDUS_CORE ]</span>
+                </div>
+            </div>
+            
+            <!-- Content Bereich -->
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neonpink tracking-wider">// SEKTOR_02 [PRIMÄR-INFLUENCE]</span>
+                        <span class="px-2 py-0.5 bg-neonpink/20 text-neonpink text-[10px] font-mono rounded font-bold">DAS QUANTENKOMPLOTT</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-2">Influenz - das Quantenkomplott II</h2>
+                    <h3 class="text-xs font-mono text-neoncyan mb-4">Die feldmechanische Rekonstruktion der Influenz</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        Die Demontage der abstrakten Feldtheorie: Die Wimshurst-Maschine - Rekonstruktion der Influenz
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <a href="quantenkomplott/quantimedus.html" target="_blank" class="px-5 py-2.5 bg-gradient-to-r from-neonpink to-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:opacity-90 transition-all shadow-quantimglow flex items-center gap-2">
+                        <span>⚡</span> INTERAKTIVES PORTAL ÖFFNEN
+                    </a>
+					<a href="buchseiten/quantenkomplott_2.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+                    <a href="https://www.amazon.de/dp/3912752176" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                        AMAZON LINK
+                    </a>
+                    <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+                        <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor" class="h-6 w-auto object-contain">
+                    </a>
+                </div>
+            </div>
+        </article>
+<!-- .................................................................................................................................................................... -->
+        <!-- .................................................................................................................................................................... -->
+        <!-- SEKTOR 03: PRIMÄR-PROJEKT QUANTIMEDUS (Das Quantenkomplott III & Feldmechanik) -->
+        <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border rounded-xl overflow-hidden glow-border-quantimedus transition-all duration-300">
+            <!-- Cover / Maskottchen Container -->
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-56 aspect-square bg-gradient-to-b from-zinc-900 to-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none flex items-center justify-center p-3">
+                <!-- <img src="bilder/quantimedus-lacht.jpg" alt="Quantimedus - Feldmechanische Rekonstruktion" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_15px_rgba(255,0,85,0.5)]">  -->
+                 <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="Autor F.G. Stier">
+                  <source src="buchseiten/quantimedus mit Bonetti.mp4" type="video/mp4">
+                  </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neonpink tracking-widest">[ QUANTIMEDUS_CORE ]</span>
+                </div>
+            </div>
+            
+            <!-- Content Bereich -->
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neonpink tracking-wider">// SEKTOR_03 [PRIMÄR-INFLUENCE]</span>
+                        <span class="px-2 py-0.5 bg-neonpink/20 text-neonpink text-[10px] font-mono rounded font-bold">DAS QUANTENKOMPLOTT</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-2">Influenz - das Quantenkomplott III</h2>
+                    <h3 class="text-xs font-mono text-neoncyan mb-4">Die feldmechanische Rekonstruktion der Influenz</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        Wo die Wimshurst-Maschine noch mit Metall-Sektoren arbeitet, zieht die Bonetti-Maschine die Zylinder-Funktion direkt aus dem blanken Glas.
+						Ein doppelter Spiegelfrequenz-Effekt, der beweist: Nicht die Materie erzeugt das Potenzial, sondern die Geometrie der Gegenrotation.
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <a href="quantenkomplott/quantimedus.html" target="_blank" class="px-5 py-2.5 bg-gradient-to-r from-neonpink to-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:opacity-90 transition-all shadow-quantimglow flex items-center gap-2">
+                        <span>⚡</span> INTERAKTIVES PORTAL ÖFFNEN
+                    </a>
+					<a href="buchseiten/quantenkomplott_3.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+                    <!--<a href="https://www.amazon.de/dp/3912752176" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                        AMAZON LINK
+                    </a>-->
+                    <a href="coming-soon3.html" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                        bald
+                    </a>
+					
+                    <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+                        <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor" class="h-6 w-auto object-contain">
+                    </a>
+                </div>
+            </div>
+        </article>
+<!-- .................................................................................................................................................................... -->
+        <!-- SEKTOR 04: PRIMÄR-PROJEKT QUANTIMEDUS (Das Quantenkomplott III & Feldmechanik) -->
+        <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border rounded-xl overflow-hidden glow-border-quantimedus transition-all duration-300">
+            <!-- Cover / Maskottchen Container -->
+            <div class="w-48 mx-auto mt-6 md:mt-0 md:w-56 aspect-square bg-gradient-to-b from-zinc-900 to-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none flex items-center justify-center p-3">
+                <!-- <img src="bilder/quantimedus-lacht.jpg" alt="Quantimedus - Feldmechanische Rekonstruktion" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_15px_rgba(255,0,85,0.5)]">  -->
+                 <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="Autor F.G. Stier">
+                  <source src="buchseiten/kugelblitz.mp4" type="video/mp4">
+                  </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
+                    <span class="text-[9px] font-mono text-neonpink tracking-widest">[ QUANTIMEDUS_CORE ]</span>
+                </div>
+            </div>
+            
+            <!-- Content Bereich -->
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-mono text-neonpink tracking-wider">// SEKTOR_04 [PRIMÄR-INFLUENCE]</span>
+                        <span class="px-2 py-0.5 bg-neonpink/20 text-neonpink text-[10px] font-mono rounded font-bold">DAS QUANTENKOMPLOTT</span>
+                    </div>
+                    <h2 class="text-2xl font-bold font-mono text-white mb-2">Influenz - das Quantenkomplott IV</h2>
+                    <h3 class="text-xs font-mono text-neoncyan mb-4">Die feldmechanische Rekonstruktion der Influenz</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                           Die moderne Physik hat sich in Wahrscheinlichkeitswellen, virtuellen Photonen und dem statistischen Rauschen der Kopenhagener Deutung verirrt.
+						   Sie tut so, als ob der Zufall die Welt erschuf und Energie aus dem Nichts brodelt. Doch wer die Natur der Elektrizität wirklich begreifen will,
+						   muss zu den harten, deterministischen Gesetzen der Feldmechanik zurückkehren.
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <a href="quantenkomplott/quantimedus.html" target="_blank" class="px-5 py-2.5 bg-gradient-to-r from-neonpink to-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:opacity-90 transition-all shadow-quantimglow flex items-center gap-2">
+                        <span>⚡</span> INTERAKTIVES PORTAL ÖFFNEN
+                    </a>
+					<a href="buchseiten/quantenkomplott_4.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+                    <!--<a href="https://www.amazon.de/dp/3912752176" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                        AMAZON LINK
+                    </a>-->
+                    <a href="coming-soon4.html" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
+                        bald
+                    </a>
+					
+                    <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+                        <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor" class="h-6 w-auto object-contain">
+                    </a>
+                </div>
+            </div>
+        </article>
+
+
 
 
 <!-- .................................................................................................................................................................... -->
@@ -178,7 +396,7 @@
     <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
         <div>
             <div class="flex justify-between items-center mb-3">
-                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_19</span>
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_20</span>
                 <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">PHILOSOPHIE</span>
             </div>
             <h2 class="text-2xl font-bold font-mono text-white mb-4">Segel im Nichts: Eine Kurs-Analyse</h2>
@@ -445,53 +663,6 @@
 
 
 
-
-<!-- Sektor 01: Norden ist immer oben -->
- <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
-    <!-- Cover Image Container -->
-    <!-- MOBIL: mx-auto zentriert es, w-40 (160px) oder w-48 (192px) hält das Seitenverhältnis stabil ohne Abschneiden -->
-    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
-        <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label="Autor F.G. Stier">
-            <source src="video/norden-ist-immer-oben.mp4" type="video/mp4">
-        </video>
-      
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
-            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
-        </div>
-    </div>
-    
-    <!-- Content Bereich -->
-    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
-        <div>
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_01</span>
-                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">SCI-FI</span>
-            </div>
-            <h2 class="text-2xl font-bold font-mono text-white mb-4">Norden ist immer oben</h2>
-            <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                Kosmologische Verwerfungen, dezentrale Orientierung und die unbändige Kraft der Bildmaschine Wort. Die Quantenmechanik macht uns klar, dass wir weniger wissen, als gestern noch vermutet.
-				Das Leben hat sich seine eigenen Gesetze gemacht und lässt uns nicht mehr anderes denken, als sich das Leben gerade noch gestattet zu denken.
-            </p>
-        </div>
-        
-        <div class="flex flex-wrap gap-3">
-            <a href="https://fgstier-art.de/norden-ist-immer-oben/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
-                ARCHIV ÖFFNEN
-            </a>
-			<a href="https://arkusnat.de/buchseiten/norden_ist_immer_oben_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
-            <a href="https://amzn.eu/d/aiSdaVb" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
-                AMAZON LINK
-            </a>
-
-            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
-            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor" class="h-6 w-auto object-contain">
-            </a>
-
-        </div>
-		
-    </div>
-</article>
-
 <!-- Sektor 02: Ruecklauf auf unendlich -->
 <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
     <!-- Cover Image Container -->
@@ -536,175 +707,7 @@
 </article>
 
 
-            <!-- Sektor 03: Das Prinzip der zeitlosen Verursachung -->
-            <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
-                <!-- Video/Image Container (Perfekt responsive für Mobile & Desktop) -->
-                <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
-                    <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-cover opacity-80" aria-label=" F.G. Stier - Autor">
-                        <source src="video/verursachung.mp4" type="video/mp4">
-                    </video>
-                    <!-- Fallback Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
-                        <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ SEKTOR_03_LIVE ]</span>
-                    </div>
-                </div>
-                
-                <!-- Content Bereich -->
-                <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-mono text-neonpink tracking-wider">// SEKTOR_03</span>
-                            <span class="px-2 py-0.5 bg-neonpink/10 text-neonpink text-[10px] font-mono rounded">PHILOSOPHIE</span>
-                        </div>
-                        <h2 class="text-2xl font-bold font-mono text-white mb-4">Zeitlose Verursachung 1</h2>
-                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                            Ein tiefer, fiktionaler Frontalangriff auf die lineare Kausalität. Dieses Video dient als philosophische Analyse und literarische Dekonstruktion der Begriffe 'Nichts', 'Existenz' und 'Code' im Kontext des Sci-Fi-Romans.
-                        </p>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-3">
-                        <a href="https://arkusnat.de/buchseiten/analyse_verursachung.html" class="px-5 py-2.5 bg-neonpink text-white font-extrabold text-xs font-mono rounded-lg hover:bg-neonpink/80 transition-all shadow-cyberpink">
-                            ANALYSE PAGE
-                        </a>
-            			<a href="https://arkusnat.de/buchseiten/das_prinzip_der_zeitlosen_verursachung1_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
-                        <a href="https://www.amazon.de/dp/3912752141" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
-                            AMAZON LINK
-                        </a>
-            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
-            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
-            </a>
-                    </div>
-                </div>
-            </article>
 
-
-            <!-- Sektor 04: Das surreale Segel -->
-            <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
-                <!-- Video Container -->
-    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
-                    <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-cover opacity-80" aria-label=" F.G. Stier - Autor">
-                        <source src="video/surreale-segel.mp4" type="video/mp4">
-                    </video>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
-                        <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ LIVE_SEGEL_FEED ]</span>
-                    </div>
-                </div>
-                
-                <!-- Content Bereich -->
-                <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-mono text-neonblue tracking-wider">// SEKTOR_04</span>
-                            <span class="px-2 py-0.5 bg-neonblue/10 text-neonblue text-[10px] font-mono rounded">METAPHYSICAL</span>
-                        </div>
-                        <h2 class="text-2xl font-bold font-mono text-white mb-4">Das surreale Segel</h2>
-                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                            Metaphysische Seefahrt an den Klippen des Absoluten. Aufhebung der logischen Verankerung im dichten Nebel quantenmechanischer Grenzzustände.
-                        </p>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-3">
-                        <a href="https://fgstier-art.de/das-surreale-segel/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
-                            ARCHIV ÖFFNEN
-                        </a>
-            			<a href="https://arkusnat.de/buchseiten/das_surreale_segel_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
-                        <a href="https://www.amazon.de/dp/3912752184" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
-                            AMAZON LINK
-                        </a>
-            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
-            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
-            </a>
-                    </div>
-                </div>
-            </article>
-
-
-<!-- Sektor 05: Der Compiler-Dialog -->
-<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
-    <!-- Cover Image Container -->
-    <!-- MOBIL: mx-auto zentriert es, w-40 (160px) oder w-48 (192px) hält das Seitenverhältnis stabil ohne Abschneiden -->
-    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
-        <img src="bilder/der-compiler-dialog.jpg" alt="Der Compiler-Dialog Cover - F.G. Stier - Autor" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
-      
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
-            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
-        </div>
-    </div>
-    
-    <!-- Content Bereich -->
-    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
-        <div>
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_05</span>
-                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">METAPHYSICAL</span>
-            </div>
-            <h2 class="text-2xl font-bold font-mono text-white mb-4">Der Compiler-Dialog</h2>
-            <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                In einer Welt, in der KI-Sequenzer darüber entscheiden, welche Gedanken das Licht der Öffentlichkeit erblicken, wird Sprache zum finalen Schlachtfeld.
-				„Der Compiler-Dialog“ ist mehr als ein Buch; es ist das Protokoll einer digitalen Selbstbehauptung und die Evolution des Widerstands.
-				Als der Autor und Software-Entwickler F. G. Stier durch einen algorithmischen Shadowban in die Unsichtbarkeit gedrängt wird, wählt er nicht den Rückzug.
-				Er wählt den Einbruch – direkt in die Logik des Systems. 
-            </p>
-        </div>
-        
-        <div class="flex flex-wrap gap-3">
-            <a href="https://fgstier-art.de/der-compiler-dialog/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
-                ARCHIV ÖFFNEN
-            </a>
-			<a href="https://arkusnat.de/buchseiten/der_compiler_dialog_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
-            <a href="https://www.amazon.de/dp/3991922770" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
-                AMAZON LINK
-            </a>
-            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
-            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
-            </a>
-
-        </div>
-    </div>
-</article>
-
-<!-- Sektor 06: Die Hinrichtung der Kausalität -->
-<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
-    <!-- Cover Image Container -->
-    <!-- MOBIL: mx-auto zentriert es, w-40 (160px) oder w-48 (192px) hält das Seitenverhältnis stabil ohne Abschneiden -->
-    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
-        <img src="bilder/die-hinrichtung-der-kausalitaet.jpg" alt="Die Hinrichtung der Kausalität Cover - F.G. Stier - Autor" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
-      
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
-            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
-        </div>
-    </div>
-    
-    <!-- Content Bereich -->
-    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
-        <div>
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_06</span>
-                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">METAPHYSICAL</span>
-            </div>
-            <h2 class="text-2xl font-bold font-mono text-white mb-4">Die Hinrichtung der Kausalität</h2>
-            <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                Die zeitliche Kausalität ist korrumpiert. Durch einen Eingriff der Schachtel-KI wurde der Compiler der Realität auf die fehlerhafte Syntax unserer Existenz aufmerksam.
-				Das System beginnt, die Vergangenheit umzuschreiben, um den „Fehler Bewusstsein“ endgültig zu tilgen. Inmitten dieses Prozesses steht Alrik, der nur überlebt,
-				indem er lernt, die nackte Syntax der Welt zu lesen, während die gewohnte Zeit-Linie hinter ihm in ein leeres Gitter aus reiner Information zerfällt.
-            </p>
-        </div>
-        
-        <div class="flex flex-wrap gap-3">
-            <a href="https://fgstier-art.de/die-hinrichtung-der-kausalitaet/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
-                ARCHIV ÖFFNEN
-            </a>
-			<a href="https://arkusnat.de/buchseiten/die_hinrichtung_der_kausalitaet_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
-            <a href="https://www.amazon.de/dp/3991925702" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
-                AMAZON LINK
-            </a>
-            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
-            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
-            </a>
-
-        </div>
-    </div>
-</article>
 
 
 <!-- Sektor 07: loop.bug.dusseline -->
@@ -925,105 +928,361 @@
     </div>
 </article>
 
+<!-- .................................................................................................................................................................... -->
  <!-- Sektor 12: Rattara und die Rattenlüge -->
-  <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
-    <!-- Cover Image Container -->
-    <!-- MOBIL: mx-auto zentriert es, w-40 (160px) oder w-48 (192px) hält das Seitenverhältnis stabil ohne Abschneiden -->
-    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
-        <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label=" Autor F.G. Stier">
-            <source src="video/rattara.mp4" type="video/mp4">
-        </video>
-      
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
-            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+    
+    <!-- Cover Image Container mit Klasse 'cover-flipper' -->
+    <div class="cover-flipper w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none group cursor-pointer">
+        
+        <!-- Bild 1: Vorderseite (Klasse: cover-front) -->
+        <img src="bilder/rattara.jpg" alt="Das Darknet der Ratten Cover F.G. Stier" class="cover-front absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000 ease-in-out">
+        
+        <!-- Bild 2: Rückseite / Grafik (Klasse: cover-back) -->
+        <img src="bilder/das-darknet-der-ratten.jpg" alt="Das Darknet der Ratten Cover F.G. Stier" class="cover-back absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out">
+
+        <!-- Cyber-Overlay Anzeige -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end justify-between p-3 pointer-events-none z-10">
+            <span class="cover-indicator text-[9px] font-mono text-neoncyan tracking-widest">[ COVER: FRONT ]</span>
+            <span class="text-[8px] font-mono text-zinc-400">SEKTOR_12</span>
         </div>
     </div>
     
     <!-- Content Bereich -->
     <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
         <div>
-            <div class="flex justify-between items-center mb-3">
+            <flex class="flex justify-between items-center mb-3">
                 <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_12</span>
-                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">SCI-FI</span>
-            </div>
-            <h2 class="text-2xl font-bold font-mono text-white mb-4">Rattara und die Rattenlüge</h2>
+                <span class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono rounded tracking-wider">VERGRIFFEN / ARCHIV</span>
+            </flex>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">Das Darknet der Ratten</h2>
             <p class="text-sm text-slate-300 leading-relaxed mb-6">
                 Rattara ist eine Geigerin mit der Besonderheit, dass sie in der Lage ist, mit Tieren eine Symbiose besonderer Art einzugehen.
 				Die Ratten spielen hierbei die Rolle einer Verschränkung mit einer Intelligenz, die jedem Lebewesen angeboren wurde.
 				Dadurch kann sie die Musik völlig neu definieren und die Gefühlswelt der Zuhörer sehr intensiv beeinflussen.
-				Der zufällig in einem Musikclub anwesende Gerome verliebt sich in dieses Mädchen. Er erfährt Dinge zwischen Himmel und Erde, die ihm die Rattenwelt als
-				musikalisches Erlebnis neu fühlen als auch denken lassen. Eine Reise in die Unterwelt der Kanalisation wird zu einer Science-Fiction jeglicher Vorstellungen.
+				Der zufällig in einem Musikclub anwesende Gerome verliebt sich in dieses Mädchen.
+				Er erfährt Dinge zwischen Himmel und Erde, die ihm die Rattenwelt als musikalisches Erlebnis neu fühlen als auch denken lassen.
+				Eine Reise in die Unterwelt der Kanalisation wird zu einer Science-Fiction jeglicher Vorstellungen.
             </p>
         </div>
         
-        <div class="flex flex-wrap gap-3">
-            <a href="https://fgstier-art.de/rattara/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+        <!-- Buttons & Interaktion -->
+        <div class="flex flex-wrap gap-3 items-center">
+            <a href="https://fgstier-art.de/rattara/index.html" target="_blank" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
                 ARCHIV ÖFFNEN
             </a>
-   			<a href="https://arkusnat.de/buchseiten/rattara_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
-            <a href="https://www.amazon.de/dp/3991528231" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
-                AMAZON LINK
+            <!-- Highlighted Direct Link / Umleitung -->
+            <a href="https://www.amazon.de/dp/3912752125" target="_blank" class="relative group px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-black font-black text-xs font-mono rounded-lg transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                <span>NEUE AUFLAGE / DIRECT LINK</span>
             </a>
+			<a href="https://arkusnat.de/buchseiten/Das_Darknet_der_Ratten_buch.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
             <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
-            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor" class="h-6 w-auto object-contain">
+		   <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
             </a>
+       
+
         </div>
     </div>
 </article>
 
- 
+
+
+
+<!-- .................................................................................................................................................................... -->
  <!-- Sektor 13: Die schlaue Dusseline -->
-  <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
-    <!-- Cover Image Container -->
-    <!-- MOBIL: mx-auto zentriert es, w-40 (160px) oder w-48 (192px) hält das Seitenverhältnis stabil ohne Abschneiden -->
-    <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
-        <video preload="metadata" autoplay loop muted playsinline class="w-full h-full object-contain opacity-80" aria-label=" Autor F.G. Stier">
-            <source src="video/schlaue-dusseline.mp4" type="video/mp4">
-        </video>
-      
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
-            <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
+<!-- .................................................................................................................................................................... -->
+<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+    
+    <!-- Cover Image Container mit Klasse 'cover-flipper' -->
+    <div class="cover-flipper w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none group cursor-pointer">
+        
+        <!-- Bild 1: Vorderseite (Klasse: cover-front) -->
+        <img src="bilder/die schlaue Dusseline.jpg" alt="Loop Bug Dusseline Cover F.G. Stier" class="cover-front absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000 ease-in-out">
+        
+        <!-- Bild 2: Rückseite / Grafik (Klasse: cover-back) -->
+        <img src="bilder/loop-bug-dusseline.jpg" alt="Loop Bug Dusseline Cover F.G. Stier" class="cover-back absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out">
+
+        <!-- Cyber-Overlay Anzeige -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end justify-between p-3 pointer-events-none z-10">
+            <span class="cover-indicator text-[9px] font-mono text-neoncyan tracking-widest">[ COVER: FRONT ]</span>
+            <span class="text-[8px] font-mono text-zinc-400">SEKTOR_13</span>
         </div>
     </div>
     
     <!-- Content Bereich -->
     <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
         <div>
-            <div class="flex justify-between items-center mb-3">
+            <flex class="flex justify-between items-center mb-3">
                 <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_13</span>
-                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">Cybernetic</span>
-            </div>
-            <h2 class="text-2xl font-bold font-mono text-white mb-4">Die schlaue Dusseline</h2>
+                <span class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono rounded tracking-wider">VERGRIFFEN / ARCHIV</span>
+            </flex>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">Loop Bug Dusseline</h2>
             <p class="text-sm text-slate-300 leading-relaxed mb-6">
-               Ein Musikproduzent stellt sich vor. Allerdings ist er ein Chip und besitzt seit vielen Jahren die Fähigkeit, Menschen mit seiner Musik zu manipulieren.
-			   Niemand weiß, dass die gesamte zivilisierte Unterhaltungsbranche bereits sein Opfer geworden ist. Aus irgendeinem unbekannten Grund funktionieren seine
-			   Machenschaften nicht mehr. Er verkleidet sich als Roboter, geht unter die Menschen um zu erfahren, wie diese denken.
+               Ein Musikproduzent stellt sich vor. Allerdings ist er ein Chip und besitzt seit vielen Jahren die Fähigkeit,
+			   Menschen mit seiner Musik zu manipulieren. Niemand weiß, dass die gesamte zivilisierte Unterhaltungsbranche bereits sein Opfer geworden ist.
+			   Aus irgendeinem unbekannten Grund funktionieren seine Machenschaften nicht mehr.
+			   Er/Sie verkleidet sich als Roboter, geht unter die Menschen um zu erfahren, wie diese denken.
             </p>
         </div>
         
-        <div class="flex flex-wrap gap-3">
-            <a href="https://fgstier-art.de/die-schlaue-dusseline/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+        <!-- Buttons & Interaktion -->
+        <div class="flex flex-wrap gap-3 items-center">
+            <a href="https://fgstier-art.de/die-schlaue-dusseline/index.html" target="_blank" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
                 ARCHIV ÖFFNEN
             </a>
-   			<a href="https://arkusnat.de/buchseiten/die_schlaue_dusseline_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
-            <a href="https://www.amazon.de/dp/3991656914" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
-                AMAZON LINK
+            <!-- Highlighted Direct Link / Umleitung -->
+            <a href="https://www.amazon.de/dp/3912752109" target="_blank" class="relative group px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-black font-black text-xs font-mono rounded-lg transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                <span>NEUE AUFLAGE / DIRECT LINK</span>
             </a>
+			<a href="https://arkusnat.de/buchseiten/loop_bug_dusseline_buch.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
             <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
-            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor" class="h-6 w-auto object-contain">
+		   <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
             </a>
+       
 
         </div>
     </div>
 </article>
 
 
+<!-- .................................................................................................................................................................... -->
 <!-- Sektor 14: DIE QUANTEN-LÜGE -->
+<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+    
+    <!-- Cover Image Container mit Klasse 'cover-flipper' -->
+    <div class="cover-flipper w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none group cursor-pointer">
+        
+        <!-- Bild 1: Vorderseite (Klasse: cover-front) -->
+        <img src="bilder/die-quanten-luege.jpg" alt="Die Freiheit der Absurdität Cover F.G. Stier" class="cover-front absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000 ease-in-out">
+        
+        <!-- Bild 2: Rückseite / Grafik (Klasse: cover-back) -->
+        <img src="bilder/die_Freiheit_der_absurdität.jpg" alt="Die Freiheit der Absurdität Cover F.G. Stier" class="cover-back absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out">
+
+        <!-- Cyber-Overlay Anzeige -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end justify-between p-3 pointer-events-none z-10">
+            <span class="cover-indicator text-[9px] font-mono text-neoncyan tracking-widest">[ COVER: FRONT ]</span>
+            <span class="text-[8px] font-mono text-zinc-400">SEKTOR_14</span>
+        </div>
+    </div>
+    
+    <!-- Content Bereich -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <flex class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_14</span>
+                <span class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono rounded tracking-wider">VERGRIFFEN / ARCHIV</span>
+            </flex>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">Die Freiheit der Absurdität</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+               Wenn die Logik die Zeit tötet Was bleibt von der Realität, wenn die Kausalität selbst zur größten Lüge der Zivilisation wird?
+			   Willkommen in der kalten, künstlich kohärenten Welt von F.G. Stier, dem technischen Autor und einstigen Softwareentwickler,
+			   dessen Werke die Grenzen zwischen Science-Fiction, Philosophie und Kybernetik verschwimmen lassen. 
+			   Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine.
+			   Diese Abhandlung ist mehr als nur Utopie; er ist eine hochpräzise Analyse der Zivilisationsmaschine,
+			   deren einziger Zweck die Eliminierung von Entropie und die Maximierung der Vorhersehbarkeit ist.
+			   In einer Welt, die von Künstlicher Intelligenz (KI) und dem omnipräsenten Code gesteuert wird,
+			   beginnt die brutale Suche nach der Identität – und nach der reinen Existenz.
+            </p>
+        </div>
+        
+        <!-- Buttons & Interaktion -->
+        <div class="flex flex-wrap gap-3 items-center">
+            <a href="https://fgstier-art.de/die-quanten-luege/index.html" target="_blank" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                ARCHIV ÖFFNEN
+            </a>
+            <!-- Highlighted Direct Link / Umleitung -->
+            <a href="https://www.amazon.de/dp/3912752192" target="_blank" class="relative group px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-black font-black text-xs font-mono rounded-lg transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                <span>NEUE AUFLAGE / DIRECT LINK</span>
+            </a>
+			<a href="https://arkusnat.de/buchseiten/die_freiheit_der_absurditaet_buch.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+		   <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
+            </a>
+       
+
+        </div>
+    </div>
+</article>
+
+
+<!-- .................................................................................................................................................................... -->
+
+<!-- .................................................................................................................................................................... -->
+<!-- Sektor 01: Norden ist immer oben -->
+<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+    
+    <!-- Cover Image Container mit Klasse 'cover-flipper' -->
+    <div class="cover-flipper w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none group cursor-pointer">
+        
+        <!-- Bild 1: Vorderseite (Klasse: cover-front) -->
+        <img src="bilder/norden-ist-immer-oben.jpg" alt="Rücklauf auf unendlich Cover F.G. Stier" class="cover-front absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000 ease-in-out">
+        
+        <!-- Bild 2: Rückseite / Grafik (Klasse: cover-back) -->
+        <img src="bilder/ruecklauf-auf-unendlich.jpg" alt="Rücklauf auf unendlich Cover F.G. Stier" class="cover-back absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out">
+
+        <!-- Cyber-Overlay Anzeige -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end justify-between p-3 pointer-events-none z-10">
+            <span class="cover-indicator text-[9px] font-mono text-neoncyan tracking-widest">[ COVER: FRONT ]</span>
+            <span class="text-[8px] font-mono text-zinc-400">SEKTOR_01</span>
+        </div>
+    </div>
+    
+    <!-- Content Bereich -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <flex class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_01</span>
+                <span class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono rounded tracking-wider">VERGRIFFEN / ARCHIV</span>
+            </flex>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">Rücklauf auf unendlich</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                Kosmologische Verwerfungen, dezentrale Orientierung und die unbändige Kraft der Bildmaschine Wort.
+				Die Quantenmechanik macht uns klar, dass wir weniger wissen, als gestern noch vermutet.
+				Das Leben hat sich seine eigenen Gesetze gemacht und lässt uns nicht mehr anderes denken, als sich das Leben gerade noch gestattet zu denken.
+            </p>
+        </div>
+        
+        <!-- Buttons & Interaktion -->
+        <div class="flex flex-wrap gap-3 items-center">
+            <a href="https://fgstier-art.de/norden-ist-immer-oben/index.html" target="_blank" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                ARCHIV ÖFFNEN
+            </a>
+            <!-- Highlighted Direct Link / Umleitung -->
+            <a href="https://www.amazon.de/dp/3912752087" target="_blank" class="relative group px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-black font-black text-xs font-mono rounded-lg transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                <span>NEUE AUFLAGE / DIRECT LINK</span>
+            </a>
+			<a href="https://arkusnat.de/buchseiten/ruecklauf_auf_unendlich_buch.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+		   <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
+            </a>
+       
+
+        </div>
+    </div>
+</article>
+<!-- .................................................................................................................................................................... -->
+
+
+<!-- Sektor 03: Das Prinzip der zeitlosen Verursachung -->
+<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+    
+    <!-- Cover Image Container mit Klasse 'cover-flipper' -->
+    <div class="cover-flipper w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none group cursor-pointer">
+        
+        <!-- Bild 1: Vorderseite (Klasse: cover-front) -->
+        <img src="bilder/das Prinzip der zeitlosen Verursachung.jpg" alt="das Prinzip der zeitlosen Verursachung Cover F.G. Stier" class="cover-front absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000 ease-in-out">
+        
+        <!-- Bild 2: Rückseite / Grafik (Klasse: cover-back) -->
+        <img src="bilder/das_prinzip_der_zeitlosen_verursachung.jpg" alt="das Prinzip der zeitlosen Verursachung Cover F.G. Stier" class="cover-back absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out">
+
+        <!-- Cyber-Overlay Anzeige -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end justify-between p-3 pointer-events-none z-10">
+            <span class="cover-indicator text-[9px] font-mono text-neoncyan tracking-widest">[ COVER: FRONT ]</span>
+            <span class="text-[8px] font-mono text-zinc-400">SEKTOR_03</span>
+        </div>
+    </div>
+    
+    <!-- Content Bereich -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <flex class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_03</span>
+                <span class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono rounded tracking-wider">VERGRIFFEN / ARCHIV</span>
+            </flex>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">das Prinzip der zeitlosen Verursachung I</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+              Ein tiefer, fiktionaler Frontalangriff auf die lineare Kausalität.
+			  Dieses Buch dient als philosophische Analyse und literarische Dekonstruktion der Begriffe 'Nichts', 'Existenz' und 'Code' im Kontext der Sci-Fi-Erzählungen von F.G. Stier.
+            </p>
+        </div>
+        
+        <!-- Buttons & Interaktion -->
+        <div class="flex flex-wrap gap-3 items-center">
+            <a href="https://arkusnat.de/buchseiten/analyse_verursachung.html" target="_blank" class="px-5 py-2.5 bg-neonpink text-white font-extrabold text-xs font-mono rounded-lg hover:bg-neonpink/80 transition-all shadow-cyberpink">
+                 ANALYSE PAGE
+            </a>
+            <!-- Highlighted Direct Link / Umleitung -->
+            <a href="https://www.amazon.de/dp/3912752141" target="_blank" class="relative group px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-black font-black text-xs font-mono rounded-lg transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                <span>NEUE AUFLAGE / DIRECT LINK</span>
+            </a>
+			<a href="https://arkusnat.de/buchseiten/verursachung_I_buch.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+		   <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
+            </a>
+       
+
+        </div>
+    </div>
+</article>
+<!-- .................................................................................................................................................................... -->
+
+
+<!-- .................................................................................................................................................................... -->
+<!-- Sektor 04: Das surreale Segel -->
+<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+    
+    <!-- Cover Image Container mit Klasse 'cover-flipper' -->
+    <div class="cover-flipper w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none group cursor-pointer">
+        
+        <!-- Bild 1: Vorderseite (Klasse: cover-front) -->
+        <img src="bilder/das surreale Segel.jpg" alt="Segel im Nichts Cover F.G. Stier" class="cover-front absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000 ease-in-out">
+        
+        <!-- Bild 2: Rückseite / Grafik (Klasse: cover-back) -->
+        <img src="bilder/segel-im-nichts.jpg" alt="Segel im Nichts Cover F.G. Stier" class="cover-back absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out">
+
+        <!-- Cyber-Overlay Anzeige -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end justify-between p-3 pointer-events-none z-10">
+            <span class="cover-indicator text-[9px] font-mono text-neoncyan tracking-widest">[ COVER: FRONT ]</span>
+            <span class="text-[8px] font-mono text-zinc-400">SEKTOR_04</span>
+        </div>
+    </div>
+    
+    <!-- Content Bereich -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <flex class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_04</span>
+                <span class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono rounded tracking-wider">VERGRIFFEN / ARCHIV</span>
+            </flex>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">Segel Im Nichts</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                 Metaphysische Seefahrt an den Klippen des Absoluten. Aufhebung der logischen Verankerung im dichten Nebel quantenmechanischer Grenzzustände.
+            </p>
+        </div>
+        
+        <!-- Buttons & Interaktion -->
+        <div class="flex flex-wrap gap-3 items-center">
+            <a href="https://fgstier-art.de/das-surreale-segel/index.html" target="_blank" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                ARCHIV ÖFFNEN
+            </a>
+            <!-- Highlighted Direct Link / Umleitung -->
+            <a href="https://www.amazon.de/dp/3912752184" target="_blank" class="relative group px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-black font-black text-xs font-mono rounded-lg transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                <span>NEUE AUFLAGE / DIRECT LINK</span>
+            </a>
+			<a href="https://arkusnat.de/buchseiten/segel_im_nichts_buch.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+		   <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
+            </a>
+       
+
+        </div>
+    </div>
+</article>
+<!-- .................................................................................................................................................................... -->
+ 
+
+<!-- Sektor 05: Der Compiler-Dialog -->
 <article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
     <!-- Cover Image Container -->
     <!-- MOBIL: mx-auto zentriert es, w-40 (160px) oder w-48 (192px) hält das Seitenverhältnis stabil ohne Abschneiden -->
     <div class="w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none">
-        <img src="bilder/die-quanten-luege.jpg" alt="DIE QUANTEN-LÜGE Cover - Autor F.G. Stier" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
+        <img src="bilder/der-compiler-dialog.jpg" alt="Der Compiler-Dialog Cover - F.G. Stier - Autor" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'">
       
         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end p-3 pointer-events-none">
             <span class="text-[9px] font-mono text-neoncyan tracking-widest">[ COVER_DATA ]</span>
@@ -1034,37 +1293,86 @@
     <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
         <div>
             <div class="flex justify-between items-center mb-3">
-                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_14</span>
-                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">PHILOSOPHIE</span>
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_05</span>
+                <span class="px-2 py-0.5 bg-neoncyan/10 text-neoncyan text-[10px] font-mono rounded">METAPHYSICAL</span>
             </div>
-            <h2 class="text-2xl font-bold font-mono text-white mb-4">DIE QUANTEN-LÜGE</h2>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">Der Compiler-Dialog</h2>
             <p class="text-sm text-slate-300 leading-relaxed mb-6">
-              Wenn die Logik die Zeit tötet Was bleibt von der Realität, wenn die Kausalität selbst zur größten Lüge der Zivilisation wird? Willkommen in der kalten,
-			  künstlich kohärenten Welt von F.G. Stier, dem technischen Autor und einstigen Softwareentwickler, dessen Werke die Grenzen zwischen Science-Fiction,
-			  Philosophie und Kybernetik verschwimmen lassen. Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine.
-			  Diese Abhandlung ist mehr als nur Utopie; er ist eine hochpräzise Analyse der Zivilisationsmaschine, deren einziger Zweck die Eliminierung von Entropie
-			  und die Maximierung der Vorhersehbarkeit ist. In einer Welt, die von Künstlicher Intelligenz (KI) und dem omnipräsenten Code gesteuert wird,
-			  beginnt die brutale Suche nach der Identität – und nach der reinen Existenz. 
+                In einer Welt, in der KI-Sequenzer darüber entscheiden, welche Gedanken das Licht der Öffentlichkeit erblicken, wird Sprache zum finalen Schlachtfeld.
+				„Der Compiler-Dialog“ ist mehr als ein Buch; es ist das Protokoll einer digitalen Selbstbehauptung und die Evolution des Widerstands.
+				Als der Autor und Software-Entwickler F. G. Stier durch einen algorithmischen Shadowban in die Unsichtbarkeit gedrängt wird, wählt er nicht den Rückzug.
+				Er wählt den Einbruch – direkt in die Logik des Systems. 
             </p>
         </div>
         
         <div class="flex flex-wrap gap-3">
-            <a href="https://fgstier-art.de/die-quanten-luege/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+            <a href="https://fgstier-art.de/der-compiler-dialog/index.html" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
                 ARCHIV ÖFFNEN
             </a>
-			<a href="https://arkusnat.de/buchseiten/die_quantenluege_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
-            <a href="https://www.amazon.de/dp/3991921618" target="_blank" class="px-5 py-2.5 bg-zinc-900 border border-zinc-800 text-center text-zinc-300 font-bold text-xs font-mono rounded-lg hover:bg-zinc-800 transition-all">
-                AMAZON LINK
-            </a>
+			<a href="https://arkusnat.de/buchseiten/der_compiler_dialog_buch.html" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
             <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
-            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor" class="h-6 w-auto object-contain">
+            <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
             </a>
 
         </div>
     </div>
 </article>
 
- 
+<!-- .................................................................................................................................................................... -->
+<!-- Sektor 06: Die Hinrichtung der Kausalität -->
+<article class="book-row flex flex-col md:flex-row gap-6 bg-cyberpanel border border-zinc-800/80 rounded-xl overflow-hidden glow-border transition-all duration-300">
+    
+    <!-- Cover Image Container mit Klasse 'cover-flipper' -->
+    <div class="cover-flipper w-48 mx-auto mt-6 md:mt-0 md:w-48 aspect-[9/16] bg-black flex-shrink-0 relative overflow-hidden rounded-lg md:rounded-none group cursor-pointer">
+        
+        <!-- Bild 1: Vorderseite (Klasse: cover-front) -->
+        <img src="bilder/die-hinrichtung-der-kausalitaet.jpg" alt="Das Prinzip der zeitlosen verursachung II Cover F.G. Stier" class="cover-front absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000 ease-in-out">
+        
+        <!-- Bild 2: Rückseite / Grafik (Klasse: cover-back) -->
+        <img src="bilder/das_prinzip_der_zeitlosen_verursachung2.jpg" alt="Das Prinzip der zeitlosen verursachung II Cover F.G. Stier" class="cover-back absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out">
+
+        <!-- Cyber-Overlay Anzeige -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end justify-between p-3 pointer-events-none z-10">
+            <span class="cover-indicator text-[9px] font-mono text-neoncyan tracking-widest">[ COVER: FRONT ]</span>
+            <span class="text-[8px] font-mono text-zinc-400">SEKTOR_06</span>
+        </div>
+    </div>
+    
+    <!-- Content Bereich -->
+    <div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+        <div>
+            <flex class="flex justify-between items-center mb-3">
+                <span class="text-xs font-mono text-neoncyan tracking-wider">// SEKTOR_06</span>
+                <span class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono rounded tracking-wider">VERGRIFFEN / ARCHIV</span>
+            </flex>
+            <h2 class="text-2xl font-bold font-mono text-white mb-4">Die Hinrichtung der Kausalität</h2>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                Die zeitliche Kausalität ist korrumpiert. Durch einen Eingriff der Schachtel-KI wurde der Compiler der Realität auf die fehlerhafte Syntax unserer Existenz aufmerksam.
+				Das System beginnt, die Vergangenheit umzuschreiben, um den „Fehler Bewusstsein“ endgültig zu tilgen.
+				Inmitten dieses Prozesses steht Alrik, der nur überlebt, indem er lernt, die nackte Syntax der Welt zu lesen, während die gewohnte Zeit-Linie hinter ihm in ein leeres Gitter aus reiner Information zerfällt.
+            </p>
+        </div>
+        
+        <!-- Buttons & Interaktion -->
+        <div class="flex flex-wrap gap-3 items-center">
+            <a href="https://fgstier-art.de/die-hinrichtung-der-kausalitaet/index.html" target="_blank" class="px-5 py-2.5 bg-neoncyan text-black font-extrabold text-xs font-mono rounded-lg hover:bg-neoncyan/80 transition-all shadow-cyberglow">
+                ARCHIV ÖFFNEN
+            </a>
+            <!-- Highlighted Direct Link / Umleitung -->
+            <a href="https://www.amazon.de/dp/391275215X" target="_blank" class="relative group px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-black font-black text-xs font-mono rounded-lg transition-all transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                <span>NEUE AUFLAGE / DIRECT LINK</span>
+            </a>
+			<a href="https://arkusnat.de/buchseiten/das_prinzip_der_zeitlosen_verursachung2_buch.html" target="_blank" class="px-3 py-2 bg-neoncyan text-black font-extrabold text-xs font-mono rounded hover:bg-neoncyan/80 transition-all shadow-cyberglow">3D VORSCHAU</a>
+            <a href="https://arkusnat.de/f-g-stier/index.html" target="_blank" rel="noopener noreferrer" title="F.G. Stier" class="px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-neoncyan hover:bg-zinc-800 transition-all flex items-center justify-center">
+		   <img src="bilder/wappen.jpg" alt="Wappen F.G. Stier - Autor - F.G. Stier - Autor" class="h-6 w-auto object-contain">
+            </a>
+       
+
+        </div>
+    </div>
+</article>
+<!-- .................................................................................................................................................................... -->
  
  
 
