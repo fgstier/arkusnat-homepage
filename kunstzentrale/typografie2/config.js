@@ -16,4 +16,6 @@
     "typografie2-15-arkusnat.html",
     "typografie2-16-quantimedus.html",
     "typografie2-17-ruecklauf-auf-unendlich.html",
+	"typografie2-18-der-fall-rostvibrator",
+	"typografie2-19-die-logik-der-zensur",
 ];
