@@ -16,6 +16,6 @@
     "morsecode-15-arkusnat.html",
     "morsecode-16-quantimedus.html",
     "morsecode-17-ruecklauf-auf-unendlich.html",
-	"morsecode-18-der-fall-rostvibrator",
-	"morsecode-19-die-logik-der-zensur",
+	"morsecode-18-der-fall-rostvibrator.html",
+	"morsecode-19-die-logik-der-zensur.html",
 ];
