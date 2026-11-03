@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.G. Stier – QR-Matrix Inhaltsverzeichnis</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        @keyframes cosmicGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            background: linear-gradient(135deg, #020308, #070d19, #02141d, #020308);
+            background-size: 400% 400%;
+            animation: cosmicGradient 12s ease infinite;
+            background-image: url('ressourcen/arkusnat-publishing-www.arkusnat.de-2026-11-03-17-55-52-QR-KI-.jpg');
+            background-repeat: repeat;
+            background-size: 500px;
+            background-attachment: fixed;
+            font-family: 'Space Mono', monospace;
+            color: #cbd5e1;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @keyframes electricArcGold {
+            0%, 100% { border-color: rgba(212, 175, 55, 1); box-shadow: 0 0 20px rgba(212, 175, 55, 0.9), inset 0 0 12px rgba(212, 175, 55, 0.5); }
+            50% { border-color: rgba(212, 175, 55, 1); box-shadow: 0 0 30px rgba(212, 175, 55, 1), inset 0 0 18px rgba(212, 175, 55, 0.7); }
+        }
+
+        @keyframes electricArcCyan {
+            0%, 100% { border-color: rgba(6, 182, 212, 1); box-shadow: 0 0 20px rgba(6, 182, 212, 0.9), inset 0 0 12px rgba(6, 182, 212, 0.5); }
+            50% { border-color: rgba(6, 182, 212, 1); box-shadow: 0 0 28px rgba(6, 182, 212, 1), inset 0 0 15px rgba(6, 182, 212, 0.6); }
+        }
+
+        @keyframes jitterJolt {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-1.5px, 1px); }
+            40% { transform: translate(1.5px, -1px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1.5px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .terminal-panel {
+            background: rgba(6, 10, 18, 0.95);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(6, 182, 212, 0.8);
+            animation: electricArcCyan 1.2s infinite, jitterJolt 0.9s infinite;
+            position: relative;
+        }
+
+        /* Buch-Karten im Matrix-Stil */
+        .book-card {
+            background: rgba(10, 18, 28, 0.9);
+            border: 1.5px solid rgba(6, 182, 212, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(6, 182, 212, 1);
+            background: rgba(15, 26, 42, 0.95);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-high-voltage {
+            background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #f5cd47 100%);
+            color: #000000 !important;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 800;
+            border: 2px solid #ffe066;
+            animation: electricArcGold 0.8s infinite, jitterJolt 0.7s infinite;
+            text-shadow: none !important;
+        }
+
+        .btn-high-voltage:hover {
+            transform: scale(1.03);
+            filter: brightness(1.2);
+        }
+
+        .btn-sub-electric {
+            font-family: 'Chakra Petch', sans-serif;
+            background: rgba(10, 18, 30, 0.95);
+            color: #38bdf8;
+            border: 2px solid #06b6d4;
+            animation: electricArcCyan 1.3s infinite;
+        }
+
+        .btn-sub-electric:hover {
+            background: rgba(6, 182, 212, 0.25);
+            color: #ffffff;
+            transform: scale(1.02);
+        }
+
+        .tech-corner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            pointer-events: none;
+        }
+        .top-left { top: -2px; left: -2px; border-top: 3px solid #06b6d4; border-left: 3px solid #06b6d4; }
+        .top-right { top: -2px; right: -2px; border-top: 3px solid #06b6d4; border-right: 3px solid #06b6d4; }
+        .bottom-left { bottom: -2px; left: -2px; border-bottom: 3px solid #06b6d4; border-left: 3px solid #06b6d4; }
+        .bottom-right { bottom: -2px; right: -2px; border-bottom: 3px solid #06b6d4; border-right: 3px solid #06b6d4; }
+    </style>
+    <!--HREFLANG_START:SINGLE-->
+    <link rel="alternate" hreflang="de" href="https://arkusnat.de/kunstzentrale/qr-code-buchstaben/gesamtliste.html" />
+    <link rel="alternate" hreflang="x-default" href="https://arkusnat.de/kunstzentrale/qr-code-buchstaben/gesamtliste.html" />
+    <!--HREFLANG_ENDE-->
+
+</head>
+<body class="p-3 sm:p-6">
+
+    <!-- Header Status -->
+    <header class="max-w-4xl mx-auto text-center my-3">
+        <span class="text-xs font-mono uppercase tracking-widest px-4 py-1.5 bg-black text-cyan-400 border border-cyan-500/80 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.5)] inline-flex items-center gap-2">
+            <i class="fa-solid fa-qrcode text-amber-400"></i>
+            <span>DATA_MATRIX_INDEX // GESAMTLISTE ACTIVE</span>
+        </span>
+    </header>
+
+    <!-- Hauptbereich -->
+    <main class="max-w-5xl w-full mx-auto terminal-panel rounded-2xl p-4 sm:p-8 my-auto shadow-2xl space-y-6">
+        
+        <!-- Tech Corners -->
+        <div class="tech-corner top-left"></div>
+        <div class="tech-corner top-right"></div>
+        <div class="tech-corner bottom-left"></div>
+        <div class="tech-corner bottom-right"></div>
+
+        <!-- Titel -->
+        <header class="text-center border-b border-cyan-500/30 pb-5">
+            <span class="text-[11px] font-mono text-amber-400 tracking-widest uppercase bg-black/90 px-3.5 py-1 border border-amber-500/60 rounded-full">
+                // REGISTRIERTE MATRIX-BÄNDE
+            </span>
+            
+            <h1 class="text-2xl sm:text-4xl font-black tracking-wider text-cyan-300 mt-3 mb-2 font-['Chakra_Petch']">
+                QR-MATRIX GESAMTLISTE
+            </h1>
+            
+            <p class="text-xs sm:text-sm text-slate-300 font-light max-w-xl mx-auto">
+                Vollständiges Code-Verzeichnis aller Bände im QR- und Data-Matrix-Format.
+            </p>
+        </header>
+
+        <!-- BUCH_LISTE_START -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 font-mono text-xs">
+                <a href="qrcodebuchstaben-01-loop-bug-dusseline.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 01</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">loop bug dusseline</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-02-sammlung-leerer-intelligenz.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 02</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">sammlung leerer intelligenz</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-03-totalschaden-oder-mathematik.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 03</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">totalschaden oder mathematik</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-04-chronik-der-permanenten-ursache-sektor-dresden.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 04</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">chronik der permanenten ursache sektor dresden</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-05-das-darknet-der-ratten-geheime-physik-der-geigenmusik.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 05</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">das darknet der ratten geheime physik der geigenmusik</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-06-das-prinzip-der-zeitlosen-verursachung-i.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 06</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">das prinzip der zeitlosen verursachung i</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-07-das-prinzip-der-zeitlosen-verursachung-ii.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 07</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">das prinzip der zeitlosen verursachung ii</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-08-die-freiheit-der-absurditaet.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 08</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">die freiheit der absurditaet</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-09-segel-im-nichts-eine-kurs-analyse.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 09</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">segel im nichts eine kurs analyse</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-10-influenz---das-quantenkomplott-i.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 10</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">influenz   das quantenkomplott i</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-11-influenz---das-quantenkomplott-ii.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 11</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">influenz   das quantenkomplott ii</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-12-influenz---das-quantenkomplott-iii.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 12</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">influenz   das quantenkomplott iii</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-13-influenz---das-quantenkomplott-iv.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 13</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">influenz   das quantenkomplott iv</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-14-stier.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 14</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">stier</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-15-arkusnat.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 15</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">arkusnat</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-16-quantimedus.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 16</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">quantimedus</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+    <a href="qrcodebuchstaben-17-ruecklauf-auf-unendlich.html" class="book-card rounded-xl p-3 sm:p-4 flex flex-col justify-between text-left group">
+        <span class="text-[10px] font-mono text-amber-400">// BAND 17</span>
+        <div class="my-3">
+            <h2 class="text-xs sm:text-sm font-bold font-['Chakra_Petch'] text-white group-hover:text-amber-300">ruecklauf auf unendlich</h2>
+        </div>
+        <span class="text-[9px] font-mono text-slate-400 flex items-center justify-between">Öffnen <i class="fa-solid fa-arrow-right text-amber-400"></i></span>
+    </a>
+</div>
+        <!-- BUCH_LISTE_ENDE -->
+
+        <!-- Navigation / Zurück zur Zentrale -->
+        <div class="pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-3">
+            <a href="../kunstzentrale.html" class="btn-sub-electric px-5 py-3 rounded-xl text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 flex-1 font-bold">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Zurück zur Kunstzentrale</span>
+            </a>
+            <a href="https://arkusnat.de" target="_blank" class="btn-high-voltage px-5 py-3 rounded-xl text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 flex-1 font-bold">
+                <i class="fa-solid fa-bolt text-black"></i>
+                <span class="text-black font-black">Hauptzentrale</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-500 font-mono my-3">
+        &copy; 2026 F.G. Stier. Alle Rechte vorbehalten.
+    </footer>
+
+</body>
+</html>
